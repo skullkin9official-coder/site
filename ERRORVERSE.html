@@ -101,6 +101,8 @@ button:hover { transform: scale(1.03); }
 
   <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR"></script>
+  <!-- PayPal SDK Installed -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR"></script>
 </head>
 <body>
 
@@ -935,5 +937,26 @@ app.listen(port, ()=>console.log('Server listening on', port));
   </ul>
 </div>
 
+  <!-- PayPal Buttons + Client Subscription Logic -->
+  <script>
+    function activateSub(months) {
+      fetch('/paypal/confirm',{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ orderID: window._lastOrderID, months })
+      })
+      .then(r=>r.json())
+      .then(()=>{ alert('Subscription Activated!'); location.reload(); });
+    }
+
+    paypal.Buttons({
+      createOrder: (data,actions)=> actions.order.create({ purchase_units:[{ amount:{ value:'0.50' } }] }),
+      onApprove: (data,actions)=> actions.order.capture().then(()=>{ window._lastOrderID=data.orderID; activateSub(1); })
+    }).render('#paypal-1m');
+
+    paypal.Buttons({
+      createOrder: (data,actions)=> actions.order.create({ purchase_units:[{ amount:{ value:'0.99' } }] }),
+      onApprove: (data,actions)=> actions.order.capture().then(()=>{ window._lastOrderID=data.orderID; activateSub(3); })
+    }).render('#paypal-3m');
+  </script>
 </body>
 </html>
