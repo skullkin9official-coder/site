@@ -25,23 +25,18 @@ header {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-bottom: 30px;
-  background: rgba(0,0,0,0.45);
-  padding: 12px 18px;
-  border-radius: 8px;
+  margin-bottom: 50px;
 }
 
-.logo-container { display:flex; align-items:center; gap:12px; }
 .logo-container img { width: 50px; height: 50px; }
-nav ul { display: flex; list-style: none; gap: 20px; align-items:center; }
+nav ul { display: flex; list-style: none; gap: 50px; }
 nav ul li { display: flex; align-items: center; }
-nav a { color: #fff; text-decoration:none; display:flex; align-items:center; gap:6px; }
 
 /* Profile menu top-right */
 .profile-menu {
   position: fixed;
-  top: 18px;
-  right: 18px;
+  top: 20px;
+  right: 20px;
   display: none;
   flex-direction: column;
   align-items: flex-end;
@@ -50,85 +45,127 @@ nav a { color: #fff; text-decoration:none; display:flex; align-items:center; gap
   font-size: 14px;
 }
 
-.profile-top { display: flex; align-items:center; gap:8px; background: rgba(0,0,0,0.6); padding:8px 10px; border-radius:8px; }
+.profile-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-.profile-top img { width: 36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid #ffdd00; }
-.profile-menu span { font-weight:bold; color:#ffdd00; }
+.profile-top img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffdd00;
+}
 
-.profile-menu button { background:#c300ff; color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; }
+.profile-menu span { font-weight: bold; color: #ffdd00; }
 
-/* Two column layout for login + customizer */
-.container { max-width:1100px; margin: 20px auto; display:flex; gap:20px; align-items:flex-start; }
-.col { flex:1; }
+.profile-menu button {
+  background: #c300ff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.profile-menu button:hover { transform: scale(1.05); }
 
 /* Card style */
 .card {
   background: rgba(0,0,0,0.4);
   padding: 20px;
   border-radius: 12px;
+  max-width: 500px;
+  margin: 30px auto;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5);
 }
 
 /* Inputs/buttons */
-input, button { width: 100%; padding: 10px; margin-top: 8px; border-radius: 8px; border: none; font-size: 16px; }
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
 button { background: #c300ff; color: white; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
-button:hover { transform: scale(1.03); }
+button:hover { transform: scale(1.05); }
 
 #status { margin-top: 12px; color: yellow; }
 
-/* 2FA box */
-#twofaBox { margin-top:12px; display:none; }
-
 /* Grid layout for inventory */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-.tile { background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; text-align: center; padding: 10px; transition: transform 0.2s; }
+
+.tile {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.2s;
+}
 .tile:hover { transform: scale(1.05); }
 .tile img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
 .tile h3 { margin: 10px 0 5px; font-size: 16px; color: #ffdd00; }
 .tile p { font-size: 12px; color: #ddd; }
 
-/* Profile Customizer */
-#profileCustomizer { display:block; }
+/* Profile Customizer below card */
+#profileCustomizer {
+  background: rgba(0,0,0,0.3);
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  display: none;
+}
+
 #profileCustomizer h3 { margin-bottom: 10px; color: #ffdd00; }
-#profileCustomizer img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; display: block; margin: 10px auto; border: 2px solid #ffdd00; }
-
-/* Inventory card separate */
-#inventoryCard { max-width:1100px; margin: 20px auto; }
-
-/* Responsive */
-@media (max-width:900px){ .container{ flex-direction:column; padding:0 8px;} .profile-menu{ position: static; display:flex; margin:12px 0 0 auto; } }
+#profileCustomizer input[type="text"] { margin-bottom: 10px; }
+#profileCustomizer img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 10px auto;
+  border: 2px solid #ffdd00;
+}
 </style>
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR"></script>
-  <!-- PayPal SDK Installed -->
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR"></script>
 </head>
+
 <body>
 
 <header>
   <div class="logo-container">
-    <a href="index.html"><img src="images/3RROR5TUDIOS.png" alt="logo" /></a>
+    <a href="index.html">
+      <img src="images/3RROR5TUDIOS.png" alt="logo" />
+    </a>
     <h1>Home</h1>
   </div>
-
+  
   <nav>
     <ul>
-      <li><a href="Games.html"><img src="images/controll.png" width="28" alt="games"> <span style="font-size:12px">GAMES</span></a></li>
-      <li><a href="ERRORVERSE.html"><img src="images/ERRORVERSE.png" width="28" alt="err"> <span style="font-size:12px">ERRORVERSE</span></a></li>
-      <li id="navProfile" style="display:none; align-items:center; gap:10px;">
-    <img id="navPfp" src="images/default_avatar.png" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid #ffdd00;">
-    <span id="navName" style="font-weight:bold;color:#ffdd00;font-size:14px;">User</span>
-    <button id="navLogoutBtn" style="background:#c300ff;color:white;border:none;padding:6px 10px;border-radius:6px;cursor:pointer;">Logout</button>
-  </li>
-</ul>
+      <li>
+        <a href="Games.html">
+          <img src="images/controll.png" alt="logo" width="30" />
+          <p style="font-size: 10px;"> GAMES </p>
+        </a>
+      </li>
+      <li>
+        <a href="ERRORVERSE.html">
+          <img src="images/ERRORVERSE.png" alt="logo" width="30" />
+          <p style="font-size: 10px;"> ERRORVERSE </p>
+        </a>
+      </li>
+    </ul>
   </nav>
-
-<!-- Navbar Profile Dropdown -->
-<div id="navDropdown" style="display:none; position:absolute; top:70px; right:30px; background:rgba(0,0,0,0.8); padding:10px; border-radius:8px; width:160px; z-index:9999;">
-  <button id="navOpenCustomizer" style="width:100%; background:#c300ff; border:none; padding:8px; border-radius:6px; margin-bottom:6px; cursor:pointer;">Profile Settings</button>
-  <button id="navDropdownLogout" style="width:100%; background:#c300ff; border:none; padding:8px; border-radius:6px; cursor:pointer;">Logout</button>
-</div>
 </header>
 
 <!-- Profile menu top-right -->
@@ -140,83 +177,69 @@ button:hover { transform: scale(1.03); }
   <button id="topLogoutBtn">Logout</button>
 </div>
 
-<!-- Two-column area: left = login, right = profile customizer -->
-<div class="container">
-  <div class="col">
-    <div class="card" id="loginCard">
-      <h2>Login / Register</h2>
-      <label>Email</label>
-      <input id="email" placeholder="you@example.com">
-      <label>Password</label>
-      <input type="password" id="password" placeholder="min 6 chars">
+<!-- LOGIN CARD -->
+<div class="card" id="loginCard">
+  <h2>Login / Register</h2>
+  <label>Email</label>
+  <input id="email" placeholder="you@example.com">
+  <label>Password</label>
+  <input type="password" id="password" placeholder="min 6 chars">
+  <button id="loginBtn">Login</button>
+  <button id="registerBtn">Register</button>
+  <p id="status"></p>
+</div>
 
-      <button id="loginBtn">Login</button>
-      <button id="registerBtn">Register</button>
-
-      <div id="twofaBox">
-        <label>Enter 2FA code sent to your email</label>
-        <input id="twofaInput" placeholder="6 digit code">
-        <button id="verify2faBtn">Verify Code</button>
-        <p style="font-size:13px;color:#ddd;margin-top:8px;">Didn't receive code? <button id="resend2faBtn" style="display:inline-block;width:auto;padding:6px 10px;margin-left:8px;">Resend</button></p>
-      </div>
-
-      <p id="status"></p>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="card" id="profileCustomizer">
-      <h3>Customize Profile</h3>
-      <img id="customAvatar" src="images/default_avatar.png" alt="Avatar">
-      <label>Username:</label>
-      <input type="text" id="customUsername" placeholder="Enter username">
-      <label>Avatar URL:</label>
-      <input type="text" id="customAvatarURL" placeholder="Enter avatar image URL">
-      <button id="saveProfile">Save Changes</button>
-      <p style="font-size:12px;color:#bbb;margin-top:8px;">Profile customizer is available after 2FA verification.</p>
-    </div>
-  </div>
+<!-- PROFILE CUSTOMIZER -->
+<div id="profileCustomizer">
+  <h3>Customize Profile</h3>
+  <img id="customAvatar" src="images/default_avatar.png" alt="Avatar">
+  <label>Username:</label>
+  <input type="text" id="customUsername">
+  <label>Avatar URL:</label>
+  <input type="text" id="customAvatarURL">
+  <button id="saveProfile">Save Changes</button>
 </div>
 
 <!-- INVENTORY -->
-<div class="card" id="inventoryCard" style="display:none; max-width:1100px; margin:10px auto;">
+<div class="card" id="inventoryCard" style="display:none;">
   <h2>Your Inventory</h2>
   <button id="refreshInv">Refresh Inventory</button>
-  <div class="grid" id="inventoryGrid" style="margin-top:12px"></div>
+  <div class="grid" id="inventoryGrid"></div>
 </div>
 
-<!-- PlayFab Client wrapper with ExecuteCloudScript -->
+<!-- PlayFab SDK -->
 <script>
 var PlayFab = { settings:{ titleId:"1FC26D" }, _internalSettings:{ sessionTicket:null } };
 
 var PlayFabClientAPI = {
   LoginWithEmailAddress:function(req, success, error){
     req.TitleId = PlayFab.settings.titleId;
-    fetch("https://1FC26D.playfabapi.com/Client/LoginWithEmailAddress", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req) })
-      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/LoginWithEmailAddress", {
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req)
+    }).then(r=>r.json()).then(x => x.data ? success(x) : error(x));
   },
 
   RegisterPlayFabUser:function(req, success, error){
     req.TitleId = PlayFab.settings.titleId;
-    fetch("https://1FC26D.playfabapi.com/Client/RegisterPlayFabUser", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req) })
-      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/RegisterPlayFabUser", {
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req)
+    }).then(r=>r.json()).then(x => x.data ? success(x) : error(x));
   },
 
   GetUserInventory:function(req, success, error){
-    fetch("https://1FC26D.playfabapi.com/Client/GetUserInventory", { method:"POST", headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket}, body:JSON.stringify({}) })
-      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
-  },
-
-  ExecuteCloudScript:function(req, success, error){
-    // req should include FunctionName and FunctionParameter
-    fetch("https://1FC26D.playfabapi.com/Client/ExecuteCloudScript", { method:"POST", headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket}, body:JSON.stringify(req) })
-      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/GetUserInventory", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "X-Authorization":PlayFab._internalSettings.sessionTicket
+      },
+      body:JSON.stringify({})
+    }).then(r=>r.json()).then(x => x.data ? success(x) : error(x));
   }
 };
 </script>
 
 <script>
-// Elements
 const emailEl=document.getElementById("email");
 const passwordEl=document.getElementById("password");
 const statusEl=document.getElementById("status");
@@ -227,117 +250,78 @@ const inventoryCard=document.getElementById("inventoryCard");
 const inventoryGrid=document.getElementById("inventoryGrid");
 const refreshBtn=document.getElementById("refreshInv");
 
+// Profile menu
 const profileMenu = document.getElementById("profileMenu");
 const profileNameEl = document.getElementById("profileName");
 const profileAvatarEl = document.getElementById("profileAvatar");
 const topLogoutBtn = document.getElementById("topLogoutBtn");
 
+// Profile Customizer
 const profileCustomizer = document.getElementById("profileCustomizer");
 const customUsername = document.getElementById("customUsername");
 const customAvatar = document.getElementById("customAvatar");
 const customAvatarURL = document.getElementById("customAvatarURL");
 const saveProfile = document.getElementById("saveProfile");
 
-const twofaBox = document.getElementById("twofaBox");
-const twofaInput = document.getElementById("twofaInput");
-const verify2faBtn = document.getElementById("verify2faBtn");
-const resend2faBtn = document.getElementById("resend2faBtn");
-
-let _lastEmailFor2FA = null;
-
 function setStatus(msg,color="yellow"){ statusEl.style.color=color; statusEl.textContent=msg; }
 
 function showProfileMenu(name, avatar="images/default_avatar.png"){
   profileNameEl.textContent = name;
   profileAvatarEl.src = avatar;
-  profileCustomizer.querySelector('#customUsername').value = name;
-  profileCustomizer.querySelector('#customAvatar').src = avatar;
-  profileCustomizer.querySelector('#customAvatarURL').value = avatar;
+  profileCustomizer.style.display = "block";
+  customUsername.value = name;
+  customAvatar.src = avatar;
+  customAvatarURL.value = avatar;
   profileMenu.style.display = "flex";
 }
 
-function hideProfileMenu(){ profileMenu.style.display = "none"; }
+function hideProfileMenu(){
+  profileMenu.style.display = "none";
+  profileCustomizer.style.display = "none";
+}
 
 function saveSession(res){
   const d=res.data;
   localStorage.setItem("PLAYFAB_PLAYFABID", d.PlayFabId);
   localStorage.setItem("PLAYFAB_SESSIONTICKET", d.SessionTicket);
   PlayFab._internalSettings.sessionTicket=d.SessionTicket;
-  setStatus("Logged in (2FA pending): "+d.PlayFabId,"#ffdd00");
+  setStatus("Logged in: "+d.PlayFabId,"#ffdd00");
+  showProfileMenu(d.PlayFabId);
+  inventoryCard.style.display="block";
 }
 
-// --- Login/Register flows ---
+// Login/Register
 loginBtn.onclick=()=>{
-  const email=emailEl.value.trim(); const pw=passwordEl.value;
+  const email=emailEl.value.trim();
+  const pw=passwordEl.value;
   if(!email||pw.length<6){ setStatus("Enter valid email/password","red"); return; }
   setStatus("Logging in...");
-  PlayFabClientAPI.LoginWithEmailAddress({Email:email,Password:pw}, res=>{
-    saveSession(res);
-    // trigger server cloudscript to send 2FA email
-    send2FACode(email);
-  }, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
+  PlayFabClientAPI.LoginWithEmailAddress(
+    {Email:email,Password:pw},
+    saveSession,
+    err => setStatus(err.errorMessage || JSON.stringify(err),"red")
+  );
 };
 
 registerBtn.onclick=()=>{
-  const email=emailEl.value.trim(); const pw=passwordEl.value;
+  const email=emailEl.value.trim();
+  const pw=passwordEl.value;
   if(!email||pw.length<6){ setStatus("Enter valid email/password","red"); return; }
   setStatus("Registering...");
-  PlayFabClientAPI.RegisterPlayFabUser({Email:email,Password:pw,RequireBothUsernameAndEmail:false}, res=>{
-    saveSession(res);
-    send2FACode(email);
-  }, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
-};
-
-// --- 2FA functions ---
-function send2FACode(email){
-  // Save email for resend
-  _lastEmailFor2FA = email;
-  setStatus("Sending 2FA code to email...","#ffdd00");
-  twofaBox.style.display = "block";
-
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: "Send2FACode", FunctionParameter: { email: email }, GeneratePlayStreamEvent: true },
-    resp=>{
-      // CloudScript should send the email using SendEmailFromTemplate and store the code server-side.
-      setStatus("2FA code sent to your email. Enter it to verify.","#ffdd00");
-    },
-    err=>{
-      setStatus("Failed to send 2FA: "+(err.errorMessage||JSON.stringify(err)),"red");
-    }
-  );
-}
-
-verify2faBtn.onclick = ()=>{
-  const code = twofaInput.value.trim();
-  if(!code){ setStatus("Enter the 2FA code","red"); return; }
-  setStatus("Verifying code...");
-
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: "Verify2FACode", FunctionParameter: { code: code }, GeneratePlayStreamEvent: true },
-    resp=>{
-      // CloudScript returns success boolean in FunctionResult { verified: true/false, displayName?:"..." }
-      const result = resp.data.FunctionResult || {};
-      if(result.verified){
-        setStatus("2FA verified! Logged in.","#ffdd00");
-        // show profile and fetch inventory
-        const displayName = result.displayName || localStorage.getItem("CUSTOM_USERNAME") || localStorage.getItem("PLAYFAB_PLAYFABID");
-        const avatar = localStorage.getItem("CUSTOM_AVATAR") || "images/default_avatar.png";
-        showProfileMenu(displayName, avatar);
-        inventoryCard.style.display = "block";
-        fetchInventory();
-        twofaBox.style.display = "none";
-      } else {
-        setStatus("Invalid or expired code","red");
-      }
-    },
-    err=>setStatus("Verification failed: "+(err.errorMessage||JSON.stringify(err)),"red")
+  PlayFabClientAPI.RegisterPlayFabUser(
+    {Email:email,Password:pw,RequireBothUsernameAndEmail:false},
+    saveSession,
+    err => setStatus(err.errorMessage || JSON.stringify(err),"red")
   );
 };
-
-resend2faBtn.onclick = ()=>{ if(_lastEmailFor2FA) send2FACode(_lastEmailFor2FA); else setStatus("No email to resend to","red"); };
 
 // Fetch session
 function getSession(){
-  const s={ PlayFabId:localStorage.getItem("PLAYFAB_PLAYFABID"), SessionTicket:localStorage.getItem("PLAYFAB_SESSIONTICKET") };
-  if(!s.PlayFabId||!s.SessionTicket){ /* no session stored */ return null; }
+  const s={
+    PlayFabId:localStorage.getItem("PLAYFAB_PLAYFABID"),
+    SessionTicket:localStorage.getItem("PLAYFAB_SESSIONTICKET")
+  };
+  if(!s.PlayFabId||!s.SessionTicket){ alert("No session. Login first."); return null; }
   PlayFab._internalSettings.sessionTicket=s.SessionTicket;
   return s;
 }
@@ -347,36 +331,25 @@ function fetchInventory(){
   const s=getSession(); if(!s) return;
   inventoryGrid.innerHTML="Loading...";
   PlayFabClientAPI.GetUserInventory({}, res=>{
-    const items=(res.data.Inventory||[]);
-    if(!items.length){ inventoryGrid.innerHTML="<p>No items</p>"; return; }
+    const items=res.data.Inventory || [];
+    if(items.length===0){
+      inventoryGrid.innerHTML="<p>No items</p>";
+      return;
+    }
     inventoryGrid.innerHTML="";
     items.forEach(i=>{
       const tile=document.createElement("div");
       tile.className="tile";
-      tile.innerHTML=`<img src="images/wsx.png"><h3>${i.DisplayName||i.ItemId}</h3><p>Uses: ${i.RemainingUses??"—"}</p>`;
+      tile.innerHTML=`
+        <img src="images/wsx.png">
+        <h3>${i.DisplayName||i.ItemId}</h3>
+        <p>Uses: ${i.RemainingUses??"—"}</p>`;
       inventoryGrid.appendChild(tile);
     });
-  }, err=>{ inventoryGrid.innerHTML="<p>Error loading inventory</p>"; console.error(err); });
+  }, err=>inventoryGrid.innerHTML="<p>Error loading inventory</p>");
 }
+
 refreshBtn.onclick=fetchInventory;
-
-// Sync profile to navbar
-function autoLoadPlayFabProfile(){
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName:"GetBasicProfile", FunctionParameter:{} }, res=>{
-    const r = res.data.FunctionResult || {};
-    if(r.displayName){ profileNameEl.textContent=r.displayName; document.getElementById("navName").textContent=r.displayName; }
-    if(r.avatar){ profileAvatarEl.src=r.avatar; document.getElementById("navPfp").src=r.avatar; }
-  }, err=>console.warn(err));
-}
-
-function syncNavProfile(name, avatar){
-  const navP=document.getElementById("navProfile");
-  const navName=document.getElementById("navName");
-  const navPfp=document.getElementById("navPfp");
-  navName.textContent=name;
-  navPfp.src=avatar;
-  navP.style.display="flex";
-}
 
 // Logout
 function logout(){
@@ -384,32 +357,14 @@ function logout(){
   localStorage.removeItem("PLAYFAB_SESSIONTICKET");
   PlayFab._internalSettings.sessionTicket=null;
   inventoryCard.style.display="none";
-  setStatus("Logged out","yellow");
-  hideProfileMenu();
-  document.getElementById("navProfile").style.display="none";
-}
-function logout(){
-  localStorage.removeItem("PLAYFAB_PLAYFABID");
-  localStorage.removeItem("PLAYFAB_SESSIONTICKET");
-  PlayFab._internalSettings.sessionTicket=null;
-  inventoryCard.style.display="none";
+  loginCard.style.display="block";
   setStatus("Logged out","yellow");
   hideProfileMenu();
 }
+
 topLogoutBtn.onclick = logout;
 
-// Profile Customizer Save
-navOpenCustomizer.onclick = ()=>{
-  document.getElementById('profileCustomizer').scrollIntoView({behavior:'smooth'});
-};
-
-document.getElementById("navProfile").onclick = ()=>{
-  const d = document.getElementById("navDropdown");
-  d.style.display = d.style.display === "none" ? "block" : "none";
-};
-
-document.getElementById("navDropdownLogout").onclick = logout;
-
+// Save Profile Customizer
 saveProfile.onclick = ()=>{
   const name = customUsername.value.trim() || "User";
   const avatar = customAvatarURL.value.trim() || "images/default_avatar.png";
@@ -421,542 +376,22 @@ saveProfile.onclick = ()=>{
   setStatus("Profile updated!","#ffdd00");
 }
 
-// Auto-load session and custom profile (only shows if previously verified)
+// Auto-load session
 (function(){
   const pfid=localStorage.getItem("PLAYFAB_PLAYFABID");
   const customName = localStorage.getItem("CUSTOM_USERNAME");
-  const customAvatar = localStorage.getItem("CUSTOM_AVATAR");
+  const customAvatarUrl = localStorage.getItem("CUSTOM_AVATAR");
+
   if(pfid){
-    // If session exists we still require explicit 2FA verification at each login for security.
-    setStatus("Cached session: "+pfid+" — please log in to verify 2FA","#ffdd00");
-    // prefill customizer
-    if(customName) customUsername.value = customName;
-    if(customAvatar) { customAvatarURL.value = customAvatar; customAvatar.src = customAvatar; }
+    const displayName = customName || pfid;
+    const avatar = customAvatarUrl || "images/default_avatar.png";
+    setStatus("Cached session: "+pfid,"#ffdd00");
+    showProfileMenu(displayName, avatar);
+    inventoryCard.style.display="block";
+    fetchInventory();
   }
 })();
 </script>
 
-<!--
-IMPORTANT: PlayFab CloudScript REQUIRED for 2FA (server-side). Add two CloudScript functions in Title -> Automation -> CloudScript:
-
-1) Send2FACode
-  - Generate a random 6-digit code
-  - Save it to the player's Data (e.g. PlayerData["twofa_code"] = code and PlayerData["twofa_exp"] = now+TTL)
-  - Use server API SendEmailFromTemplate (or SendEmail) to send the code to the player's email. Use a configured Email Template ID.
-  - Return { sent: true }
-
-2) Verify2FACode
-  - Read saved PlayerData for twofa_code and expiry
-  - Compare with provided code parameter
-  - If match and not expired, clear the stored code and return { verified: true, displayName: <optional display name> }
-  - Otherwise return { verified: false }
-
-Example CloudScript (JS) skeleton:
-
-handlers.Send2FACode = function(args, context) {
-  var email = args.email;
-  var code = ("000000" + Math.floor(Math.random()*1000000)).slice(-6);
-  var ttlSeconds = 300; // 5 minutes
-
-  server.UpdateUserInternalData({ PlayFabId: currentPlayerId, Data: { twofa_code: code, twofa_exp: (Date.now()/1000 + ttlSeconds).toString() } });
-
-  // Use server API to send email via template
-  server.SendEmailFromTemplate({
-    'PlayFabId': currentPlayerId,
-    'TemplateId': '<YOUR_TEMPLATE_ID>',
-    'MessageVariables': [{ 'Key': 'CODE', 'Value': code }]
-  });
-
-  return { sent: true };
-};
-
-handlers.Verify2FACode = function(args, context) {
-  var provided = args.code;
-  var data = server.GetUserInternalData({ PlayFabId: currentPlayerId, Keys: ["twofa_code","twofa_exp"] }).Data;
-  if(!data || !data.twofa_code) return { verified: false };
-  var stored = data.twofa_code.Value;
-  var exp = parseInt(data.twofa_exp.Value || "0", 10);
-  if(Date.now()/1000 > exp) return { verified: false };
-  if(stored === provided) {
-    server.UpdateUserInternalData({ PlayFabId: currentPlayerId, Data: { twofa_code: "", twofa_exp: "0" } });
-    return { verified: true, displayName: context.playerProfile ? (context.playerProfile.DisplayName||null) : null };
-  }
-  return { verified: false };
-};
-
-Replace <YOUR_TEMPLATE_ID> with your PlayFab email template id. CloudScript runs with server privileges and can call SendEmailFromTemplate safely. Do NOT place your developer secret key in client-side code.
--->
-
-
-<!-- PROFILE PAGE (full) -->
-<style>
-/* Dropdown animation */
-#navDropdown { opacity:0; transform:translateY(-6px); transition:opacity 180ms ease, transform 180ms ease; }
-#navDropdown.show { opacity:1; transform:translateY(0); }
-
-/* Profile page modal */
-#profilePage { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); z-index:99999; }
-#profilePage .modal { background:linear-gradient(180deg,#2b003a,#1c0024); padding:24px; width:900px; max-width:95%; border-radius:12px; color:#fff; box-shadow:0 10px 40px rgba(0,0,0,0.6); }
-.profile-grid { display:grid; grid-template-columns:220px 1fr; gap:20px; align-items:start; }
-.profile-pfp { width:180px; height:180px; border-radius:12px; object-fit:cover; border:4px solid #ffdd00; }
-.level-bar { background:rgba(255,255,255,0.12); height:18px; border-radius:9px; overflow:hidden; }
-.level-fill { height:100%; width:0%; background:linear-gradient(90deg,#ffdd00,#ff8a00); transition:width 600ms ease; }
-.stat { font-size:14px; color:#ddd; margin-bottom:6px; }
-.btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
-</style>
-
-<div id="profilePage">
-  <div class="modal">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <h2>Your Profile</h2>
-      <div>
-        <button id="closeProfilePage" class="btn-ghost">Close</button>
-      </div>
-    </div>
-
-    <div class="profile-grid">
-      <div>
-        <img id="profilePagePfp" class="profile-pfp" src="images/default_avatar.png" alt="pfp">
-        <h3 id="profilePageName" style="text-align:center;margin-top:10px;color:#ffdd00"></h3>
-        <p style="text-align:center;color:#ccc;margin-top:6px;">Level <span id="profilePageLevel">1</span></p>
-      </div>
-      <div>
-        <div class="card" style="padding:16px;margin-bottom:12px;">
-          <h4 style="margin-bottom:8px;color:#ffdd00">Progress</h4>
-          <div class="level-bar"><div id="levelFill" class="level-fill"></div></div>
-          <p style="margin-top:8px;color:#ddd">XP: <span id="profilePageXP">0</span> / <span id="profileNextXP">100</span></p>
-        </div>
-
-        <div class="card" style="padding:16px;">
-          <h4 style="margin-bottom:8px;color:#ffdd00">Actions</h4>
-          <div style="display:flex;gap:8px;">
-            <button id="grantXP10" class="btn-ghost">Give +10 XP</button>
-            <button id="grantXP50" class="btn-ghost">Give +50 XP</button>
-          </div>
-        </div>
-
-        <div class="card" style="padding:16px;margin-top:12px;">
-          <h4 style="color:#ffdd00;margin-bottom:8px">Edit Profile</h4>
-          <label style="font-size:13px;color:#ccc">Display Name</label>
-          <input id="profilePageDisplayName" style="margin-top:6px;" placeholder="Display name">
-          <label style="font-size:13px;color:#ccc;margin-top:8px;display:block;">Avatar URL</label>
-          <input id="profilePageAvatarUrl" style="margin-top:6px;" placeholder="https://...">
-          <button id="profilePageSave" style="margin-top:10px;">Save to PlayFab</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Helper: level calc (example: level increases every 100xp, exponential can be used instead)
-function xpToLevel(xp){
-  // simple: level = floor(xp / 100) + 1
-  return Math.floor(xp / 100) + 1;
-}
-function nextLevelXP(level){ return level * 100; }
-
-function updateProfilePageUI(data){
-  const displayName = data.displayName || localStorage.getItem('CUSTOM_USERNAME') || localStorage.getItem('PLAYFAB_PLAYFABID') || 'User';
-  const avatar = data.avatar || localStorage.getItem('CUSTOM_AVATAR') || 'images/default_avatar.png';
-  const xp = parseInt(data.xp||0,10);
-  const level = xpToLevel(xp);
-  const next = nextLevelXP(level);
-  document.getElementById('profilePageName').textContent = displayName;
-  document.getElementById('profilePagePfp').src = avatar;
-  document.getElementById('profilePageLevel').textContent = level;
-  document.getElementById('profilePageXP').textContent = xp;
-  document.getElementById('profileNextXP').textContent = next;
-  const percent = Math.min(100, Math.round((xp / next) * 100));
-  document.getElementById('levelFill').style.width = percent + '%';
-  // prefill form
-  document.getElementById('profilePageDisplayName').value = displayName;
-  document.getElementById('profilePageAvatarUrl').value = avatar;
-}
-
-// Open/close profile page
-const profilePage = document.getElementById('profilePage');
-const closeProfilePage = document.getElementById('closeProfilePage');
-document.getElementById('navOpenCustomizer').addEventListener('click', ()=>{
-  // show modal
-  profilePage.style.display = 'flex';
-  // load fresh profile from server
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: 'GetBasicProfile', FunctionParameter: {} }, res=>{
-    const r = res.data.FunctionResult || {};
-    updateProfilePageUI({ displayName: r.displayName, avatar: r.avatar, xp: r.xp });
-  }, err=>{ console.warn(err); updateProfilePageUI({}); });
-});
-closeProfilePage.addEventListener('click', ()=>{ profilePage.style.display = 'none'; });
-
-// Dropdown animation toggle
-const navDropdownEl = document.getElementById('navDropdown');
-document.getElementById('navProfile').addEventListener('click', ()=>{
-  navDropdownEl.classList.toggle('show');
-});
-
-// Give XP buttons (call cloudscript to add xp)
-document.getElementById('grantXP10').addEventListener('click', ()=>{ addXP(10); });
-document.getElementById('grantXP50').addEventListener('click', ()=>{ addXP(50); });
-
-function addXP(amount){
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: 'AddXP', FunctionParameter: { amount: amount } }, res=>{
-    const r = res.data.FunctionResult || {};
-    if(r.success) { updateProfilePageUI({ displayName: r.displayName, avatar: r.avatar, xp: r.xp }); setStatus('Added '+amount+' XP','#ffdd00'); }
-    else setStatus('Failed to add XP','red');
-  }, err=>{ setStatus('Error adding XP','red'); console.error(err); });
-}
-
-// Save profile from profile page -> update PlayFab on server
-document.getElementById('profilePageSave').addEventListener('click', ()=>{
-  const newName = document.getElementById('profilePageDisplayName').value.trim();
-  const newAvatar = document.getElementById('profilePageAvatarUrl').value.trim();
-  setStatus('Saving profile...','#ffdd00');
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: 'SaveProfile', FunctionParameter: { displayName: newName, avatar: newAvatar } }, res=>{
-    const r = res.data.FunctionResult || {};
-    if(r.success){ setStatus('Profile saved','#ffdd00'); updateProfilePageUI({ displayName: newName, avatar: newAvatar, xp: r.xp });
-      // sync navbar and top menu
-      document.getElementById('navName').textContent = newName;
-      document.getElementById('navPfp').src = newAvatar;
-      document.getElementById('profileAvatar').src = newAvatar;
-      profileNameEl.textContent = newName;
-      // store locally
-      localStorage.setItem('CUSTOM_USERNAME', newName); localStorage.setItem('CUSTOM_AVATAR', newAvatar);
-    } else setStatus('Save failed','red');
-  }, err=>{ setStatus('Save error','red'); console.error(err); });
-});
-
-// Auto-load improvements: after verify, call this to populate level/xp
-function loadProfileAndSync(){
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: 'GetBasicProfile', FunctionParameter: {} }, res=>{
-    const r = res.data.FunctionResult || {};
-    const displayName = r.displayName || localStorage.getItem('CUSTOM_USERNAME') || localStorage.getItem('PLAYFAB_PLAYFABID');
-    const avatar = r.avatar || localStorage.getItem('CUSTOM_AVATAR') || 'images/default_avatar.png';
-    const xp = r.xp || 0;
-    // sync UI
-    showProfileMenu(displayName, avatar);
-    syncNavProfile(displayName, avatar);
-    updateProfilePageUI({ displayName: displayName, avatar: avatar, xp: xp });
-    inventoryCard.style.display = 'block';
-  }, err=>{ console.warn(err); });
-}
-
-// Replace previous call sites: after 2FA verify success, call loadProfileAndSync()
-// (We already set showProfileMenu in verify handler; update there if needed.)
-</script>
-
-<!-- CloudScript (server-side) SKELETON: add to PlayFab CloudScript editor -->
-<!-- Save these as handlers: GetBasicProfile, SaveProfile, AddXP -->
-<!--
-handlers.GetBasicProfile = function(args, context) {
-  var profile = server.GetPlayerProfile({ PlayFabId: currentPlayerId }).PlayerProfile;
-  var data = server.GetUserInternalData({ PlayFabId: currentPlayerId, Keys: ["xp"] }).Data;
-  var xp = data && data.xp ? parseInt(data.xp.Value,10) : 0;
-  return { displayName: profile.DisplayName || null, avatar: profile.AvatarUrl || null, xp: xp };
-}
-
-handlers.SaveProfile = function(args, context) {
-  var newName = args.displayName;
-  var newAvatar = args.avatar;
-  var result = { success: false };
-  if(newName && newName.length>0){
-    server.UpdateUserTitleDisplayName({ PlayFabId: currentPlayerId, DisplayName: newName });
-    result.displayName = newName;
-  }
-  if(newAvatar && newAvatar.length>5){
-    server.UpdateUserInternalData({ PlayFabId: currentPlayerId, Data: { avatar: newAvatar } });
-    result.avatar = newAvatar;
-  }
-  var data = server.GetUserInternalData({ PlayFabId: currentPlayerId, Keys: ["xp"] }).Data;
-  result.xp = data && data.xp ? parseInt(data.xp.Value,10) : 0;
-  result.success = true;
-  return result;
-}
-
-handlers.AddXP = function(args, context){
-  var amount = parseInt(args.amount || 0,10);
-  var data = server.GetUserInternalData({ PlayFabId: currentPlayerId, Keys: ["xp"] }).Data;
-  var xp = data && data.xp ? parseInt(data.xp.Value,10) : 0;
-  xp += amount;
-  server.UpdateUserInternalData({ PlayFabId: currentPlayerId, Data: { xp: xp.toString() } });
-  var profile = server.GetPlayerProfile({ PlayFabId: currentPlayerId }).PlayerProfile;
-  return { success:true, xp: xp, displayName: profile.DisplayName || null, avatar: (server.GetUserInternalData({ PlayFabId: currentPlayerId, Keys:["avatar"] }).Data.avatar || {}).Value || null };
-}
--->
-
-
-
-<!-- SUBSCRIPTION SECTION -->
-<div class="card" id="subscriptionSection" style="max-width:1100px;margin:20px auto;display:block;">
-  <h2>Subscriptions</h2>
-  <div style="display:flex;gap:20px;flex-wrap:wrap;">
-
-    <!-- FREE TIER -->
-    <div class="card" style="flex:1;min-width:300px;background:rgba(0,0,0,0.35);border:2px solid #666;">
-      <h3 style="color:#fff;">Free Tier</h3>
-      <img src="images/default_avatar.png" style="width:80px;height:80px;border-radius:50%;margin:10px auto;display:block;">
-      <ul style="margin-top:10px;font-size:14px;color:#ccc;">
-        <li>✔ Basic Profile</li>
-        <li>✔ Standard XP Progression</li>
-        <li>✔ Normal Cloud Loading</li>
-      </ul>
-    </div>
-
-    <!-- PREMIUM TIER -->
-    <div class="card" style="flex:1;min-width:300px;background:linear-gradient(135deg,#4b008a,#9900ff);border:2px solid #ffdd00;">
-      <h3 style="color:#ffdd00;">Premium Tier</h3>
-      <img src="images/premium.png" style="width:80px;height:80px;border-radius:50%;margin:10px auto;display:block;">
-      <ul style="margin-top:10px;font-size:14px;color:#fff;">
-        <li>🔥 Cloud Gaming Access</li>
-        <li>⚡ Faster XP Leveling</li>
-        <li>🚀 Priority Load Speeds</li>
-        <li>🎨 Exclusive Profile Themes</li>
-        <li>🎁 Monthly Bonus Items</li>
-      </ul>
-      <button id="buy1Month">Buy 1 Month – €0.50</button>
-      <button id="buy3Month" style="margin-top:10px;">Buy 3 Months – €0.99</button>
-      <input id="redeemCode" placeholder="Redeem premium code" style="margin-top:10px;">
-      <button id="redeemBtn">Redeem</button>
-    </div>
-
-  </div>
-</div>
-
-<script>
-// PREMIUM PURCHASE CALLS (Mocked)
-function buyPremium(months){
-  PlayFabClientAPI.ExecuteCloudScript({
-    FunctionName:"BuyPremium",
-    FunctionParameter:{ months:months }
-  }, r=>{ alert("Premium activated!"); }, e=>{ alert("Error: "+e.errorMessage); });
-}
-
-document.getElementById("buy1Month").onclick=()=>buyPremium(1);
-document.getElementById("buy3Month").onclick=()=>buyPremium(3);
-
-document.getElementById("redeemBtn").onclick=()=>{
-  let code=document.getElementById("redeemCode").value.trim();
-  if(!code)return;
-  PlayFabClientAPI.ExecuteCloudScript({ FunctionName:"RedeemPremiumCode", FunctionParameter:{ code:code } },
-    r=>alert("Code redeemed! Premium added."),
-    e=>alert("Invalid code")
-  );
-};
-</script>
-
-  <!-- SUBSCRIPTION SYSTEM -->
-<div class="container" style="max-width:1100px; margin:20px auto; display:flex; gap:20px;">
-  <div class="card" style="flex:1; border:2px solid #555;">
-    <h2>ERRORVERSE FREE</h2>
-    <p>• Basic access</p>
-    <p>• Normal leveling</p>
-    <p>• No cloud gaming</p>
-    <div id="freeBadge" style="margin-top:8px; padding:6px; background:#333; border-radius:6px; text-align:center;">FREE TIER ACTIVE</div>
-  </div>
-
-  <div class="card" style="flex:1; border:2px solid #c300ff; background:rgba(120,0,150,0.4);">
-    <h2>ERRORVERSE XTRA</h2>
-    <p>• Cloud gaming access</p>
-    <p>• 2× XP leveling</p>
-    <p>• Unlock exclusive items</p>
-
-    <h3 style="margin-top:10px; color:#ffdd00;">Subscribe</h3>
-    <div id="paypal-1m"></div>
-    <div id="paypal-3m" style="margin-top:8px;"></div>
-
-    <div id="premiumBadge" style="display:none; margin-top:12px; padding:6px; background:#c300ff; border-radius:6px; text-align:center;">XTRA ACTIVE — <span id="subDaysLeft"></span> days left</div>
-  </div>
-</div>
-
-<!-- Full Profile Page -->
-<div id="fullProfilePage" class="card" style="max-width:1100px; margin:20px auto; display:none;">
-  <h2>Your Profile</h2>
-  <img id="fpAvatar" src="images/default_avatar.png" style="width:80px; height:80px; border-radius:50%; border:3px solid #ffdd00;">
-  <h3 id="fpName">User</h3>
-  <p>ID: <span id="fpId"></span></p>
-  <p>Subscription: <span id="fpSub"></span></p>
-  <p>Level: <span id="fpLevel"></span></p>
-</div>
-
-<!-- PayPal Buttons -->
-  <div id="paypal-1m"></div>
-  <div id="paypal-3m"></div>
-
-  <script>
-    // PayPal 1 month
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({ purchase_units: [{ amount: { value: "0.50" } }] });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          fetch('/paypal/confirm', {
-            method: 'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ orderID: data.orderID, months: 1 })
-          });
-        });
-      }
-    }).render('#paypal-1m');
-
-    // PayPal 3 months
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({ purchase_units: [{ amount: { value: "0.99" } }] });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          fetch('/paypal/confirm', {
-            method: 'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ orderID: data.orderID, months: 3 })
-          });
-        });
-      }
-    }).render('#paypal-3m');
-  </script>
-
-<!-- BACKEND & FRONTEND INTEGRATION SCRIPTS + INSTRUCTIONS -->
-
-<!-- CLIENT: Extra JS to call backend and update UI -->
-<script>
-// Client-side helper: call backend to confirm PayPal payment
-async function confirmPaypalPurchase(orderID, months){
-  const resp = await fetch('/paypal/confirm', {
-    method: 'POST', headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ orderID: orderID, months: months })
-  });
-  const data = await resp.json();
-  if(data.success){
-    // refresh profile/subscription UI
-    loadProfileAndSync();
-    document.getElementById('premiumBadge').style.display = 'block';
-    document.getElementById('subDaysLeft').textContent = data.daysLeft;
-    alert('Purchase complete: premium active');
-  } else {
-    alert('Purchase failed: ' + (data.message||'unknown'));
-  }
-}
-
-// Hook PayPal render callbacks (they call confirmPaypalPurchase above)
-// The paypal.Buttons(...) were rendered earlier; if you replaced them, ensure createOrder/onApprove call this function.
-
-// Redeem code client call
-async function redeemCode(code){
-  const resp = await fetch('/redeem', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ code: code }) });
-  const data = await resp.json();
-  if(data.success){ loadProfileAndSync(); alert('Code redeemed: '+data.addedDays+' days'); }
-  else alert('Redeem failed: '+(data.message||'invalid'));
-}
-
-document.getElementById('redeemBtn')?.addEventListener('click', ()=>{
-  const code = document.getElementById('redeemCode')?.value.trim(); if(!code) return alert('Enter code'); redeemCode(code);
-});
-</script>
-
-<!-- BACKEND: Node.js Express example (place in server.js) -->
-<!--
-Instructions:
-1) Create a folder for your backend.
-2) npm init -y
-3) npm i express node-fetch body-parser dotenv
-4) Create server.js and copy the code below.
-5) Create a .env file with: PAYPAL_CLIENT_ID=..., PAYPAL_SECRET=..., PLAYFAB_SECRET=... , PLAYFAB_TITLE=1FC26D
-6) Run with: node server.js (or use pm2 / Docker for production)
--->
-
-<!-- server.js -->
-<script type="text/plain">
-// server.js (Node + Express)
-const express = require('express');
-const fetch = require('node-fetch');
-const bodyParser = require('body-parser');
-require('dotenv').config();
-
-const app = express();
-app.use(bodyParser.json());
-
-const PAYPAL_CLIENT = process.env.PAYPAL_CLIENT_ID;
-const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
-const PLAYFAB_SECRET = process.env.PLAYFAB_SECRET; // your title secret key
-const PLAYFAB_TITLE = process.env.PLAYFAB_TITLE || '1FC26D';
-
-// helper: get paypal access token
-async function getPaypalAccessToken(){
-  const tokenResp = await fetch('https://api-m.paypal.com/v1/oauth2/token', {
-    method:'POST', headers:{ 'Authorization': 'Basic ' + Buffer.from(PAYPAL_CLIENT + ':' + PAYPAL_SECRET).toString('base64'), 'Content-Type':'application/x-www-form-urlencoded' }, body: 'grant_type=client_credentials'
-  });
-  const t = await tokenResp.json(); return t.access_token;
-}
-
-// Confirm endpoint
-app.post('/paypal/confirm', async (req,res)=>{
-  try{
-    const { orderID, months } = req.body;
-    const token = await getPaypalAccessToken();
-    const orderResp = await fetch(`https://api-m.paypal.com/v2/checkout/orders/${orderID}`, { headers: { 'Authorization':'Bearer '+token } });
-    const order = await orderResp.json();
-    if(order.status !== 'COMPLETED') return res.json({ success:false, message:'PayPal payment not completed' });
-
-    // Payment valid — call PlayFab server ExecuteCloudScript to grant subscription
-    const execResp = await fetch(`https://${PLAYFAB_TITLE}.playfabapi.com/Server/ExecuteCloudScript`, {
-      method:'POST', headers:{ 'Content-Type':'application/json', 'X-SecretKey': PLAYFAB_SECRET },
-      body: JSON.stringify({ FunctionName: 'ProcessPurchase', FunctionParameter: { months: months } })
-    });
-    const execData = await execResp.json();
-    // read returned newExpireTime or days
-    const result = execData && execData.data && execData.data.FunctionResult ? execData.data.FunctionResult : {};
-    return res.json({ success:true, daysLeft: Math.ceil((result.newExpireTime - Math.floor(Date.now()/1000))/86400) });
-  }catch(e){ console.error(e); return res.json({ success:false, message: e.message }); }
-});
-
-// Redeem endpoint
-app.post('/redeem', async (req,res)=>{
-  try{
-    const { code } = req.body;
-    const execResp = await fetch(`https://${PLAYFAB_TITLE}.playfabapi.com/Server/ExecuteCloudScript`, {
-      method:'POST', headers:{ 'Content-Type':'application/json', 'X-SecretKey': PLAYFAB_SECRET },
-      body: JSON.stringify({ FunctionName: 'RedeemPremiumCode', FunctionParameter: { code: code } })
-    });
-    const execData = await execResp.json();
-    const result = execData && execData.data && execData.data.FunctionResult ? execData.data.FunctionResult : {};
-    if(result.success) return res.json({ success:true, addedDays: result.addedDays });
-    return res.json({ success:false, message: result.message || 'invalid' });
-  }catch(e){ console.error(e); return res.json({ success:false, message: e.message }); }
-});
-
-const port = process.env.PORT || 3000;
-app.listen(port, ()=>console.log('Server listening on', port));
-</script>
-
-<!-- WHERE TO PLACE FILES (SUMMARY) -->
-<div style="background:#111;color:#fff;padding:12px;border-radius:8px;margin:12px 0;">
-  <h3 style="color:#ffdd00;margin:0 0 6px 0;">Files & where to put them</h3>
-  <ul style="font-size:14px;color:#ddd;margin-left:18px;">
-    <li><b>Frontend (website)</b>: update your existing HTML (the canvas file). Put PayPal SDK in the &lt;head&gt; and PayPal buttons + client JS before &lt;/body&gt;.</li>
-    <li><b>Backend</b>: create <code>server.js</code> (copy the Node code above). Put in a secure server, set env vars: <code>PAYPAL_CLIENT_ID</code>, <code>PAYPAL_SECRET</code>, <code>PLAYFAB_SECRET</code>, <code>PLAYFAB_TITLE=1FC26D</code>.</li>
-    <li><b>PlayFab CloudScript</b>: paste the CloudScript (previously provided) into PlayFab Automation → CloudScript and Save & Publish.</li>
-    <li><b>TitleData</b>: create a TitleData key <code>FREECODES</code> with JSON object of codes, e.g. <code>{"ABC123":30}</code>.</li>
-  </ul>
-</div>
-
-  <!-- PayPal Buttons + Client Subscription Logic -->
-  <script>
-    function activateSub(months) {
-      fetch('/paypal/confirm',{
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({ orderID: window._lastOrderID, months })
-      })
-      .then(r=>r.json())
-      .then(()=>{ alert('Subscription Activated!'); location.reload(); });
-    }
-
-    paypal.Buttons({
-      createOrder: (data,actions)=> actions.order.create({ purchase_units:[{ amount:{ value:'0.50' } }] }),
-      onApprove: (data,actions)=> actions.order.capture().then(()=>{ window._lastOrderID=data.orderID; activateSub(1); })
-    }).render('#paypal-1m');
-
-    paypal.Buttons({
-      createOrder: (data,actions)=> actions.order.create({ purchase_units:[{ amount:{ value:'0.99' } }] }),
-      onApprove: (data,actions)=> actions.order.capture().then(()=>{ window._lastOrderID=data.orderID; activateSub(3); })
-    }).render('#paypal-3m');
-  </script>
 </body>
 </html>
