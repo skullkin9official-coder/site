@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/otplib/12.0.1/otplib-browser.js"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>3RROR5TUDIOS — Errorverse</title>
+  <title>3RROR5TUDIOS — Errorverse (2FA PlayFab)</title>
   <link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
   <style>
 /* ---------- styles (kept/cleaned) ---------- */
@@ -168,7 +170,7 @@ small.note{color:#ffd400;font-size:13px;display:block;margin-top:8px}
   <div class="grid" id="inventoryGrid" style="margin-top:12px"></div>
 </div>
 
-<!-- ========== JS section: PlayFab + TOTP ========== -->
+<!-- ========== JS section: PlayFab + TOTP (PlayFab-backed 2FA) ========== -->
 <script>
 /* ============================
    PlayFab client wrapper (kept + additions)
@@ -379,31 +381,16 @@ function generateQRImageUrl(data, size=200){
 }
 
 /* ============================
-   TOTP: setup/enable/disable flow
+   TOTP: setup/enable/disable flow (PlayFab-backed)
    ============================ */
-function getTOTPKeyForAccount(playfabId){
-  if(!playfabId) return null;
-  return localStorage.getItem("TOTP_SECRET_" + playfabId) || null;
-}
-function setTOTPKeyForAccount(playfabId, secret){
-  if(!playfabId || !secret){ return; }
-  localStorage.setItem("TOTP_SECRET_" + playfabId, secret);
-}
-function removeTOTPForAccount(playfabId){
-  if(!playfabId) return;
-  localStorage.removeItem("TOTP_SECRET_" + playfabId);
-}
 
-/* Update TOTP UI status */
-function refreshTOTPStatus(){
+/* Enable 2FA: generate secret and show QR (temporary) */
+enable2faBtn.addEventListener("click", async ()=>{
+  // ensure user is logged in
   const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
-  const secret = pfid ? getTOTPKeyForAccount(pfid) : null;
-  totpStatus.textContent = secret ? "Enabled" : "Disabled";
-}
+  const ticket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
+  if(!pfid || !ticket){ alert("You must be logged in to enable 2FA"); return; }
 
-/* Enable 2FA: generate secret and show QR */
-enable2faBtn.addEventListener("click", ()=>{
-  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID") || "local-user";
   // generate secret
   const secret = generateBase32Secret(20);
   // store temporary in session (don't commit until confirmed)
@@ -417,23 +404,29 @@ enable2faBtn.addEventListener("click", ()=>{
   setupArea.style.display = "block";
 });
 
-/* Confirm 2FA (user enters code from authenticator) */
+/* Confirm 2FA (user enters code from authenticator) -> commit to PlayFab */
 confirm2faBtn.addEventListener("click", async ()=>{
   const entered = confirm2faCode.value.trim();
   const secret = sessionStorage.getItem("TOTP_PENDING_SECRET");
-  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID") || "local-user";
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
+  const ticket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
+  if(!pfid || !ticket){ alert("You must be logged in to enable 2FA"); return; }
   if(!secret){ alert("No pending secret. Click Enable 2FA first."); return; }
+
   const ok = await verifyTOTP(secret, entered);
-  if(ok){
-    // commit
-    setTOTPKeyForAccount(pfid, secret);
+  if(!ok){ alert("Invalid code. Try again."); return; }
+
+  // commit to PlayFab: set two_factor_enabled=true and two_factor_secret=secret
+  PlayFab._internalSettings.sessionTicket = ticket;
+  PlayFabClientAPI.UpdateUserData({Data:{two_factor_enabled: "true", two_factor_secret: secret}}, (res)=>{
     sessionStorage.removeItem("TOTP_PENDING_SECRET");
     setupArea.style.display = "none";
     totpStatus.textContent = "Enabled";
-    alert("2FA enabled!");
-  } else {
-    alert("Invalid code. Try again.");
-  }
+    alert("2FA enabled and saved to PlayFab!");
+  }, (err)=>{
+    console.error(err);
+    alert("Failed to save 2FA to PlayFab. See console.");
+  });
 });
 
 /* Hide setup / cancel */
@@ -447,20 +440,41 @@ copySecret.addEventListener("click", ()=>{
   navigator.clipboard.writeText(secretText.value).then(()=>alert("Copied"));
 });
 
-/* Disable 2FA */
+/* Disable 2FA: clear PlayFab keys (mark disabled and clear secret) */
 disable2faBtn.addEventListener("click", ()=>{
-  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID") || "local-user";
-  removeTOTPForAccount(pfid);
-  totpStatus.textContent = "Disabled";
-  alert("2FA disabled for this account (local).");
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
+  const ticket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
+  if(!pfid || !ticket){ alert("You must be logged in to disable 2FA"); return; }
+  PlayFab._internalSettings.sessionTicket = ticket;
+  PlayFabClientAPI.UpdateUserData({Data:{two_factor_enabled: "false", two_factor_secret: ""}}, (res)=>{
+    totpStatus.textContent = "Disabled";
+    alert("2FA disabled for this account (PlayFab updated).");
+  }, (err)=>{
+    console.error(err);
+    alert("Failed to disable 2FA. See console.");
+  });
 });
 
+/* Update TOTP UI status by querying PlayFab (if logged in) */
+function refreshTOTPStatus(){
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
+  const ticket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
+  if(!pfid || !ticket){ totpStatus.textContent = "Disabled"; return; }
+  PlayFab._internalSettings.sessionTicket = ticket;
+  PlayFabClientAPI.GetUserData({}, (res)=>{
+    try{
+      const data = res.data.Data || {};
+      if(data.two_factor_enabled && data.two_factor_enabled.Value === "true") totpStatus.textContent = "Enabled";
+      else totpStatus.textContent = "Disabled";
+    }catch(e){ console.warn(e); totpStatus.textContent = "Disabled"; }
+  }, (err)=>{ console.warn(err); totpStatus.textContent = "Disabled"; });
+}
+
 /* ============================
-   Login flow modified to require TOTP if enabled
-   - On PlayFab login success: check if TOTP secret exists for that user
-     - If exists, show twofaBox to enter current code
-     - On verify, finalize saveSession
-     - If no TOTP configured, finalize immediately
+   Login flow modified to require TOTP if enabled (PlayFab-backed)
+   - On PlayFab login success: set sessionTicket and query GetUserData()
+     - If two_factor_enabled === "true" -> require OTP
+     - Else finalize immediately
    ============================ */
 
 function setStatus(msg,color="yellow"){ statusEl.style.color=color; statusEl.textContent=msg; }
@@ -479,18 +493,14 @@ async function finalizeSessionAfter2FAVerified(res){
   fetchInventory();
 
   // Attempt to fetch display name from response's PlayerProfile (if present)
-  // Some login/register calls return InfoResultPayload.PlayerProfile in res.data; check that first
   try {
     const profile = d.InfoResultPayload && d.InfoResultPayload.PlayerProfile;
     if(profile && profile.DisplayName){
-      // prefer server display name
       localStorage.setItem("CUSTOM_USERNAME", profile.DisplayName);
       navbarName.textContent = profile.DisplayName;
       customUsername.value = profile.DisplayName;
     }
-  } catch(e){
-    console.warn("No PlayerProfile in login response", e);
-  }
+  } catch(e){ console.warn("No PlayerProfile in login response", e); }
 
   // Now fetch stored user data (avatarUrl) from PlayFab, and apply if present
   PlayFabClientAPI.GetUserData({}, (udRes)=>{
@@ -498,48 +508,57 @@ async function finalizeSessionAfter2FAVerified(res){
       const data = udRes.data.Data || {};
       if(data.avatarUrl && data.avatarUrl.Value){
         const avatarUrl = data.avatarUrl.Value;
-        // apply to UI + storage
         localStorage.setItem("CUSTOM_AVATAR", avatarUrl);
         navbarPFP.src = avatarUrl;
         customAvatar.src = avatarUrl;
         customAvatarURL.value = avatarUrl;
       } else {
-        // if no avatar in PlayFab, keep local/default
         const localAvatar = localStorage.getItem("CUSTOM_AVATAR");
-        if(localAvatar){
-          navbarPFP.src = localAvatar;
-        }
+        if(localAvatar){ navbarPFP.src = localAvatar; }
       }
-    } catch(e){
-      console.error("Error applying user data", e);
-    }
-  }, (err)=>{
-    // Non-fatal: show console but continue
-    console.warn("GetUserData failed:", err);
-  });
+    } catch(e){ console.error("Error applying user data", e); }
+  }, (err)=>{ console.warn("GetUserData failed:", err); });
 
   // hide 2FA UI if shown
   twofaBox.style.display = "none";
   twofaInput.value = "";
+  // refresh TOTP status
+  refreshTOTPStatus();
 }
 
 /* Called after PlayFab login response but before finalization */
 async function handlePostPlayFabLogin(res){
   const d = res.data;
   const pfid = d.PlayFabId;
-  // Check local secret for this pfid
-  const secret = getTOTPKeyForAccount(pfid);
-  if(secret){
-    // require TOTP
-    setStatus("2FA code required for " + pfid,"#ffd400");
-    // show 2FA input UI and hold the login response in sessionStorage for later finalization
-    sessionStorage.setItem("PLAYFAB_PENDING_LOGIN", JSON.stringify(res));
-    twofaBox.style.display = "block";
-    return;
-  } else {
-    // finalize directly
-    await finalizeSessionAfter2FAVerified(res);
-  }
+  const ticket = d.SessionTicket;
+  // set session ticket temporarily so GetUserData works
+  PlayFab._internalSettings.sessionTicket = ticket;
+
+  // Query PlayFab for two_factor_enabled
+  PlayFabClientAPI.GetUserData({}, (udRes)=>{
+    try{
+      const data = udRes.data.Data || {};
+      const enabled = data.two_factor_enabled && data.two_factor_enabled.Value === "true";
+      if(enabled){
+        // require TOTP
+        setStatus("2FA code required for " + pfid,"#ffd400");
+        // show 2FA input UI and hold the login response in sessionStorage for later finalization
+        sessionStorage.setItem("PLAYFAB_PENDING_LOGIN", JSON.stringify(res));
+        twofaBox.style.display = "block";
+        return;
+      } else {
+        // finalize directly
+        finalizeSessionAfter2FAVerified(res);
+      }
+    }catch(e){
+      console.warn("Error reading user data", e);
+      finalizeSessionAfter2FAVerified(res);
+    }
+  }, (err)=>{
+    // If GetUserData fails for some reason, proceed with login but warn
+    console.warn("GetUserData failed after login:", err);
+    finalizeSessionAfter2FAVerified(res);
+  });
 }
 
 /* Login button: authenticate with PlayFab then handle 2FA */
@@ -573,16 +592,26 @@ verify2faBtn.addEventListener("click", async ()=>{
   if(!pending){ setStatus("No pending login found","red"); return; }
   const res = JSON.parse(pending);
   const pfid = res.data.PlayFabId;
-  const secret = getTOTPKeyForAccount(pfid);
-  if(!secret){ setStatus("2FA not configured for this account","red"); return; }
-  const ok = await verifyTOTP(secret, code);
-  if(ok){
-    // proceed to finalize
-    sessionStorage.removeItem("PLAYFAB_PENDING_LOGIN");
-    await finalizeSessionAfter2FAVerified(res);
-  } else {
-    setStatus("Invalid 2FA code","red");
-  }
+  const ticket = res.data.SessionTicket;
+  if(!ticket){ setStatus("Missing session ticket","red"); return; }
+
+  // set ticket so we can read stored secret via GetUserData
+  PlayFab._internalSettings.sessionTicket = ticket;
+  PlayFabClientAPI.GetUserData({}, async (udRes)=>{
+    try{
+      const data = udRes.data.Data || {};
+      const secret = data.two_factor_secret && data.two_factor_secret.Value;
+      if(!secret){ setStatus("2FA not configured for this account","red"); return; }
+      const ok = await verifyTOTP(secret, code);
+      if(ok){
+        // proceed to finalize
+        sessionStorage.removeItem("PLAYFAB_PENDING_LOGIN");
+        await finalizeSessionAfter2FAVerified(res);
+      } else {
+        setStatus("Invalid 2FA code","red");
+      }
+    }catch(e){ console.error(e); setStatus("Error verifying 2FA","red"); }
+  }, (err)=>{ console.error(err); setStatus("Failed to read 2FA settings","red"); });
 });
 
 /* Cancel 2FA (abort pending login) */
