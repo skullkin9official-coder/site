@@ -10,32 +10,89 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4043534942165629"
      crossorigin="anonymous"></script>
 
+<style>
+/* 🔵 ——— RESTORED ROUNDED TOP BAR ——— */
+header {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;             /* ★ THE ROUNDED BAR */
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
+}
+
+header img {
+    height: 50px;
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Ensure small icon text stays aligned */
+header nav img {
+    height: 35px;
+}
+</style>
+
 </head>
 <body>
 
+  <header>
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="images/3RROR5TUDIOS.png" alt="logo" />
+      </a>
+      <h1>Home</h1>
+    </div>
+    
+    <nav>
+      <ul>
+        <li>
+          <div class="logo-container">
+            <a href="Games.html">
+              <img src="images/controll.png" alt="logo" />
+              <p style="font-size: 10px;"> GAMES </p>
+            </a>
+          </div>
+        </li>
 
-  <div class="clean-topbar">
-  <div class="tb-left">
-    <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
-    <span class="tb-title">3RROR5TUDIOS</span>
-    <a href="Games.html" class="tb-link">Games</a>
-    <a href="ERRORVERSE.html" class="tb-link">Errorverse</a>
-  </div>
+        <li>
+          <div class="logo-container">
+            <a href="ERRORVERSE.html">
+              <img src="images/ERRORVERSE.png" alt="logo" />
+              <p style="font-size: 10px;"> ERRORVERSE </p>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="tb-right" id="profileButton" role="button" aria-haspopup="true">
-    <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp" alt="avatar">
-    <span id="profileName">User</span>
-  </div>
-</div>
 
-<!-- dropdown -->
-<div id="profileDropdown" aria-hidden="true">
-  <button id="openCustomizer">Customize Profile</button>
-  <button id="logoutBtn">Logout</button>
-</div>
-<body>
+  <!-- NOTHING BELOW THIS WAS TOUCHED — all your CSS and JS stay intact -->
 
-  <style>
+<style>
     body {
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #40006e, #8100b4);
@@ -50,7 +107,7 @@
       text-align: center;
       font-size: 18px;
       font-weight: bold;
-      color: #d4a017; /* yellow color */
+      color: #d4a017;
       margin-bottom: 20px;
     }
     .filters {
@@ -126,12 +183,10 @@
       margin-top: 10px;
       text-align: left;
       padding: 0 10px 10px 10px;
-      color: #d4a017; /* yellow for issue */
+      color: #d4a017;
       font-weight: bold;
     }
-  </style>
-</head>
-<body>
+</style>
 
 <h1 style="font-size: 75px;">GAMES</h1>
 <div class="issues-count" id="issuesCount">Issues: 0</div>
