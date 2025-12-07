@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-  <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3RROR5TUDIOS</title>
-    <link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>3RROR5TUDIOS</title>
+<link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
 
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.playfabapi.com/PlayFabClientSdk.min.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4043534942165629"
-     crossorigin="anonymous"></script>
+<link rel="stylesheet" href="css/style.css">
 
+<!-- NEW PlayFab SDK -->
+<script src="https://cdn.playfabapi.com/PlayFabClientSdk.min.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4043534942165629"
+crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="clean-topbar">
+<div class="clean-topbar">
   <div class="tb-left">
     <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
     <span class="tb-title">3RROR5TUDIOS</span>
@@ -38,14 +40,11 @@
         <div class="slide" style="--bg:url('images/wsxbg.png')">
             <div class="content">
                 <img src="images/wsx.png" class="logo">
-                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">
-                  WingStormX Security Patch</h2>
+                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">WingStormX Security Patch</h2>
                 <p>This update solves a security issue affecting all games using the Unity engine.</p>
-                <p2 style="font-size: 10px; color: yellow;">
-                  *Requires latest WingStormX & W11 security update
-                </p2>
-                <a href="https://www.xbox.com/en-US/games/store/wingstormx/9ndtj4njpxg5" class="btn" target="_blank" rel="noopener noreferrer">
-                  Fly In
+                <p2 style="font-size: 10px; color: yellow;">*Requires latest WingStormX & W11 security update</p2>
+                <a href="https://www.xbox.com/en-US/games/store/wingstormx/9ndtj4njpxg5" class="btn" target="_blank">
+                    Fly In
                 </a>
             </div>
         </div>
@@ -53,12 +52,9 @@
         <div class="slide" style="--bg:url('images/tlopab.png')">
             <div class="content">
                 <img src="images/sneak.png" class="logo">
-                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">
-                  New Game Announced</h2>
+                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">New Game Announced</h2>
                 <p>A roguelike deckbuilder and the first game with ERRORVERSE!</p>
-                <p2 style="font-size: 10px; color: yellow;">
-                  *Pre-orders start mid 2026
-                </p2>
+                <p2 style="font-size: 10px; color: yellow;">*Pre-orders start mid 2026</p2>
                 <a href="Home.html" class="btn">[SOON]</a>
             </div>
         </div>
@@ -66,12 +62,9 @@
         <div class="slide" style="--bg:url('images/slide1.png')">
             <div class="content">
                 <img src="images/ERRORVERSE.png" class="logo">
-                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">
-                  ERRORVERSE</h2>
+                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">ERRORVERSE</h2>
                 <p>Free subscription to level up YOUR game!</p>
-                <p2 style="font-size: 10px; color: yellow;">
-                  *Requires in-game progress
-                </p2>
+                <p2 style="font-size: 10px; color: yellow;">*Requires in-game progress</p2>
                 <a href="ERRORVERSE.html" class="btn">Step In</a>
             </div>
         </div>
@@ -83,20 +76,20 @@
 </div>
 
 <script src="js/slider.js"></script>
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4043534942165629"
-     crossorigin="anonymous"></script>
+crossorigin="anonymous"></script>
 
 <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4043534942165629"
-     data-ad-slot="7595916388"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+style="display:block"
+data-ad-client="ca-pub-4043534942165629"
+data-ad-slot="7595916388"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-<!-- 🔥 PLAYFAB PROFILE SYSTEM (same as Games.html) -->
+
+<!-- 🔥 PLAYFAB PROFILE LOADER (FULLY FIXED) -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const savedName = localStorage.getItem("profileName");
@@ -106,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (savedAvatar) document.getElementById("profileAvatar").src = savedAvatar;
 });
 
+// Allow logout (optional if you need it)
 function logout() {
     localStorage.removeItem("profileName");
     localStorage.removeItem("profileAvatar");
@@ -113,20 +107,23 @@ function logout() {
     window.location.href = "login.html";
 }
 
-PlayFab.settings.titleId = "1FC26D";
+// PlayFab title ID
+PlayFabClientSDK.settings.titleId = "1FC26D";
 
+// Load cached session
 const sessionTicket = localStorage.getItem("playfabSessionTicket");
 
 if (sessionTicket) {
-    PlayFab.settings.sessionTicket = sessionTicket;
+    PlayFabClientSDK.settings.sessionTicket = sessionTicket;
 
-    PlayFabClient.GetAccountInfo({}, (res, err) => {
-        if (err) {
-            console.log("PlayFab error:", err);
+    // Fetch PlayFab account info
+    PlayFabClientSDK.GetAccountInfo({}, (response, error) => {
+        if (error) {
+            console.log("PlayFab error:", error);
             return;
         }
 
-        const info = res.data?.accountInfo;
+        const info = response.data?.accountInfo;
 
         const displayName = info?.titleInfo?.displayName || "User";
         const avatarUrl = info?.titleInfo?.avatarUrl || "images/default_avatar.png";
@@ -140,30 +137,51 @@ if (sessionTicket) {
 }
 </script>
 
+
 <style>
-  body {
-  margin: 0;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #40006e, #8100b4);
-  color: white;
-  display: flex;
-  justify-content: center;
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #40006e, #8100b4);
+    color: white;
+    display: flex;
+    justify-content: center;
 }
 
-.clean-topbar{
-  position:fixed;top:15px;left:50%;transform:translateX(-50%);
-  width:92%;height:60px;background:rgba(0,0,0,0.25);
-  border-radius:18px;backdrop-filter:blur(12px);padding:0 25px;
-  display:flex;justify-content:space-between;align-items:center;z-index:9999;
+.clean-topbar {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  height: 60px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
 }
-.tb-left{display:flex;align-items:center;gap:18px}
-.tb-logo{height:36px}
-.tb-title{font-size:20px;font-weight:700;color:#fff;margin-right:10px}
-.tb-link{color:#fff;text-decoration:none;font-size:16px;padding:6px 10px;border-radius:8px;transition:.15s}
-.tb-link:hover{background:rgba(255,255,255,0.06)}
-.tb-right{display:flex;align-items:center;gap:10px}
-.tb-pfp{width:34px;height:34px;border-radius:50%;border:2px solid #ffdd00;object-fit:cover}
+.tb-left{
+  display: flex; align-items: center; gap: 18px;
+}
+.tb-logo{ height: 36px; }
+.tb-title{ font-size: 20px; font-weight: 700; color: white; margin-right: 10px; }
+.tb-link{
+  color: white; text-decoration: none;
+  font-size: 16px; padding: 6px 10px;
+  border-radius: 8px; transition: .15s;
+}
+.tb-link:hover{ background: rgba(255,255,255,0.06); }
+.tb-right{ display:flex; align-items:center; gap:10px; }
+.tb-pfp{
+  width: 34px; height: 34px;
+  border-radius: 50%; border: 2px solid #ffdd00;
+  object-fit: cover;
+}
 </style>
 
 </body>
