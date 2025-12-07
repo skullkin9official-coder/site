@@ -741,7 +741,41 @@ document.getElementById("redeemBtn").onclick=()=>{
 };
 </script>
 
-  <!-- PayPal Buttons -->
+  <!-- SUBSCRIPTION SYSTEM -->
+<div class="container" style="max-width:1100px; margin:20px auto; display:flex; gap:20px;">
+  <div class="card" style="flex:1; border:2px solid #555;">
+    <h2>ERRORVERSE FREE</h2>
+    <p>• Basic access</p>
+    <p>• Normal leveling</p>
+    <p>• No cloud gaming</p>
+    <div id="freeBadge" style="margin-top:8px; padding:6px; background:#333; border-radius:6px; text-align:center;">FREE TIER ACTIVE</div>
+  </div>
+
+  <div class="card" style="flex:1; border:2px solid #c300ff; background:rgba(120,0,150,0.4);">
+    <h2>ERRORVERSE XTRA</h2>
+    <p>• Cloud gaming access</p>
+    <p>• 2× XP leveling</p>
+    <p>• Unlock exclusive items</p>
+
+    <h3 style="margin-top:10px; color:#ffdd00;">Subscribe</h3>
+    <div id="paypal-1m"></div>
+    <div id="paypal-3m" style="margin-top:8px;"></div>
+
+    <div id="premiumBadge" style="display:none; margin-top:12px; padding:6px; background:#c300ff; border-radius:6px; text-align:center;">XTRA ACTIVE — <span id="subDaysLeft"></span> days left</div>
+  </div>
+</div>
+
+<!-- Full Profile Page -->
+<div id="fullProfilePage" class="card" style="max-width:1100px; margin:20px auto; display:none;">
+  <h2>Your Profile</h2>
+  <img id="fpAvatar" src="images/default_avatar.png" style="width:80px; height:80px; border-radius:50%; border:3px solid #ffdd00;">
+  <h3 id="fpName">User</h3>
+  <p>ID: <span id="fpId"></span></p>
+  <p>Subscription: <span id="fpSub"></span></p>
+  <p>Level: <span id="fpLevel"></span></p>
+</div>
+
+<!-- PayPal Buttons -->
   <div id="paypal-1m"></div>
   <div id="paypal-3m"></div>
 
