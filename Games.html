@@ -14,186 +14,202 @@
 /* PERFECT ORIGINAL ROUNDED TOPBAR */
 /* ------------------------------- */
 
-.clean-topbar {
-  position: fixed;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92%;
-  height: 60px;
-  background: rgba(0,0,0,0.25);
-  border-radius: 18px;
-  backdrop-filter: blur(12px);
-  padding: 0 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 9999;
-}
-
 .tb-left {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .tb-logo {
-  height: 36px;
+    height: 48px;
 }
 
 .tb-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-  margin-right: 10px;
-}
-
-.tb-link {
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: .15s;
-}
-
-.tb-link:hover {
-  background: rgba(255,255,255,0.06);
+    font-size: 26px;
+    color: white;
+    font-weight: bold;
+    margin: 0;
 }
 
 .tb-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  position: relative;
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
-.tb-pfp {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 2px solid #ffdd00;
-  object-fit: cover;
+/* links */
+
+.tb-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
 }
 
+.tb-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tb-link img {
+    height: 36px;
+}
+
+/* profile */
+
+.profile-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+#profileAvatar {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#profileName {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* dropdown */
+
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.profile-dropdown a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.profile-box:hover .profile-dropdown {
+    display: flex;
+}
 
 /* ------------------------------- */
-/* DROPDOWN MENU                   */
+/* END — ORIGINAL TOPBAR           */
 /* ------------------------------- */
-
-#profileDropdown {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(10px);
-  padding: 10px 10px;
-  border-radius: 10px;
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 150px;
-}
-
-#profileDropdown button {
-  width: 100%;
-  padding: 8px;
-  background: rgba(255,255,255,0.15);
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-#profileDropdown button:hover {
-  background: rgba(255,255,255,0.25);
-}
 
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #40006e, #8100b4);
-  margin: 0;
-  padding: 100px 20px 20px 20px; /* padding-top increased for topbar */
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #40006e, #8100b4);
+    margin: 0;
+    padding: 20px;
 }
 
+/* Rounded topbar you wanted to KEEP */
+.clean-topbar{
+  position:fixed;top:15px;left:50%;transform:translateX(-50%);
+  width:92%;height:60px;background:rgba(0,0,0,0.25);
+  border-radius:18px;backdrop-filter:blur(12px);padding:0 25px;
+  display:flex;justify-content:space-between;align-items:center;z-index:9999;
+}
+.tb-left{display:flex;align-items:center;gap:18px}
+.tb-logo{height:36px}
+.tb-title{font-size:20px;font-weight:700;color:#fff;margin-right:10px}
+.tb-link{color:#fff;text-decoration:none;font-size:16px;padding:6px 10px;border-radius:8px;transition:.15s}
+.tb-link:hover{background:rgba(255,255,255,0.06)}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-pfp{width:34px;height:34px;border-radius:50%;border:2px solid #ffdd00;object-fit:cover}
+
 h1 {
-  text-align: center;
-  margin-bottom: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
 }
 
 .issues-count {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #d4a017;
-  margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffeb6e;
+    margin-bottom: 20px;
 }
 
 .filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .filters input, .filters select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.subscription, .Available {
-  color: white;
-  font-size: 16px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 .game-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
 @media (max-width: 1024px) {
-  .game-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .game-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 600px) {
-  .game-container {
-    grid-template-columns: 1fr;
-  }
+    .game-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 .game-card {
-  background: rgba(255,255,255,0.5);
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.2s;
-  padding: 10px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    transition: 0.2s;
 }
 
 .game-card:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .game-card img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.issue-section {
+    color: #ffe066;
+    font-weight: bold;
+    padding-top: 8px;
 }
 
 .no-results {
-  text-align: center;
-  font-size: 18px;
-  color: #777;
-  grid-column: 1 / -1;
+    grid-column: 1 / -1;
+    text-align: center;
+    color: white;
+    font-size: 20px;
 }
 
 </style>
@@ -201,12 +217,8 @@ h1 {
 
 <body>
 
-<!-- =========================== -->
-<!-- PERFECT TOPBAR -->
-<!-- =========================== -->
-
+<!-- TOPBAR (unchanged) -->
 <div class="clean-topbar">
-
   <div class="tb-left">
     <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
     <span class="tb-title">3RROR5TUDIOS</span>
@@ -215,21 +227,19 @@ h1 {
   </div>
 
   <div class="tb-right" id="profileButton">
-    <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp" alt="avatar">
+    <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp">
     <span id="profileName">User</span>
-
-    <!-- Dropdown -->
-    <div id="profileDropdown">
-      <button id="openCustomizer">Customize Profile</button>
-      <button id="logoutBtn">Logout</button>
-    </div>
   </div>
-
 </div>
 
-<!-- =========================== -->
-<!-- PAGE CONTENT -->
-<!-- =========================== -->
+<!-- DROPDOWN -->
+<div id="profileDropdown" aria-hidden="true">
+  <button id="openCustomizer">Customize Profile</button>
+  <button id="logoutBtn">Logout</button>
+</div>
+
+<!-- CONTENT -->
+<br><br><br><br><br>
 
 <h1 style="font-size: 75px;">GAMES</h1>
 <div class="issues-count" id="issuesCount">Issues: 0</div>
@@ -245,8 +255,13 @@ h1 {
   </select>
   <input type="number" id="minPrice" placeholder="Min Price">
   <input type="number" id="maxPrice" placeholder="Max Price">
-  <label class="subscription"><input type="checkbox" id="subscriptionFilter"> ERRORVERSE XTRA</label>
-  <label class="Available"><input type="checkbox" id="AvailableFilter"> Available</label>
+
+  <label>
+    <input type="checkbox" id="subscriptionFilter"> ERRORVERSE XTRA
+  </label>
+  <label>
+    <input type="checkbox" id="AvailableFilter"> Available
+  </label>
 
   <select id="sortOption">
     <option value="">Sort By</option>
@@ -259,12 +274,105 @@ h1 {
 
 <div class="game-container" id="gameContainer"></div>
 
+<!-- GAMES SCRIPT -->
 <script>
-// Games script placeholder (unchanged)
+
+const games = [
+  { title: 'The Legend Of Phil A. Buster', price: 3.49, category: 'Roguelike', available: false, subscription: false, image: 'images/thelegendofphilabuster.png', issue: '' },
+  { title: 'Shadows Behind The Throne', price: 9.99, category: 'Strategy', available: false, subscription: true, image: 'images/shadows.png', issue: '' },
+  { title: 'WingStormX', price: 4.99, category: 'Racing', available: true, subscription: false, image: 'images/wsx.png', issue: 'Glitchy performence on Xbox ONE' },
+  { title: 'H3llVector', price: 4.99, category: 'Shooter', available: false, subscription: true, image: 'images/H3LLVECTOR.png', issue: '' },
+  { title: 'Galactic Warfront', price: 2.49, category: 'Shooter', available: true, subscription: false, image: 'images/galacticwarfront.png', issue: 'Broken save feature (not coming back)' },
+  { title: 'Strain 17', price: 7.49, category: 'Strategy', available: true, subscription: false, image: 'images/strain17.png', issue: 'Server crash' },
+];
+
+const gameContainer = document.getElementById('gameContainer');
+const searchInput = document.getElementById('searchInput');
+const categoryFilter = document.getElementById('categoryFilter');
+const minPrice = document.getElementById('minPrice');
+const maxPrice = document.getElementById('maxPrice');
+const subscriptionFilter = document.getElementById('subscriptionFilter');
+const availableFilter = document.getElementById('AvailableFilter');
+const sortOption = document.getElementById('sortOption');
+const issuesCount = document.getElementById('issuesCount');
+
+function updateIssuesCount() {
+  const count = games.filter(g => g.issue && g.issue.trim()).length;
+  issuesCount.textContent = `Issues: ${count}`;
+}
+
+function displayGames(list) {
+  gameContainer.innerHTML = '';
+
+  if (list.length === 0) {
+    gameContainer.innerHTML = '<div class="no-results">No results found.</div>';
+    return;
+  }
+
+  list.forEach(game => {
+    const div = document.createElement('div');
+    div.className = 'game-card';
+
+    div.innerHTML = `
+      <img src="${game.image}" alt="${game.title}">
+      <h3>${game.title}</h3>
+      <p>${game.category} - $${game.price.toFixed(2)}</p>
+      ${game.subscription ? `<p style="color:#00ff99;font-weight:bold;">Included in ERRORVERSE XTRA</p>` : ''}
+      ${!game.available ? `<p style="color:red;font-weight:bold;">NOT AVAILABLE</p>` : ''}
+      ${game.issue ? `<div class="issue-section">Issue: ${game.issue}</div>` : ''}
+    `;
+
+    gameContainer.appendChild(div);
+  });
+
+  updateIssuesCount();
+}
+
+function filterGames() {
+  const search = searchInput.value.toLowerCase();
+  const cat = categoryFilter.value;
+  const min = parseFloat(minPrice.value) || 0;
+  const max = parseFloat(maxPrice.value) || Infinity;
+  const sub = subscriptionFilter.checked;
+  const avail = availableFilter.checked;
+  const sort = sortOption.value;
+
+  let result = games.filter(g => {
+    return (
+      g.title.toLowerCase().includes(search) &&
+      (cat === '' || g.category === cat) &&
+      g.price >= min &&
+      g.price <= max &&
+      (!sub || g.subscription) &&
+      (!avail || g.available)
+    );
+  });
+
+  result.sort((a, b) => {
+    if (sort === 'title-asc') return a.title.localeCompare(b.title);
+    if (sort === 'title-desc') return b.title.localeCompare(a.title);
+    if (sort === 'price-asc') return a.price - b.price;
+    if (sort === 'price-desc') return b.price - a.price;
+    return 0;
+  });
+
+  displayGames(result);
+}
+
+filterGames();
+
+searchInput.addEventListener('input', filterGames);
+categoryFilter.addEventListener('change', filterGames);
+minPrice.addEventListener('input', filterGames);
+maxPrice.addEventListener('input', filterGames);
+subscriptionFilter.addEventListener('change', filterGames);
+availableFilter.addEventListener('change', filterGames);
+sortOption.addEventListener('change', filterGames);
+
 </script>
 
+<!-- PROFILE SYSTEM -->
 <script>
-// Load saved profile
 document.addEventListener("DOMContentLoaded", () => {
     const savedName = localStorage.getItem("profileName");
     const savedAvatar = localStorage.getItem("profileAvatar");
@@ -273,28 +381,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (savedAvatar) document.getElementById("profileAvatar").src = savedAvatar;
 });
 
-// Dropdown toggle
-const profileButton = document.getElementById("profileButton");
-const profileDropdown = document.getElementById("profileDropdown");
-
-profileButton.addEventListener("click", () => {
-    profileDropdown.style.display =
-        profileDropdown.style.display === "flex" ? "none" : "flex";
-});
-
-// Close dropdown when clicking outside
-document.addEventListener("click", (e) => {
-    if (!profileButton.contains(e.target)) {
-        profileDropdown.style.display = "none";
-    }
-});
-
-// Logout
-document.getElementById("logoutBtn").addEventListener("click", () => {
+function logout() {
     localStorage.removeItem("profileName");
     localStorage.removeItem("profileAvatar");
     window.location.href = "login.html";
-});
+}
 </script>
 
 </body>
