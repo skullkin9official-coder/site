@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ERRORVERSE - 3RROR5TUDIOS</title>
+<link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
+
+<!-- PlayFab SDK REQUIRED -->
+<script src="playfab/PlayFab.js"></script>
+<script src="playfab/PlayFabClientApi.js"></script>
+
+<style>
+/* Reset */
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #40006e, #8100b4);
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.logo-container img { width: 50px; height: 50px; }
+nav ul { display: flex; list-style: none; gap: 50px; }
+nav ul li { display: flex; align-items: center; }
+
+/* Profile menu top-right */
+.profile-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.profile-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-top img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffdd00;
+}
+
+.profile-menu span { font-weight: bold; color: #ffdd00; }
+
+.profile-menu button {
+  background: #c300ff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.profile-menu button:hover { transform: scale(1.05); }
+
+/* Card style */
+.card {
+  background: rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 150px auto 20px auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* Inputs/buttons */
+input, button { width: 100%; padding: 10px; margin-top: 8px; border-radius: 8px; border: none; font-size: 16px; }
+button { background: #c300ff; color: white; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+button:hover { transform: scale(1.05); }
+
+#status { margin-top: 12px; color: yellow; }
+
+/* Grid layout for inventory */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+
+.tile { background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; text-align: center; padding: 10px; transition: transform 0.2s; }
+.tile:hover { transform: scale(1.05); }
+.tile img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+.tile h3 { margin: 10px 0 5px; font-size: 16px; color: #ffdd00; }
+.tile p { font-size: 12px; color: #ddd; }
+
+/* Profile Customizer below card */
+#profileCustomizer {
+  background: rgba(0,0,0,0.3);
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+#profileCustomizer h3 { margin-bottom: 10px; color: #ffdd00; }
+#profileCustomizer input[type="text"] { margin-bottom: 10px; }
+#profileCustomizer img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; display: block; margin: 10px auto; border: 2px solid #ffdd00; }
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo-container">
+    <a href="Home.html"><img src="images/3RROR5TUDIOS.png" alt="logo" /></a>
+    <h1>3RROR5TUDIOS</h1>
+  </div>
+
+  <nav>
+    <ul>
+      <li>
+        <div class="logo-container">
+          <a href="Games.html">
+            <img src="images/controll.png" alt="logo" />
+            <p style="font-size: 10px;">GAMES</p>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="logo-container">
+          <a href="ERRORVERSE.html">
+            <img src="images/ERRORVERSE.png" alt="logo" />
+            <p style="font-size: 10px;">ERRORVERSE</p>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Profile menu top-right -->
+  <div class="profile-menu" id="profileMenu" style="display:none;">
+    <div class="profile-top">
+      <img id="profileAvatar" src="images/default_avatar.png" alt="Avatar">
+      <span id="profileName">User</span>
+    </div>
+    <button id="topLogoutBtn">Logout</button>
+  </div>
+</header>
+
+<div class="card" id="loginCard">
+  <h2>Login / Register</h2>
+  <label>Email</label>
+  <input id="email" placeholder="you@example.com">
+  <label>Password</label>
+  <input type="password" id="password" placeholder="min 6 chars">
+  <button id="loginBtn">Login</button>
+  <button id="registerBtn">Register</button>
+  <p id="status"></p>
+</div>
+
+<!-- Profile Customizer below login card -->
+<div id="profileCustomizer" style="display:none;">
+  <h3>Customize Profile</h3>
+  <img id="customAvatar" src="images/default_avatar.png" alt="Avatar">
+  <label>Username:</label>
+  <input type="text" id="customUsername" placeholder="Enter username">
+  <label>Avatar URL:</label>
+  <input type="text" id="customAvatarURL" placeholder="Enter avatar image URL">
+  <button id="saveProfile">Save Changes</button>
+</div>
+
+<!-- Inventory below profile customizer -->
+<div class="card" id="inventoryCard" style="display:none;">
+  <h2>Your Inventory</h2>
+  <button id="refreshInv">Refresh Inventory</button>
+  <div class="grid" id="inventoryGrid"></div>
+</div>
+
+<script>
+// PlayFab minimal wrapper
+var PlayFab = { settings:{ titleId:"1FC26D" }, _internalSettings:{ sessionTicket:null } };
+var PlayFabClientAPI = {
+  LoginWithEmailAddress:function(r,s,e){ r.TitleId=r.TitleId||PlayFab.settings.titleId;
+    fetch("https://"+r.TitleId+".playfabapi.com/Client/LoginWithEmailAddress",{method:"POST",headers:{"Content-Type":"application/json","X-PlayFabSDK":"JavaScriptSDK"},body:JSON.stringify(r)})
+    .then(x=>x.json()).then(resp=>resp.data?s(resp):e(resp)).catch(err=>e(err));},
+  RegisterPlayFabUser:function(r,s,e){ r.TitleId=r.TitleId||PlayFab.settings.titleId;
+    fetch("https://"+r.TitleId+".playfabapi.com/Client/RegisterPlayFabUser",{method:"POST",headers:{"Content-Type":"application/json","X-PlayFabSDK":"JavaScriptSDK"},body:JSON.stringify(r)})
+    .then(x=>x.json()).then(resp=>resp.data?s(resp):e(resp)).catch(err=>e(err));},
+  GetUserInventory:function(r,s,e){
+    fetch("https://"+PlayFab.settings.titleId+".playfabapi.com/Client/GetUserInventory",{method:"POST",headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket,"X-PlayFabSDK":"JavaScriptSDK"},body:JSON.stringify(r||{})})
+    .then(x=>x.json()).then(resp=>res.data?s(resp):e(resp)).catch(err=>e(err));
+  }
+};
+</script>
+
+<script>
+const emailEl=document.getElementById("email");
+const passwordEl=document.getElementById("password");
+const statusEl=document.getElementById("status");
+const loginBtn=document.getElementById("loginBtn");
+const registerBtn=document.getElementById("registerBtn");
+const loginCard=document.getElementById("loginCard");
+const inventoryCard=document.getElementById("inventoryCard");
+const inventoryGrid=document.getElementById("inventoryGrid");
+const refreshBtn=document.getElementById("refreshInv");
+
+// Profile menu
+const profileMenu = document.getElementById("profileMenu");
+const profileNameEl = document.getElementById("profileName");
+const profileAvatarEl = document.getElementById("profileAvatar");
+const topLogoutBtn = document.getElementById("topLogoutBtn");
+
+// Profile Customizer
+const profileCustomizer = document.getElementById("profileCustomizer");
+const customUsername = document.getElementById("customUsername");
+const customAvatar = document.getElementById("customAvatar");
+const customAvatarURL = document.getElementById("customAvatarURL");
+const saveProfile = document.getElementById("saveProfile");
+
+function setStatus(msg,color="yellow"){ statusEl.style.color=color; statusEl.textContent=msg; }
+
+function showProfileMenu(playFabId, avatar="images/default_avatar.png"){
+  profileNameEl.textContent = playFabId;
+  profileAvatarEl.src = avatar;
+  profileCustomizer.style.display = "block";
+  profileCustomizer.querySelector('#customUsername').value = playFabId;
+  profileCustomizer.querySelector('#customAvatar').src = avatar;
+  profileCustomizer.querySelector('#customAvatarURL').value = avatar;
+  profileMenu.style.display = "flex";
+}
+
+function hideProfileMenu(){ profileMenu.style.display = "none"; profileCustomizer.style.display = "none"; }
+
+function saveSession(res){
+  const d=res.data;
+  localStorage.setItem("PLAYFAB_PLAYFABID", d.PlayFabId);
+  localStorage.setItem("PLAYFAB_SESSIONTICKET", d.SessionTicket);
+  PlayFab._internalSettings.sessionTicket=d.SessionTicket;
+  setStatus("Logged in: "+d.PlayFabId,"#ffdd00");
+  showProfileMenu(d.PlayFabId);
+}
+
+// Login/Register
+loginBtn.onclick=()=>{
+  const email=emailEl.value.trim(); const pw=passwordEl.value;
+  if(!email||pw.length<6){ setStatus("Enter valid email/password","red"); return; }
+  setStatus("Logging in...");
+  PlayFabClientAPI.LoginWithEmailAddress({Email:email,Password:pw}, saveSession, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
+};
+registerBtn.onclick=()=>{
+  const email=emailEl.value.trim(); const pw=passwordEl.value;
+  if(!email||pw.length<6){ setStatus("Enter valid email/password","red"); return; }
+  setStatus("Registering...");
+  PlayFabClientAPI.RegisterPlayFabUser({Email:email,Password:pw,RequireBothUsernameAndEmail:false}, saveSession, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
+};
+
+// Fetch session
+function getSession(){
+  const s={ PlayFabId:localStorage.getItem("PLAYFAB_PLAYFABID"), SessionTicket:localStorage.getItem("PLAYFAB_SESSIONTICKET") };
+  if(!s.PlayFabId||!s.SessionTicket){ alert("No session. Login first."); return null; }
+  PlayFab._internalSettings.sessionTicket=s.SessionTicket;
+  return s;
+}
+
+// Inventory
+function fetchInventory(){
+  const s=getSession(); if(!s) return;
+  inventoryGrid.innerHTML="Loading...";
+  PlayFabClientAPI.GetUserInventory({}, res=>{
+    const items=(res.data.Inventory||[]);
+    if(!items.length){ inventoryGrid.innerHTML="<p>No items</p>"; return; }
+    inventoryGrid.innerHTML="";
+    items.forEach(i=>{
+      const tile=document.createElement("div");
+      tile.className="tile";
+      tile.innerHTML=`<img src="images/wsx.png"><h3>${i.DisplayName||i.ItemId}</h3><p>Uses: ${i.RemainingUses??"—"}</p>`;
+      inventoryGrid.appendChild(tile);
+    });
+  }, err=>{ inventoryGrid.innerHTML="<p>Error loading inventory</p>"; console.error(err); });
+}
+refreshBtn.onclick=fetchInventory;
+
+// Logout
+function logout(){
+  localStorage.removeItem("PLAYFAB_PLAYFABID");
+  localStorage.removeItem("PLAYFAB_SESSIONTICKET");
+  PlayFab._internalSettings.sessionTicket=null;
+  inventoryCard.style.display="none";
+  loginCard.style.display="block";
+  setStatus("Logged out","yellow");
+  hideProfileMenu();
+}
+topLogoutBtn.onclick = logout;
+
+// Profile Customizer Save
+saveProfile.onclick = ()=>{
+  const name = customUsername.value.trim() || "User";
+  const avatar = customAvatarURL.value.trim() || "images/default_avatar.png";
+  profileNameEl.textContent = name;
+  profileAvatarEl.src = avatar;
+  customAvatar.src = avatar;
+  localStorage.setItem("CUSTOM_USERNAME", name);
+  localStorage.setItem("CUSTOM_AVATAR", avatar);
+  setStatus("Profile updated!","#ffdd00");
+}
+
+// Auto-load session and custom profile
+(function(){
+  const pfid=localStorage.getItem("PLAYFAB_PLAYFABID");
+  const customName = localStorage.getItem("CUSTOM_USERNAME");
+  const customAvatar = localStorage.getItem("CUSTOM_AVATAR");
+  if(pfid){
+    const displayName = customName || pfid;
+    const avatar = customAvatar || "images/default_avatar.png";
+    setStatus("Cached session: "+pfid,"#ffdd00");
+    showProfileMenu(displayName, avatar);
+    inventoryCard.style.display = "block";
+    fetchInventory();
+  }
+})();
+</script>
+</body>
+</html>

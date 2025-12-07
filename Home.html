@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3RROR5TUDIOS</title>
+    <link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+
+  <header>
+    <div class="logo-container">
+      <a href="Home.html">
+            <img src="images/3RROR5TUDIOS.png" alt="logo" />
+          </a>
+      <h1>3RROR5TUDIOS</h1>
+    </div>
+    
+    <nav>
+      <ul>
+        <li>
+        <div class="logo-container">
+          <a href="Games.html">
+            <img src="images/controll.png" alt="logo" />
+            <p style="font-size: 10px;"> GAMES </p>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="logo-container">
+          <a href="ERRORVERSE.html">
+            <img src="images/ERRORVERSE.png" alt="logo" />
+            <p style="font-size: 10px;"> ERRORVERSE </p>
+          </a>
+        </div>
+      </li>
+
+      </ul>
+    </nav>
+  </header>
+<body>
+
+
+<div class="slider-container">
+
+    <!-- Pijlen -->
+    <button class="arrow left">❮</button>
+    <button class="arrow right">❯</button>
+
+    <!-- Slides -->
+    <div class="slider">
+
+        <div class="slide" style="--bg:url('images/wsxbg.png')">
+            <div class="content">
+                <img src="images/wsx.png" class="logo">
+                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">
+                  WingStormX Security Patch</h2>
+                <p>This update resolves a security issue affecting all games using the Unity engine.</p>
+                <p2 style="font-size: 10px; color: yellow;">
+                  *Requires latest WingStormX & W11 security update
+                </p2>
+                <a href="https://www.xbox.com/en-US/games/store/wingstormx/9ndtj4njpxg5" class="btn" target="_blank" rel="noopener noreferrer">
+                  Fly In
+                </a>
+            </div>
+        </div>
+
+        <div class="slide" style="--bg:url('images/tlopab.png')">
+            <div class="content">
+                <img src="images/sneak.png" class="logo">
+                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">
+                  New Game Announced</h2>
+                <p>A roguelike deckbuilder and the first game with ERRORVERSE!</p>
+                <p2 style="font-size: 10px; color: yellow;">
+                  *Pre-orders start mid 2026
+                </p2>
+                <a href="Home.html" class="btn">[SOON]</a>
+            </div>
+        </div>
+
+        <div class="slide" style="--bg:url('images/slide1.png')">
+            <div class="content">
+                <img src="images/ERRORVERSE.png" class="logo">
+                <h2 style="font-size: 35px; color: rgb(195, 0, 255);">
+                  ERRORVERSE</h2>
+                <p>Free [+] subscription to level up YOUR game!</p>
+                <p2 style="font-size: 10px; color: yellow;">
+                  *Requires at least 1 game purchase
+                </p2>
+                <a href="ERRORVERSE.html" class="btn">Step In</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Dots navigatie -->
+    <div class="dots"></div>
+
+</div>
+
+<!-- JS pad -->
+<script src="js/slider.js"></script>
+</body>
+
+<style>
+  body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #40006e, #8100b4);
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-auto-rows: 400px;
+    gap: 20px;
+    width: 100%;
+    max-width: 2400px;
+    grid-auto-flow: dense; /* fill gaps like Xbox */
+  }
+
+  .tile {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tile h3 {
+    margin: 10px 0 5px;
+  }
+
+  .tile p {
+    margin: 0 0 10px;
+    color: #555;
+  }
+
+  /* Sizes */
+  .normal { grid-row: span 1; }
+  .scale-150 { grid-row: span 2; } /* taller tile = 150% height visually */
+</style>
+</head>
+<body>
+
+<div class="grid" id="grid"></div>
+
+<script>
+function createTile(game, size='normal') {
+  const tile = document.createElement('div');
+  tile.className = `tile ${size}`;
+  tile.innerHTML = `
+    <img src="${game.image}" alt="${game.title}">
+    <h3>${game.title}</h3>
+    <p>${game.subtext} ➔</p>
+  `;
+  tile.onclick = () => window.location.href = game.link;
+  return tile;
+}
+
+const games = [
+  {title:'ERRORVERSE', subtext:'Premium gaming by playing', image:'images/ERRORVERSE.png', link:'#', size:'normal'},
+  {title:'Discover your next favorite game', subtext:'Affordable for your wallet from just €2,49', image:'images/games.png', link:'#', size:'scale-150'},
+  {title:'Benefits with ERRORVERSE', subtext:'Upgrade to ERRORVERSE XTRA and earn more benefits by playing your favorite game', image:'images/benefits.png', link:'#', size:'scale-150'},
+  {title:'Shadow Quest', subtext:'Adventure Game - $9.99', image:'images/thelegendofphilabuster.png', link:'#', size:'normal'},
+  {title:' ', subtext:'  ', image:'', link:'#', size:'scale-150'},
+  {title:' ', subtext:'  ', image:'', link:'#', size:'scale-150'},
+  {title:'Strain 17', subtext:'Strategy Game - $7.49', image:'images/strain17.png', link:'#', size:'normal'},
+  {title:'Strain 17', subtext:'Strategy Game - $7.49', image:'images/wsx.png', link:'#', size:'normal'},
+];
+
+const grid = document.getElementById('grid');
+games.forEach(g => grid.appendChild(createTile(g, g.size)));
+</script>
+
+</body>
+</html>

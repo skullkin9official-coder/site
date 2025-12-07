@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3RROR5TUDIOS</title>
+    <link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+
+  <header>
+    <div class="logo-container">
+      <a href="Home.html">
+            <img src="images/3RROR5TUDIOS.png" alt="logo" />
+          </a>
+      <h1>3RROR5TUDIOS</h1>
+    </div>
+    
+    <nav>
+      <ul>
+        <li>
+        <div class="logo-container">
+          <a href="Games.html">
+            <img src="images/controll.png" alt="logo" />
+            <p style="font-size: 10px;"> GAMES </p>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="logo-container">
+          <a href="ERRORVERSE.html">
+            <img src="images/ERRORVERSE.png" alt="logo" />
+            <p style="font-size: 10px;"> ERRORVERSE </p>
+          </a>
+        </div>
+      </li>
+
+      </ul>
+    </nav>
+  </header>
+<body>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #40006e, #8100b4);
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .issues-count {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #d4a017; /* yellow color */
+      margin-bottom: 20px;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .filters input, .filters select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .filters label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 16px;
+    }
+    .game-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1024px) {
+      .game-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .game-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .game-card {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s;
+      padding: 10px;
+    }
+    .game-card:hover {
+      transform: scale(1.05);
+    }
+    .game-card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+    .game-card h3 {
+      margin: 10px 0 5px 0;
+    }
+    .game-card p {
+      margin: 0 0 10px 0;
+      color: #555;
+    }
+    .no-results {
+      text-align: center;
+      font-size: 18px;
+      color: #777;
+      grid-column: 1 / -1;
+    }
+    .subscription {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .issue-section {
+      margin-top: 10px;
+      text-align: left;
+      padding: 0 10px 10px 10px;
+      color: #d4a017; /* yellow for issue */
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="font-size: 75px;">GAMES</h1>
+<div class="issues-count" id="issuesCount">Issues: 0</div>
+
+<div class="filters">
+  <input type="text" id="searchInput" placeholder="Search for a game...">
+  <select id="categoryFilter">
+    <option value="">All Categories</option>
+    <option value="Racing">Racing</option>
+    <option value="Roguelike">Roguelike</option>
+    <option value="Strategy">Strategy</option>
+    <option value="Shooter">Shooter</option>
+  </select>
+  <input type="number" id="minPrice" placeholder="Min Price">
+  <input type="number" id="maxPrice" placeholder="Max Price">
+  <label class="subscription">
+    <input type="checkbox" id="subscriptionFilter">
+    ERRORVERSE XTRA
+  </label>
+  <label class="Available">
+    <input type="checkbox" id="AvailableFilter">
+    Available
+  </label>
+  <select id="sortOption">
+    <option value="">Sort By</option>
+    <option value="title-asc">Title A → Z</option>
+    <option value="title-desc">Title Z → A</option>
+    <option value="price-asc">Price Low → High</option>
+    <option value="price-desc">Price High → Low</option>
+  </select>
+</div>
+
+<div class="game-container" id="gameContainer"></div>
+
+<script>
+  const games = [
+    { title: 'The Legend Of Phil A. Buster', price: 3.49, category: 'Roguelike', available: false, subscription: false, image: 'images/thelegendofphilabuster.png', issue: '' },
+    { title: 'Shadows Behind The Throne', price: 9.99, category: 'Strategy', available: false, subscription: true, image: 'images/shadows.png', issue: '' },
+    { title: 'WingStormX', price: 4.99, category: 'Racing', available: true, subscription: false, image: 'images/wsx.png', issue: 'Glitchy performence on Xbox ONE' },
+    { title: 'H3llVector', price: 4.99, category: 'Shooter', available: false, subscription: true, image: 'images/H3LLVECTOR.png', issue: '' },
+    { title: 'Galactic Warfront', price: 2.49, category: 'Shooter', available: true, subscription: false, image: 'images/galacticwarfront.png', issue: 'Broken save feature(not coming back)' },
+    { title: 'Strain 17', price: 7.49, category: 'Strategy', available: true, subscription: false, image: 'images/strain17.png', issue: 'Server crash' },
+  ];
+
+  const gameContainer = document.getElementById('gameContainer');
+  const searchInput = document.getElementById('searchInput');
+  const categoryFilter = document.getElementById('categoryFilter');
+  const minPrice = document.getElementById('minPrice');
+  const maxPrice = document.getElementById('maxPrice');
+  const subscriptionFilter = document.getElementById('subscriptionFilter');
+  const availableFilter = document.getElementById('AvailableFilter');
+  const sortOption = document.getElementById('sortOption');
+  const issuesCount = document.getElementById('issuesCount');
+
+  function updateIssuesCount() {
+    const count = games.filter(g => g.issue && g.issue.trim() !== '').length;
+    issuesCount.textContent = `Issues: ${count}`;
+  }
+
+  function displayGames(filteredGames) {
+    gameContainer.innerHTML = '';
+    if (filteredGames.length === 0) {
+      gameContainer.innerHTML = '<div class="no-results">No results found</div>';
+      return;
+    }
+
+    filteredGames.forEach(game => {
+      const card = document.createElement('div');
+      card.classList.add('game-card');
+      card.innerHTML = `
+        <img src="${game.image}" alt="${game.title}">
+        <h3>${game.title}</h3>
+        <p>${game.category} - $${game.price.toFixed(2)}</p>
+        ${game.subscription ? '<p style="color: green; font-weight: bold;">Included in ERRORVERSE XTRA</p>' : ''}
+        ${!game.available ? '<p style="color: red; font-weight: bold;">NOT AVAILABLE!</p>' : ''}
+        ${game.issue ? `<div class="issue-section">Issue: ${game.issue}</div>` : ''}
+      `;
+      gameContainer.appendChild(card);
+    });
+
+    updateIssuesCount();
+  }
+
+  function filterGames() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const category = categoryFilter.value;
+    const min = parseFloat(minPrice.value) || 0;
+    const max = parseFloat(maxPrice.value) || Infinity;
+    const subscription = subscriptionFilter.checked;
+    const available = availableFilter.checked;
+    const sort = sortOption.value;
+
+    let filtered = games.filter(game => {
+      const matchesSearch = game.title.toLowerCase().includes(searchTerm);
+      const matchesCategory = category === '' || game.category === category;
+      const matchesPrice = game.price >= min && game.price <= max;
+      const matchesSubscription = !subscription || game.subscription;
+      const matchesAvailable = !available || game.available;
+      return matchesSearch && matchesCategory && matchesPrice && matchesSubscription && matchesAvailable;
+    });
+
+    filtered.sort((a, b) => {
+      if (a.available && !b.available) return -1;
+      if (!a.available && b.available) return 1;
+
+      if (sort === 'title-asc') return a.title.localeCompare(b.title);
+      if (sort === 'title-desc') return b.title.localeCompare(a.title);
+      if (sort === 'price-asc') return a.price - b.price;
+      if (sort === 'price-desc') return b.price - a.price;
+
+      return a.title.localeCompare(b.title);
+    });
+
+    displayGames(filtered);
+  }
+
+  filterGames();
+
+  searchInput.addEventListener('input', filterGames);
+  categoryFilter.addEventListener('change', filterGames);
+  minPrice.addEventListener('input', filterGames);
+  maxPrice.addEventListener('input', filterGames);
+  subscriptionFilter.addEventListener('change', filterGames);
+  availableFilter.addEventListener('change', filterGames);
+  sortOption.addEventListener('change', filterGames);
+</script>
+
+</body>
+</html>
