@@ -1,258 +1,207 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3RROR5TUDIOS</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3RROR5TUDIOS — Errorverse</title>
   <link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
-
-<style>
-* { box-sizing: border-box; margin:0; padding:0; }
-
-body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #40006e, #8100b4);
-  color: white;
-  min-height: 100vh;
-  padding-top: 120px;  /* space for the rounded topbar */
+  <style>
+/* ---------- styles (kept/cleaned) ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#40006e,#8100b4);
+  color:#fff;
+  min-height:100vh;
+  padding-top:120px; /* space for rounded topbar */
 }
 
-/* ============= TOP (ROUNDED) BAR ============= */
-.clean-topbar {
-    position: fixed;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 92%;
-    height: 60px;
-
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 18px;
-
-    backdrop-filter: blur(12px);
-    padding: 0 25px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    z-index: 9999;
+/* rounded topbar */
+.clean-topbar{
+  position:fixed;top:15px;left:50%;transform:translateX(-50%);
+  width:92%;height:60px;background:rgba(0,0,0,0.25);
+  border-radius:18px;backdrop-filter:blur(12px);padding:0 25px;
+  display:flex;justify-content:space-between;align-items:center;z-index:9999;
 }
+.tb-left{display:flex;align-items:center;gap:18px}
+.tb-logo{height:36px}
+.tb-title{font-size:20px;font-weight:700;color:#fff;margin-right:10px}
+.tb-link{color:#fff;text-decoration:none;font-size:16px;padding:6px 10px;border-radius:8px;transition:.15s}
+.tb-link:hover{background:rgba(255,255,255,0.06)}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-pfp{width:34px;height:34px;border-radius:50%;border:2px solid #ffdd00;object-fit:cover}
 
-/* LEFT SIDE */
-.tb-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+/* cards */
+.card{
+  background:rgba(0,0,0,0.4);padding:20px;border-radius:12px;max-width:600px;margin:30px auto;box-shadow:0 6px 18px rgba(0,0,0,.35)
 }
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px}
+.tile{background:rgba(255,255,255,0.08);padding:10px;text-align:center;border-radius:10px}
+.tile img{width:100%;border-radius:10px}
+#profileCustomizer img{width:64px;height:64px;border-radius:50%;display:block;margin:8px auto;object-fit:cover}
 
-.tb-logo {
-    height: 36px;
-}
+/* dropdown */
+#profileDropdown{position:fixed;top:90px;right:calc((100% - 92%)/2 + 25px);width:220px;background:rgba(0,0,0,0.65);border-radius:10px;padding:10px;display:none;z-index:10000;animation:dropdownFade .12s ease-out}
+#profileDropdown button{width:100%;background:#c300ff;border:none;padding:8px;border-radius:8px;color:#fff;margin-bottom:8px;cursor:pointer}
+@keyframes dropdownFade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
-.tb-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    margin-right: 10px;
-}
+/* small forms */
+input[type="text"],input[type="password"],input[type="email"]{width:100%;padding:10px;border-radius:8px;border:none;margin-top:8px;background:#fff;background-clip:padding-box;color:#000}
+textarea{width:100%;padding:10px;border-radius:8px;border:none;margin-top:8px}
+button.primary{background:#c300ff;border:none;color:#fff;padding:10px;border-radius:8px;cursor:pointer;font-weight:700}
+button.secondary{background:#6a00d6;border:none;color:#fff;padding:8px;border-radius:8px;cursor:pointer}
 
-/* LINKS */
-.tb-link {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 6px 10px;
-    border-radius: 8px;
-    transition: 0.2s;
-}
+/* helper */
+.hidden{display:none!important}
+small.note{color:#ffd400;font-size:13px;display:block;margin-top:8px}
 
-.tb-link:hover {
-    background: rgba(255,255,255,0.08);
+/* responsive */
+@media(max-width:600px){
+  .clean-topbar{width:96%;padding:0 12px}
+  #profileDropdown{right:8px;top:85px}
 }
-
-/* RIGHT SIDE */
-.tb-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tb-pfp {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 2px solid #ffdd00;
-    object-fit: cover;
-}
-
-/* smaller utilities */
-.hidden { display:none !important; }
-
-/* CARDS */
-.card {
-  background: rgba(0,0,0,0.4);
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 500px;
-  margin: 30px auto;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-}
-
-/* INVENTORY GRID */
-.grid { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); 
-  gap: 20px; 
-}
-
-.tile {
-  background: rgba(255,255,255,0.08);
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-}
-.tile img { width:100%; border-radius: 10px; }
-
-/* PROFILE CUSTOMIZER */
-#profileCustomizer {
-  background: rgba(0,0,0,0.3);
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 15px;
-  border-radius: 12px;
-  /* note: stays visible per your request */
-}
-
-#profileCustomizer img {
-  width: 64px; height: 64px; border-radius: 50%; display:block; margin: 8px auto;
-}
-
-/* DROPDOWN (profile) */
-#profileDropdown {
-  position: fixed;
-  top: 90px;
-  right: calc((100% - 92%)/2 + 25px); /* align to right edge of rounded bar */
-  width: 200px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 10px;
-  padding: 10px;
-  display: none;
-  z-index: 10000;
-  animation: dropdownFade .12s ease-out;
-}
-#profileDropdown button {
-  width: 100%;
-  background: #c300ff;
-  border: none;
-  padding: 8px;
-  border-radius: 8px;
-  color: white;
-  margin-bottom: 8px;
-  cursor: pointer;
-}
-@keyframes dropdownFade {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* small responsive tweak */
-@media (max-width:600px){
-  .clean-topbar { width: 96%; padding: 0 12px; }
-  #profileDropdown { right: 10px; top: 85px; }
-}
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ====== TOP BAR (rounded) ====== -->
+<!-- ========== TOP BAR (rounded) ========== -->
 <div class="clean-topbar">
   <div class="tb-left">
     <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
     <span class="tb-title">ERRORVERSE</span>
-
     <a href="Games.html" class="tb-link">Games</a>
     <a href="ERRORVERSE.html" class="tb-link">Errorverse</a>
   </div>
 
-  <!-- IMPORTANT: give this element the ID profileButton so JS can attach -->
-  <div class="tb-right" id="profileButton">
+  <div class="tb-right" id="profileButton" role="button" aria-haspopup="true">
     <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp" alt="avatar">
     <span id="profileName">User</span>
   </div>
 </div>
 
-<!-- PROFILE DROPDOWN -->
+<!-- dropdown -->
 <div id="profileDropdown" aria-hidden="true">
   <button id="openCustomizer">Customize Profile</button>
   <button id="logoutBtn">Logout</button>
 </div>
 
-<!-- ========== LOGIN CARD (keeps visible) ========== -->
+<!-- ========== LOGIN (keeps visible) ========== -->
 <div class="card" id="loginCard">
   <h2>Login / Register</h2>
+
   <label>Email</label>
-  <input id="email" placeholder="you@example.com" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
-  <label style="display:block;margin-top:10px;">Password</label>
-  <input type="password" id="password" placeholder="min 6 chars" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
+  <input id="email" type="email" placeholder="you@example.com">
+
+  <label style="margin-top:10px">Password</label>
+  <input id="password" type="password" placeholder="min 6 chars">
+
   <div style="display:flex;gap:10px;margin-top:12px;">
-    <button id="loginBtnMain" style="flex:1;padding:10px;border-radius:8px;border:none;background:#c300ff;color:white;font-weight:bold;">Login</button>
-    <button id="registerBtn" style="flex:1;padding:10px;border-radius:8px;border:none;background:#ff4dd9;color:white;font-weight:bold;">Register</button>
+    <button id="loginBtnMain" class="primary" style="flex:1">Login</button>
+    <button id="registerBtn" class="secondary" style="flex:1">Register</button>
   </div>
-  <p id="status" style="margin-top:10px;color:#ffd500;"></p>
+
+  <p id="status" class="note"></p>
+
+  <!-- 2FA: shown only when needed -->
+  <div id="twofaBox" style="margin-top:12px;display:none;">
+    <label>Enter 2FA code</label>
+    <input id="twofaInput" type="text" placeholder="6-digit code">
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <button id="verify2faBtn" class="primary" style="flex:1">Verify</button>
+      <button id="cancel2faBtn" class="secondary" style="flex:1">Cancel</button>
+    </div>
+    <small class="note">Using Google Authenticator (TOTP)</small>
+  </div>
 </div>
 
-<!-- ========== PROFILE CUSTOMIZER (keeps visible) ========== -->
+<!-- ========== PROFILE CUSTOMIZER (keeps visible, now includes 2FA setup) ========== -->
 <div id="profileCustomizer" class="card">
-  <h3 style="color:#ffd500;margin-bottom:10px;">Customize Profile</h3>
+  <h3 style="color:#ffd400">Customize Profile</h3>
   <img id="customAvatar" src="images/default_avatar.png" alt="avatar">
+
   <label>Username:</label>
-  <input type="text" id="customUsername" placeholder="Enter username" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
-  <label style="margin-top:10px;display:block;">Avatar URL:</label>
-  <input type="text" id="customAvatarURL" placeholder="Enter avatar image URL" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
-  <button id="saveProfile" style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:none;background:#c300ff;color:white;font-weight:bold;">Save Changes</button>
+  <input type="text" id="customUsername" placeholder="Enter username">
+
+  <label style="margin-top:10px">Avatar URL:</label>
+  <input type="text" id="customAvatarURL" placeholder="https://...">
+
+  <div style="display:flex;gap:10px;margin-top:12px;">
+    <button id="saveProfile" class="primary" style="flex:1">Save Changes</button>
+    <button id="savePlayfabBtn" class="secondary" style="flex:1">Save to PlayFab</button>
+  </div>
+
+  <hr style="border:none;height:10px">
+
+  <!-- TOTP setup -->
+  <h4 style="margin-top:6px">Two-Factor Authentication (Google Authenticator)</h4>
+  <div id="totpSetup">
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button id="enable2faBtn" class="primary" style="flex:1">Enable 2FA</button>
+      <button id="disable2faBtn" class="secondary" style="flex:1">Disable 2FA</button>
+    </div>
+
+    <div id="setupArea" style="margin-top:12px;display:none;">
+      <p style="font-size:13px">Scan this QR in Google Authenticator or copy the secret below.</p>
+      <img id="qrImg" src="" alt="qr" style="display:block;margin:10px auto;max-width:180px;background:#fff;padding:6px;border-radius:6px">
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input id="secretText" type="text" readonly style="flex:1;padding:8px;border-radius:6px;border:none;background:#fff;color:#000">
+        <button id="copySecret" class="secondary">Copy</button>
+      </div>
+
+      <label style="margin-top:8px">Enter code to confirm</label>
+      <input id="confirm2faCode" type="text" placeholder="6-digit code">
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button id="confirm2faBtn" class="primary" style="flex:1">Confirm</button>
+        <button id="hideSetup" class="secondary" style="flex:1">Cancel</button>
+      </div>
+    </div>
+    <small id="totpNote" class="note">2FA status: <span id="totpStatus">Disabled</span></small>
+  </div>
 </div>
 
-<!-- ========== INVENTORY (shows after login) ========== -->
-<div class="card" id="inventoryCard" style="display:none;">
+<!-- ========== INVENTORY ========== -->
+<div class="card" id="inventoryCard" style="display:none">
   <h2>Your Inventory</h2>
-  <button id="refreshInv" style="padding:8px;border-radius:8px;border:none;background:#6a00d6;color:white;margin-top:10px;">Refresh Inventory</button>
-  <div class="grid" id="inventoryGrid" style="margin-top:12px;"></div>
+  <button id="refreshInv" class="secondary" style="margin-top:8px">Refresh Inventory</button>
+  <div class="grid" id="inventoryGrid" style="margin-top:12px"></div>
 </div>
 
-<!-- ================= PLAYFAB CLIENT WRAPPER ================= -->
+<!-- ========== JS section: PlayFab + TOTP ========== -->
 <script>
+/* ============================
+   PlayFab client wrapper (kept)
+   ============================ */
 var PlayFab={settings:{titleId:"1FC26D"},_internalSettings:{sessionTicket:null}};
 
 var PlayFabClientAPI={
   LoginWithEmailAddress:(req,success,error)=>{
     req.TitleId=PlayFab.settings.titleId;
-    fetch("https://1FC26D.playfabapi.com/Client/LoginWithEmailAddress",{
-      method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(req)
-    }).then(r=>r.json()).then(x=>x.data?success(x):error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/LoginWithEmailAddress",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(req)})
+    .then(r=>r.json()).then(x=>x.data?success(x):error(x)).catch(e=>error(e));
   },
   RegisterPlayFabUser:(req,success,error)=>{
     req.TitleId=PlayFab.settings.titleId;
-    fetch("https://1FC26D.playfabapi.com/Client/RegisterPlayFabUser",{
-      method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(req)
-    }).then(r=>r.json()).then(x=>x.data?success(x):error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/RegisterPlayFabUser",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(req)})
+    .then(r=>r.json()).then(x=>x.data?success(x):error(x)).catch(e=>error(e));
   },
   GetUserInventory:(req,success,error)=>{
-    fetch("https://1FC26D.playfabapi.com/Client/GetUserInventory",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "X-Authorization":PlayFab._internalSettings.sessionTicket
-      },
-      body:"{}"
-    }).then(r=>r.json()).then(x=>x.data?success(x):error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/GetUserInventory",{method:"POST",headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket},body:"{}"})
+    .then(r=>r.json()).then(x=>x.data?success(x):error(x)).catch(e=>error(e));
+  },
+  // Client UpdateUserData and UpdateUserTitleDisplayName
+  UpdateUserData:(req,success,error)=>{
+    fetch("https://1FC26D.playfabapi.com/Client/UpdateUserData",{method:"POST",headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket},body:JSON.stringify(req)})
+    .then(r=>r.json()).then(x=>x.data?success(x):error(x)).catch(e=>error(e));
+  },
+  UpdateUserTitleDisplayName:(req,success,error)=>{
+    fetch("https://1FC26D.playfabapi.com/Client/UpdateUserTitleDisplayName",{method:"POST",headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket},body:JSON.stringify(req)})
+    .then(r=>r.json()).then(x=>x.data?success(x):error(x)).catch(e=>error(e));
   }
 };
-</script>
 
-<!-- ================= TOPBAR & UI LOGIC ================= -->
-<script>
-/* ELEMENTS */
+/* ============================
+   Helpers & element refs
+   ============================ */
 const profileButton = document.getElementById("profileButton");
 const profileDropdown = document.getElementById("profileDropdown");
 const navbarName = document.getElementById("profileName");
@@ -275,74 +224,322 @@ const customUsername = document.getElementById("customUsername");
 const customAvatar = document.getElementById("customAvatar");
 const customAvatarURL = document.getElementById("customAvatarURL");
 const saveProfile = document.getElementById("saveProfile");
+const savePlayfabBtn = document.getElementById("savePlayfabBtn");
 
-/* UTIL */
-function setStatus(msg,color="yellow"){ statusEl.style.color=color; statusEl.textContent=msg; }
+const enable2faBtn = document.getElementById("enable2faBtn");
+const disable2faBtn = document.getElementById("disable2faBtn");
+const setupArea = document.getElementById("setupArea");
+const qrImg = document.getElementById("qrImg");
+const secretText = document.getElementById("secretText");
+const confirm2faCode = document.getElementById("confirm2faCode");
+const confirm2faBtn = document.getElementById("confirm2faBtn");
+const hideSetup = document.getElementById("hideSetup");
+const totpStatus = document.getElementById("totpStatus");
+const copySecret = document.getElementById("copySecret");
 
-/* TOPBAR: toggle dropdown */
-profileButton.addEventListener("click", (e)=>{
-  e.stopPropagation();
-  profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" : "block";
+const twofaBox = document.getElementById("twofaBox");
+const twofaInput = document.getElementById("twofaInput");
+const verify2faBtn = document.getElementById("verify2faBtn");
+const cancel2faBtn = document.getElementById("cancel2faBtn");
+
+/* ============================
+   TOTP implementation (RFC6238)
+   - base32 decode
+   - HMAC-SHA1 using WebCrypto
+   - generateTOTP
+   ============================ */
+
+/* Base32 decode (RFC4648) */
+function base32toHex(base32){
+  base32 = base32.replace(/=+$/,'').toUpperCase();
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+  let bits = "";
+  for(let i=0;i<base32.length;i++){
+    const val = alphabet.indexOf(base32.charAt(i));
+    if(val===-1) continue;
+    bits += val.toString(2).padStart(5,'0');
+  }
+  // convert bits to hex
+  let hex = "";
+  for(let i=0;i+8<=bits.length;i+=8){
+    hex += parseInt(bits.substr(i,8),2).toString(16).padStart(2,'0');
+  }
+  return hex;
+}
+
+/* convert hex to ArrayBuffer */
+function hexToArrayBuffer(hex){
+  if(hex.length%2) hex='0'+hex;
+  const len = hex.length/2;
+  const ab = new Uint8Array(len);
+  for(let i=0;i<len;i++) ab[i]=parseInt(hex.substr(i*2,2),16);
+  return ab.buffer;
+}
+
+/* HMAC-SHA1 using WebCrypto, input key ArrayBuffer, message ArrayBuffer */
+async function hmacSha1(keyBuf, messageBuf){
+  const key = await crypto.subtle.importKey("raw", keyBuf, {name:"HMAC",hash:{name:"SHA-1"}}, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", key, messageBuf);
+  return new Uint8Array(sig);
+}
+
+/* Generate TOTP
+   secretBase32: base32 secret string
+   timeStep: seconds (default 30)
+   digits: code digits (default 6)
+*/
+async function generateTOTP(secretBase32, timeStep=30, digits=6){
+  const keyHex = base32toHex(secretBase32);
+  const keyBuf = hexToArrayBuffer(keyHex);
+  const epoch = Math.floor(Date.now()/1000);
+  const counter = Math.floor(epoch/timeStep);
+  // 8-byte counter big-endian
+  const counterBuf = new ArrayBuffer(8);
+  const dv = new DataView(counterBuf);
+  // set high/low 32 bits
+  const high = Math.floor(counter/0x100000000);
+  const low = counter & 0xffffffff;
+  dv.setUint32(0, high);
+  dv.setUint32(4, low);
+  const hmac = await hmacSha1(keyBuf, counterBuf);
+  // dynamic truncation
+  const offset = hmac[hmac.length-1] & 0x0f;
+  const code = ((hmac[offset]&0x7f)<<24) | ((hmac[offset+1]&0xff)<<16) | ((hmac[offset+2]&0xff)<<8) | (hmac[offset+3]&0xff);
+  const otp = (code % (10**digits)).toString().padStart(digits,'0');
+  return otp;
+}
+
+/* Verify TOTP allowing window +-1 (30s) */
+async function verifyTOTP(secretBase32, code, timeStep=30, digits=6){
+  if(!secretBase32 || !code) return false;
+  code = String(code).trim();
+  // check +/-1 window
+  for(let i=-1;i<=1;i++){
+    const epoch = Math.floor((Date.now()/1000 + i*timeStep)/timeStep);
+    // generate with offset by changing counter inside generate function by mocking Date (easier to implement directly)
+    // We'll implement a helper that accepts counter override:
+    const otp = await generateTOTPWithCounter(secretBase32, epoch, digits);
+    if(otp === code) return true;
+  }
+  return false;
+}
+
+async function generateTOTPWithCounter(secretBase32, counter, digits=6){
+  const keyHex = base32toHex(secretBase32);
+  const keyBuf = hexToArrayBuffer(keyHex);
+  const counterBuf = new ArrayBuffer(8);
+  const dv = new DataView(counterBuf);
+  const high = Math.floor(counter/0x100000000);
+  const low = counter & 0xffffffff;
+  dv.setUint32(0, high);
+  dv.setUint32(4, low);
+  const hmac = await hmacSha1(keyBuf, counterBuf);
+  const offset = hmac[hmac.length-1] & 0x0f;
+  const code = ((hmac[offset]&0x7f)<<24) | ((hmac[offset+1]&0xff)<<16) | ((hmac[offset+2]&0xff)<<8) | (hmac[offset+3]&0xff);
+  const otp = (code % (10**digits)).toString().padStart(digits,'0');
+  return otp;
+}
+
+/* Generate random Base32 secret */
+function generateBase32Secret(length=16){
+  const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+  let s="";
+  const arr = new Uint8Array(length);
+  crypto.getRandomValues(arr);
+  for(let i=0;i<length;i++){
+    s += alphabet[arr[i] % alphabet.length];
+  }
+  return s;
+}
+
+/* Build otpauth URL */
+function buildOtpAuthURL(account, issuer, secret){
+  // label must be URL-encoded
+  const label = encodeURIComponent(`${issuer}:${account}`);
+  const params = `secret=${secret}&issuer=${encodeURIComponent(issuer)}&algorithm=SHA1&digits=6&period=30`;
+  return `otpauth://totp/${label}?${params}`;
+}
+
+/* Generate QR image URL using Google Charts */
+function generateQRImageUrl(data, size=200){
+  return "https://chart.googleapis.com/chart?cht=qr&chs=" + size + "x" + size + "&chl=" + encodeURIComponent(data);
+}
+
+/* ============================
+   TOTP: setup/enable/disable flow
+   ============================ */
+function getTOTPKeyForAccount(playfabId){
+  if(!playfabId) return null;
+  return localStorage.getItem("TOTP_SECRET_" + playfabId) || null;
+}
+function setTOTPKeyForAccount(playfabId, secret){
+  if(!playfabId || !secret){ return; }
+  localStorage.setItem("TOTP_SECRET_" + playfabId, secret);
+}
+function removeTOTPForAccount(playfabId){
+  if(!playfabId) return;
+  localStorage.removeItem("TOTP_SECRET_" + playfabId);
+}
+
+/* Update TOTP UI status */
+function refreshTOTPStatus(){
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
+  const secret = pfid ? getTOTPKeyForAccount(pfid) : null;
+  totpStatus.textContent = secret ? "Enabled" : "Disabled";
+}
+
+/* Enable 2FA: generate secret and show QR */
+enable2faBtn.addEventListener("click", ()=>{
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID") || "local-user";
+  // generate secret
+  const secret = generateBase32Secret(20);
+  // store temporary in session (don't commit until confirmed)
+  sessionStorage.setItem("TOTP_PENDING_SECRET", secret);
+  // build otpauth
+  const labelAccount = (document.getElementById("customUsername").value.trim() || pfid);
+  const otpauth = buildOtpAuthURL(labelAccount, "Errorverse", secret);
+  const qr = generateQRImageUrl(otpauth, 200);
+  qrImg.src = qr;
+  secretText.value = secret;
+  setupArea.style.display = "block";
 });
 
-/* close dropdown when clicking outside */
-document.addEventListener("click",(e)=>{
-  if(!profileDropdown.contains(e.target) && !profileButton.contains(e.target)){
-    profileDropdown.style.display = "none";
+/* Confirm 2FA (user enters code from authenticator) */
+confirm2faBtn.addEventListener("click", async ()=>{
+  const entered = confirm2faCode.value.trim();
+  const secret = sessionStorage.getItem("TOTP_PENDING_SECRET");
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID") || "local-user";
+  if(!secret){ alert("No pending secret. Click Enable 2FA first."); return; }
+  const ok = await verifyTOTP(secret, entered);
+  if(ok){
+    // commit
+    setTOTPKeyForAccount(pfid, secret);
+    sessionStorage.removeItem("TOTP_PENDING_SECRET");
+    setupArea.style.display = "none";
+    totpStatus.textContent = "Enabled";
+    alert("2FA enabled!");
+  } else {
+    alert("Invalid code. Try again.");
   }
 });
 
-/* Open customizer from dropdown */
-openCustomizer.addEventListener("click", ()=>{
-  profileDropdown.style.display="none";
-  profileCustomizer.scrollIntoView({behavior:"smooth", block:"center"});
-  profileCustomizer.style.display="block";
+/* Hide setup / cancel */
+hideSetup.addEventListener("click", ()=>{
+  sessionStorage.removeItem("TOTP_PENDING_SECRET");
+  setupArea.style.display = "none";
 });
 
-/* Logout */
-logoutBtn.addEventListener("click", ()=>{
-  localStorage.removeItem("PLAYFAB_PLAYFABID");
-  localStorage.removeItem("PLAYFAB_SESSIONTICKET");
-  localStorage.removeItem("CUSTOM_USERNAME");
-  localStorage.removeItem("CUSTOM_AVATAR");
-  PlayFab._internalSettings.sessionTicket = null;
-  navbarName.textContent = "User";
-  navbarPFP.src = "images/default_avatar.png";
-  inventoryCard.style.display = "none";
-  setStatus("Logged out","#ffd400");
-  profileDropdown.style.display = "none";
+/* Copy secret */
+copySecret.addEventListener("click", ()=>{
+  navigator.clipboard.writeText(secretText.value).then(()=>alert("Copied"));
 });
 
-/* Save session: DO NOT hide login/customizer per your request.
-   Only show inventory (but keep other cards visible) */
-function saveSession(res){
+/* Disable 2FA */
+disable2faBtn.addEventListener("click", ()=>{
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID") || "local-user";
+  removeTOTPForAccount(pfid);
+  totpStatus.textContent = "Disabled";
+  alert("2FA disabled for this account (local).");
+});
+
+/* ============================
+   Login flow modified to require TOTP if enabled
+   - On PlayFab login success: check if TOTP secret exists for that user
+     - If exists, show twofaBox to enter current code
+     - On verify, finalize saveSession
+     - If no TOTP configured, finalize immediately
+   ============================ */
+
+function setStatus(msg,color="yellow"){ statusEl.style.color=color; statusEl.textContent=msg; }
+
+async function finalizeSessionAfter2FAVerified(res){
+  // same as saveSession previously
   const d = res.data;
   localStorage.setItem("PLAYFAB_PLAYFABID", d.PlayFabId);
   localStorage.setItem("PLAYFAB_SESSIONTICKET", d.SessionTicket);
   PlayFab._internalSettings.sessionTicket = d.SessionTicket;
-
-  // update topbar; keep login & customizer visible
-  updateTopbarProfile(d.PlayFabId);
+  // update topbar
+  updateTopbarProfile(localStorage.getItem("CUSTOM_USERNAME") || d.PlayFabId, localStorage.getItem("CUSTOM_AVATAR") || "images/default_avatar.png");
   inventoryCard.style.display = "block";
   setStatus("Logged in: " + d.PlayFabId, "#ffd400");
   fetchInventory();
+  twofaBox.style.display = "none";
+  twofaInput.value = "";
 }
 
-/* Login/Register */
-loginBtn.onclick = ()=>{
+/* Called after PlayFab login response but before finalization */
+async function handlePostPlayFabLogin(res){
+  const d = res.data;
+  const pfid = d.PlayFabId;
+  // Check local secret for this pfid
+  const secret = getTOTPKeyForAccount(pfid);
+  if(secret){
+    // require TOTP
+    setStatus("2FA code required for " + pfid,"#ffd400");
+    // show 2FA input UI and hold the login response in sessionStorage for later finalization
+    sessionStorage.setItem("PLAYFAB_PENDING_LOGIN", JSON.stringify(res));
+    twofaBox.style.display = "block";
+    return;
+  } else {
+    // finalize directly
+    await finalizeSessionAfter2FAVerified(res);
+  }
+}
+
+/* Login button: authenticate with PlayFab then handle 2FA */
+loginBtn.addEventListener("click", ()=>{
   const email = emailEl.value.trim(), pw = passwordEl.value;
   if(!email || pw.length < 6){ setStatus("Enter valid email/password","red"); return; }
   setStatus("Logging in...");
-  PlayFabClientAPI.LoginWithEmailAddress({Email:email,Password:pw}, saveSession, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
-};
-registerBtn.onclick = ()=>{
+  PlayFabClientAPI.LoginWithEmailAddress({Email:email,Password:pw},
+    async (res)=>{
+      try { await handlePostPlayFabLogin(res); } catch(e){ console.error(e); setStatus("Error during 2FA flow","red"); }
+    },
+    err => setStatus(err.errorMessage || JSON.stringify(err),"red")
+  );
+});
+
+/* Register */
+registerBtn.addEventListener("click", ()=>{
   const email = emailEl.value.trim(), pw = passwordEl.value;
   if(!email || pw.length < 6){ setStatus("Enter valid email/password","red"); return; }
   setStatus("Registering...");
-  PlayFabClientAPI.RegisterPlayFabUser({Email:email,Password:pw,RequireBothUsernameAndEmail:false}, saveSession, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
-};
+  PlayFabClientAPI.RegisterPlayFabUser({Email:email,Password:pw,RequireBothUsernameAndEmail:false},
+    async (res)=>{ try { await handlePostPlayFabLogin(res); } catch(e){ console.error(e); setStatus("Error during post-register 2FA","red"); } },
+    err=>setStatus(err.errorMessage||JSON.stringify(err),"red")
+  );
+});
 
-/* Inventory */
+/* Verify 2FA during login */
+verify2faBtn.addEventListener("click", async ()=>{
+  const code = twofaInput.value.trim();
+  const pending = sessionStorage.getItem("PLAYFAB_PENDING_LOGIN");
+  if(!pending){ setStatus("No pending login found","red"); return; }
+  const res = JSON.parse(pending);
+  const pfid = res.data.PlayFabId;
+  const secret = getTOTPKeyForAccount(pfid);
+  if(!secret){ setStatus("2FA not configured for this account","red"); return; }
+  const ok = await verifyTOTP(secret, code);
+  if(ok){
+    // proceed to finalize
+    sessionStorage.removeItem("PLAYFAB_PENDING_LOGIN");
+    await finalizeSessionAfter2FAVerified(res);
+  } else {
+    setStatus("Invalid 2FA code","red");
+  }
+});
+
+/* Cancel 2FA (abort pending login) */
+cancel2faBtn.addEventListener("click", ()=>{
+  sessionStorage.removeItem("PLAYFAB_PENDING_LOGIN");
+  twofaBox.style.display = "none";
+  setStatus("Login cancelled","yellow");
+  twofaInput.value = "";
+});
+
+/* ============================
+   Inventory functions (unchanged)
+   ============================ */
 function fetchInventory(){
   const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
   const ticket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
@@ -351,8 +548,8 @@ function fetchInventory(){
   inventoryGrid.innerHTML = "Loading...";
   PlayFabClientAPI.GetUserInventory({}, res=>{
     const items = res.data.Inventory || [];
-    if(!items.length){ inventoryGrid.innerHTML = "<p>No items</p>"; return; }
     inventoryGrid.innerHTML = "";
+    if(!items.length){ inventoryGrid.innerHTML = "<p>No items</p>"; return; }
     items.forEach(i=>{
       const html = `<div class="tile">
         <img src="images/wsx.png" alt="">
@@ -368,43 +565,100 @@ function fetchInventory(){
 }
 refreshBtn.addEventListener("click", fetchInventory);
 
-/* Profile customizer: update topbar + localStorage */
+/* ============================
+   Profile customizer saves to PlayFab (if logged in)
+   - UpdateUserTitleDisplayName for display name
+   - UpdateUserData for avatar URL (stored under avatarUrl)
+   ============================ */
 saveProfile.addEventListener("click", ()=>{
   const name = customUsername.value.trim() || "User";
   const avatar = customAvatarURL.value.trim() || "images/default_avatar.png";
+  // update local UI & storage
   navbarName.textContent = name;
   navbarPFP.src = avatar;
   customAvatar.src = avatar;
   localStorage.setItem("CUSTOM_USERNAME", name);
   localStorage.setItem("CUSTOM_AVATAR", avatar);
-  setStatus("Profile updated!","#ffd400");
-
-  // OPTIONAL: sync to PlayFab by calling a CloudScript/Server API
-  // (Not implemented here client-side to avoid exposing developer secrets)
+  setStatus("Profile updated locally","#ffd400");
 });
 
-/* update topbar display */
+savePlayfabBtn.addEventListener("click", ()=>{
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
+  const ticket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
+  if(!pfid || !ticket){ alert("You must be logged in to save to PlayFab"); return; }
+  PlayFab._internalSettings.sessionTicket = ticket;
+  const name = customUsername.value.trim();
+  const avatar = customAvatarURL.value.trim();
+  // update display name (if provided)
+  if(name){
+    PlayFabClientAPI.UpdateUserTitleDisplayName({DisplayName:name}, res=>{
+      console.log("DisplayName updated",res);
+      setStatus("Display name saved to PlayFab","#ffd400");
+    }, err=>{
+      console.error(err);
+      setStatus("Failed to save display name","#ff4d4d");
+    });
+  }
+  // update user data for avatar
+  if(avatar){
+    PlayFabClientAPI.UpdateUserData({Data:{avatarUrl: avatar}}, res=>{
+      console.log("Avatar saved",res);
+      setStatus("Avatar saved to PlayFab","#ffd400");
+    }, err=>{
+      console.error(err);
+      setStatus("Failed to save avatar","#ff4d4d");
+    });
+  }
+});
+
+/* ============================
+   Topbar dropdown + misc UI
+   ============================ */
+profileButton.addEventListener("click", (e)=>{
+  e.stopPropagation();
+  profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" : "block";
+});
+document.addEventListener("click",(e)=>{
+  if(!profileDropdown.contains(e.target) && !profileButton.contains(e.target)) profileDropdown.style.display = "none";
+});
+openCustomizer.addEventListener("click", ()=>{
+  profileDropdown.style.display = "none";
+  profileCustomizer.scrollIntoView({behavior:"smooth",block:"center"});
+});
+logoutBtn.addEventListener("click", ()=>{
+  localStorage.removeItem("PLAYFAB_PLAYFABID");
+  localStorage.removeItem("PLAYFAB_SESSIONTICKET");
+  localStorage.removeItem("CUSTOM_USERNAME");
+  localStorage.removeItem("CUSTOM_AVATAR");
+  PlayFab._internalSettings.sessionTicket = null;
+  navbarName.textContent = "User";
+  navbarPFP.src = "images/default_avatar.png";
+  inventoryCard.style.display = "none";
+  setStatus("Logged out","#ffd400");
+  profileDropdown.style.display = "none";
+});
+
+/* update topbar */
 function updateTopbarProfile(name, avatar="images/default_avatar.png"){
   navbarName.textContent = name;
   navbarPFP.src = avatar;
 }
 
-/* Auto-load saved custom profile and session but DO NOT hide login/customizer */
+/* auto-load saved profile / session but keep login/customizer visible */
 (function(){
   const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
   const customName = localStorage.getItem("CUSTOM_USERNAME");
   const customAvatar = localStorage.getItem("CUSTOM_AVATAR");
   if(customName) navbarName.textContent = customName;
-  if(customAvatar) { navbarPFP.src = customAvatar; customAvatar && (customAvatar = customAvatar); }
+  if(customAvatar) navbarPFP.src = customAvatar;
   if(pfid){
-    // show inventory if session present, but preserve login/customizer visibility
     PlayFab._internalSettings.sessionTicket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
     inventoryCard.style.display = "block";
     fetchInventory();
     setStatus("Cached session: " + pfid, "#ffd400");
   }
+  refreshTOTPStatus();
 })();
 </script>
-
 </body>
 </html>
