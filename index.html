@@ -116,25 +116,28 @@ const sessionTicket = localStorage.getItem("playfabSessionTicket");
 if (sessionTicket) {
     PlayFabClientSDK.settings.sessionTicket = sessionTicket;
 
-    // Fetch PlayFab account info
-    PlayFabClientSDK.GetAccountInfo({}, (response, error) => {
-        if (error) {
+    PlayFabClientSDK.GetAccountInfo(
+        {},
+        (response) => {
+            console.log("PlayFab success:", response);
+
+            const info = response.data?.accountInfo;
+
+            const displayName = info?.titleInfo?.displayName || "User";
+            const avatarUrl = info?.titleInfo?.avatarUrl || "images/default_avatar.png";
+
+            localStorage.setItem("profileName", displayName);
+            localStorage.setItem("profileAvatar", avatarUrl);
+
+            document.getElementById("profileName").textContent = displayName;
+            document.getElementById("profileAvatar").src = avatarUrl;
+        },
+        (error) => {
             console.log("PlayFab error:", error);
-            return;
         }
-
-        const info = response.data?.accountInfo;
-
-        const displayName = info?.titleInfo?.displayName || "User";
-        const avatarUrl = info?.titleInfo?.avatarUrl || "images/default_avatar.png";
-
-        localStorage.setItem("profileName", displayName);
-        localStorage.setItem("profileAvatar", avatarUrl);
-
-        document.getElementById("profileName").textContent = displayName;
-        document.getElementById("profileAvatar").src = avatarUrl;
-    });
+    );
 }
+
 </script>
 
 
