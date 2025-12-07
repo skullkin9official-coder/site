@@ -810,5 +810,130 @@ document.getElementById("redeemBtn").onclick=()=>{
       }
     }).render('#paypal-3m');
   </script>
+
+<!-- BACKEND & FRONTEND INTEGRATION SCRIPTS + INSTRUCTIONS -->
+
+<!-- CLIENT: Extra JS to call backend and update UI -->
+<script>
+// Client-side helper: call backend to confirm PayPal payment
+async function confirmPaypalPurchase(orderID, months){
+  const resp = await fetch('/paypal/confirm', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ orderID: orderID, months: months })
+  });
+  const data = await resp.json();
+  if(data.success){
+    // refresh profile/subscription UI
+    loadProfileAndSync();
+    document.getElementById('premiumBadge').style.display = 'block';
+    document.getElementById('subDaysLeft').textContent = data.daysLeft;
+    alert('Purchase complete: premium active');
+  } else {
+    alert('Purchase failed: ' + (data.message||'unknown'));
+  }
+}
+
+// Hook PayPal render callbacks (they call confirmPaypalPurchase above)
+// The paypal.Buttons(...) were rendered earlier; if you replaced them, ensure createOrder/onApprove call this function.
+
+// Redeem code client call
+async function redeemCode(code){
+  const resp = await fetch('/redeem', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ code: code }) });
+  const data = await resp.json();
+  if(data.success){ loadProfileAndSync(); alert('Code redeemed: '+data.addedDays+' days'); }
+  else alert('Redeem failed: '+(data.message||'invalid'));
+}
+
+document.getElementById('redeemBtn')?.addEventListener('click', ()=>{
+  const code = document.getElementById('redeemCode')?.value.trim(); if(!code) return alert('Enter code'); redeemCode(code);
+});
+</script>
+
+<!-- BACKEND: Node.js Express example (place in server.js) -->
+<!--
+Instructions:
+1) Create a folder for your backend.
+2) npm init -y
+3) npm i express node-fetch body-parser dotenv
+4) Create server.js and copy the code below.
+5) Create a .env file with: PAYPAL_CLIENT_ID=..., PAYPAL_SECRET=..., PLAYFAB_SECRET=... , PLAYFAB_TITLE=1FC26D
+6) Run with: node server.js (or use pm2 / Docker for production)
+-->
+
+<!-- server.js -->
+<script type="text/plain">
+// server.js (Node + Express)
+const express = require('express');
+const fetch = require('node-fetch');
+const bodyParser = require('body-parser');
+require('dotenv').config();
+
+const app = express();
+app.use(bodyParser.json());
+
+const PAYPAL_CLIENT = process.env.PAYPAL_CLIENT_ID;
+const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
+const PLAYFAB_SECRET = process.env.PLAYFAB_SECRET; // your title secret key
+const PLAYFAB_TITLE = process.env.PLAYFAB_TITLE || '1FC26D';
+
+// helper: get paypal access token
+async function getPaypalAccessToken(){
+  const tokenResp = await fetch('https://api-m.paypal.com/v1/oauth2/token', {
+    method:'POST', headers:{ 'Authorization': 'Basic ' + Buffer.from(PAYPAL_CLIENT + ':' + PAYPAL_SECRET).toString('base64'), 'Content-Type':'application/x-www-form-urlencoded' }, body: 'grant_type=client_credentials'
+  });
+  const t = await tokenResp.json(); return t.access_token;
+}
+
+// Confirm endpoint
+app.post('/paypal/confirm', async (req,res)=>{
+  try{
+    const { orderID, months } = req.body;
+    const token = await getPaypalAccessToken();
+    const orderResp = await fetch(`https://api-m.paypal.com/v2/checkout/orders/${orderID}`, { headers: { 'Authorization':'Bearer '+token } });
+    const order = await orderResp.json();
+    if(order.status !== 'COMPLETED') return res.json({ success:false, message:'PayPal payment not completed' });
+
+    // Payment valid — call PlayFab server ExecuteCloudScript to grant subscription
+    const execResp = await fetch(`https://${PLAYFAB_TITLE}.playfabapi.com/Server/ExecuteCloudScript`, {
+      method:'POST', headers:{ 'Content-Type':'application/json', 'X-SecretKey': PLAYFAB_SECRET },
+      body: JSON.stringify({ FunctionName: 'ProcessPurchase', FunctionParameter: { months: months } })
+    });
+    const execData = await execResp.json();
+    // read returned newExpireTime or days
+    const result = execData && execData.data && execData.data.FunctionResult ? execData.data.FunctionResult : {};
+    return res.json({ success:true, daysLeft: Math.ceil((result.newExpireTime - Math.floor(Date.now()/1000))/86400) });
+  }catch(e){ console.error(e); return res.json({ success:false, message: e.message }); }
+});
+
+// Redeem endpoint
+app.post('/redeem', async (req,res)=>{
+  try{
+    const { code } = req.body;
+    const execResp = await fetch(`https://${PLAYFAB_TITLE}.playfabapi.com/Server/ExecuteCloudScript`, {
+      method:'POST', headers:{ 'Content-Type':'application/json', 'X-SecretKey': PLAYFAB_SECRET },
+      body: JSON.stringify({ FunctionName: 'RedeemPremiumCode', FunctionParameter: { code: code } })
+    });
+    const execData = await execResp.json();
+    const result = execData && execData.data && execData.data.FunctionResult ? execData.data.FunctionResult : {};
+    if(result.success) return res.json({ success:true, addedDays: result.addedDays });
+    return res.json({ success:false, message: result.message || 'invalid' });
+  }catch(e){ console.error(e); return res.json({ success:false, message: e.message }); }
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, ()=>console.log('Server listening on', port));
+</script>
+
+<!-- WHERE TO PLACE FILES (SUMMARY) -->
+<div style="background:#111;color:#fff;padding:12px;border-radius:8px;margin:12px 0;">
+  <h3 style="color:#ffdd00;margin:0 0 6px 0;">Files & where to put them</h3>
+  <ul style="font-size:14px;color:#ddd;margin-left:18px;">
+    <li><b>Frontend (website)</b>: update your existing HTML (the canvas file). Put PayPal SDK in the &lt;head&gt; and PayPal buttons + client JS before &lt;/body&gt;.</li>
+    <li><b>Backend</b>: create <code>server.js</code> (copy the Node code above). Put in a secure server, set env vars: <code>PAYPAL_CLIENT_ID</code>, <code>PAYPAL_SECRET</code>, <code>PLAYFAB_SECRET</code>, <code>PLAYFAB_TITLE=1FC26D</code>.</li>
+    <li><b>PlayFab CloudScript</b>: paste the CloudScript (previously provided) into PlayFab Automation → CloudScript and Save & Publish.</li>
+    <li><b>TitleData</b>: create a TitleData key <code>FREECODES</code> with JSON object of codes, e.g. <code>{"ABC123":30}</code>.</li>
+  </ul>
+</div>
+
 </body>
 </html>
