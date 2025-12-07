@@ -1,171 +1,409 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
-<meta charset="UTF-8">
-<title>Errorverse</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3RROR5TUDIOS</title>
+  <link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
 
 <style>
+* { box-sizing: border-box; margin:0; padding:0; }
 
-/* ==== GENERAL ==== */
 body {
-    background: #5a00b5;
-    font-family: Arial, sans-serif;
-    margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #40006e, #8100b4);
+  color: white;
+  min-height: 100vh;
+  padding-top: 120px;  /* space for the rounded topbar */
 }
 
-/* ==== TOP BAR ==== */
-.top-bar {
-    width: 95%;
-    margin: 20px auto;
-    background: #3d0072;
-    padding: 15px 20px;
-    border-radius: 30px;
+/* ============= TOP (ROUNDED) BAR ============= */
+.clean-topbar {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    height: 60px;
+
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 18px;
+
+    backdrop-filter: blur(12px);
+    padding: 0 25px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+
+    z-index: 9999;
 }
 
+/* LEFT SIDE */
+.tb-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.tb-logo {
+    height: 36px;
+}
+
+.tb-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-right: 10px;
+}
+
+/* LINKS */
+.tb-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.tb-link:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* RIGHT SIDE */
 .tb-right {
     display: flex;
     align-items: center;
     gap: 10px;
-    cursor: pointer;
 }
 
 .tb-pfp {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    border: 2px solid gold;
+    border: 2px solid #ffdd00;
+    object-fit: cover;
 }
 
-/* ==== DROPDOWN ==== */
-#profileDropdown {
-    position: absolute;
-    right: 40px;
-    top: 75px;
-    background: #3d0072;
-    border-radius: 15px;
-    padding: 10px;
-    display: none;
-}
+/* smaller utilities */
+.hidden { display:none !important; }
 
-#logoutBtn {
-    background: #ff3e3e;
-    border: none;
-    padding: 8px 14px;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-/* ==== CARDS ==== */
+/* CARDS */
 .card {
-    width: 90%;
-    max-width: 500px;
-    background: #ffffff20;
-    padding: 20px;
-    border-radius: 20px;
-    margin: 20px auto;
-    color: white;
-    backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 30px auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
 
-.inventory-card {
-    background: #ffffff10;
+/* INVENTORY GRID */
+.grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); 
+  gap: 20px; 
 }
 
+.tile {
+  background: rgba(255,255,255,0.08);
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+.tile img { width:100%; border-radius: 10px; }
+
+/* PROFILE CUSTOMIZER */
+#profileCustomizer {
+  background: rgba(0,0,0,0.3);
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 12px;
+  /* note: stays visible per your request */
+}
+
+#profileCustomizer img {
+  width: 64px; height: 64px; border-radius: 50%; display:block; margin: 8px auto;
+}
+
+/* DROPDOWN (profile) */
+#profileDropdown {
+  position: fixed;
+  top: 90px;
+  right: calc((100% - 92%)/2 + 25px); /* align to right edge of rounded bar */
+  width: 200px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  padding: 10px;
+  display: none;
+  z-index: 10000;
+  animation: dropdownFade .12s ease-out;
+}
+#profileDropdown button {
+  width: 100%;
+  background: #c300ff;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* small responsive tweak */
+@media (max-width:600px){
+  .clean-topbar { width: 96%; padding: 0 12px; }
+  #profileDropdown { right: 10px; top: 85px; }
+}
 </style>
 </head>
 <body>
 
-<!-- ===== TOP BAR ===== -->
-<div class="top-bar">
+<!-- ====== TOP BAR (rounded) ====== -->
+<div class="clean-topbar">
+  <div class="tb-left">
+    <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
+    <span class="tb-title">ERRORVERSE</span>
 
-    <div class="tb-left">
-        <span style="font-size: 20px; font-weight: bold;">Errorverse</span>
-    </div>
+    <a href="Games.html" class="tb-link">Games</a>
+    <a href="ERRORVERSE.html" class="tb-link">Errorverse</a>
+  </div>
 
-    <div class="tb-right" id="profileButton">
-        <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp">
-        <span id="profileName">Guest</span>
-    </div>
-
+  <!-- IMPORTANT: give this element the ID profileButton so JS can attach -->
+  <div class="tb-right" id="profileButton">
+    <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp" alt="avatar">
+    <span id="profileName">User</span>
+  </div>
 </div>
 
-<!-- DROPDOWN -->
-<div id="profileDropdown">
-    <button id="logoutBtn">Logout</button>
+<!-- PROFILE DROPDOWN -->
+<div id="profileDropdown" aria-hidden="true">
+  <button id="openCustomizer">Customize Profile</button>
+  <button id="logoutBtn">Logout</button>
 </div>
 
-<!-- ===== LOGIN CARD (ALWAYS VISIBLE) ===== -->
+<!-- ========== LOGIN CARD (keeps visible) ========== -->
 <div class="card" id="loginCard">
-    <h2>Login</h2>
-    <input id="email" placeholder="Email"><br><br>
-    <input id="password" type="password" placeholder="Password"><br><br>
-    <button id="loginBtn">Login</button>
+  <h2>Login / Register</h2>
+  <label>Email</label>
+  <input id="email" placeholder="you@example.com" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
+  <label style="display:block;margin-top:10px;">Password</label>
+  <input type="password" id="password" placeholder="min 6 chars" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
+  <div style="display:flex;gap:10px;margin-top:12px;">
+    <button id="loginBtnMain" style="flex:1;padding:10px;border-radius:8px;border:none;background:#c300ff;color:white;font-weight:bold;">Login</button>
+    <button id="registerBtn" style="flex:1;padding:10px;border-radius:8px;border:none;background:#ff4dd9;color:white;font-weight:bold;">Register</button>
+  </div>
+  <p id="status" style="margin-top:10px;color:#ffd500;"></p>
 </div>
 
-<!-- ===== PROFILE CUSTOMIZER CARD (ALWAYS VISIBLE) ===== -->
-<div class="card">
-    <h2>Customize Profile</h2>
-    <input id="displayNameInput" placeholder="Display Name"><br><br>
-    <button id="saveName">Save</button>
+<!-- ========== PROFILE CUSTOMIZER (keeps visible) ========== -->
+<div id="profileCustomizer" class="card">
+  <h3 style="color:#ffd500;margin-bottom:10px;">Customize Profile</h3>
+  <img id="customAvatar" src="images/default_avatar.png" alt="avatar">
+  <label>Username:</label>
+  <input type="text" id="customUsername" placeholder="Enter username" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
+  <label style="margin-top:10px;display:block;">Avatar URL:</label>
+  <input type="text" id="customAvatarURL" placeholder="Enter avatar image URL" style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:none;">
+  <button id="saveProfile" style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:none;background:#c300ff;color:white;font-weight:bold;">Save Changes</button>
 </div>
 
-<!-- ===== INVENTORY CARD (SHOWS AFTER LOGIN) ===== -->
-<div class="card inventory-card" id="inventoryCard" style="display:none;">
-    <h2>Your Inventory</h2>
-    <div id="inventoryList">Loading...</div>
+<!-- ========== INVENTORY (shows after login) ========== -->
+<div class="card" id="inventoryCard" style="display:none;">
+  <h2>Your Inventory</h2>
+  <button id="refreshInv" style="padding:8px;border-radius:8px;border:none;background:#6a00d6;color:white;margin-top:10px;">Refresh Inventory</button>
+  <div class="grid" id="inventoryGrid" style="margin-top:12px;"></div>
 </div>
 
-
+<!-- ================= PLAYFAB CLIENT WRAPPER ================= -->
 <script>
+var PlayFab={settings:{titleId:"1FC26D"},_internalSettings:{sessionTicket:null}};
 
-/* ===== TOP BAR DROPDOWN ===== */
+var PlayFabClientAPI={
+  LoginWithEmailAddress:(req,success,error)=>{
+    req.TitleId=PlayFab.settings.titleId;
+    fetch("https://1FC26D.playfabapi.com/Client/LoginWithEmailAddress",{
+      method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(req)
+    }).then(r=>r.json()).then(x=>x.data?success(x):error(x));
+  },
+  RegisterPlayFabUser:(req,success,error)=>{
+    req.TitleId=PlayFab.settings.titleId;
+    fetch("https://1FC26D.playfabapi.com/Client/RegisterPlayFabUser",{
+      method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(req)
+    }).then(r=>r.json()).then(x=>x.data?success(x):error(x));
+  },
+  GetUserInventory:(req,success,error)=>{
+    fetch("https://1FC26D.playfabapi.com/Client/GetUserInventory",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "X-Authorization":PlayFab._internalSettings.sessionTicket
+      },
+      body:"{}"
+    }).then(r=>r.json()).then(x=>x.data?success(x):error(x));
+  }
+};
+</script>
+
+<!-- ================= TOPBAR & UI LOGIC ================= -->
+<script>
+/* ELEMENTS */
 const profileButton = document.getElementById("profileButton");
 const profileDropdown = document.getElementById("profileDropdown");
+const navbarName = document.getElementById("profileName");
+const navbarPFP = document.getElementById("profileAvatar");
+const openCustomizer = document.getElementById("openCustomizer");
+const logoutBtn = document.getElementById("logoutBtn");
 
-profileButton.onclick = () => {
-    profileDropdown.style.display =
-        profileDropdown.style.display === "block" ? "none" : "block";
-};
+const emailEl = document.getElementById("email");
+const passwordEl = document.getElementById("password");
+const statusEl = document.getElementById("status");
+const loginBtn = document.getElementById("loginBtnMain");
+const registerBtn = document.getElementById("registerBtn");
+const loginCard = document.getElementById("loginCard");
+const inventoryCard = document.getElementById("inventoryCard");
+const inventoryGrid = document.getElementById("inventoryGrid");
+const refreshBtn = document.getElementById("refreshInv");
 
-/* ===== LOGOUT ===== */
-document.getElementById("logoutBtn").onclick = () => {
-    localStorage.clear();
-    document.getElementById("profileName").textContent = "Guest";
-    document.getElementById("profileAvatar").src = "images/default_avatar.png";
-    document.getElementById("inventoryCard").style.display = "none";
+const profileCustomizer = document.getElementById("profileCustomizer");
+const customUsername = document.getElementById("customUsername");
+const customAvatar = document.getElementById("customAvatar");
+const customAvatarURL = document.getElementById("customAvatarURL");
+const saveProfile = document.getElementById("saveProfile");
+
+/* UTIL */
+function setStatus(msg,color="yellow"){ statusEl.style.color=color; statusEl.textContent=msg; }
+
+/* TOPBAR: toggle dropdown */
+profileButton.addEventListener("click", (e)=>{
+  e.stopPropagation();
+  profileDropdown.style.display = profileDropdown.style.display === "block" ? "none" : "block";
+});
+
+/* close dropdown when clicking outside */
+document.addEventListener("click",(e)=>{
+  if(!profileDropdown.contains(e.target) && !profileButton.contains(e.target)){
     profileDropdown.style.display = "none";
+  }
+});
+
+/* Open customizer from dropdown */
+openCustomizer.addEventListener("click", ()=>{
+  profileDropdown.style.display="none";
+  profileCustomizer.scrollIntoView({behavior:"smooth", block:"center"});
+  profileCustomizer.style.display="block";
+});
+
+/* Logout */
+logoutBtn.addEventListener("click", ()=>{
+  localStorage.removeItem("PLAYFAB_PLAYFABID");
+  localStorage.removeItem("PLAYFAB_SESSIONTICKET");
+  localStorage.removeItem("CUSTOM_USERNAME");
+  localStorage.removeItem("CUSTOM_AVATAR");
+  PlayFab._internalSettings.sessionTicket = null;
+  navbarName.textContent = "User";
+  navbarPFP.src = "images/default_avatar.png";
+  inventoryCard.style.display = "none";
+  setStatus("Logged out","#ffd400");
+  profileDropdown.style.display = "none";
+});
+
+/* Save session: DO NOT hide login/customizer per your request.
+   Only show inventory (but keep other cards visible) */
+function saveSession(res){
+  const d = res.data;
+  localStorage.setItem("PLAYFAB_PLAYFABID", d.PlayFabId);
+  localStorage.setItem("PLAYFAB_SESSIONTICKET", d.SessionTicket);
+  PlayFab._internalSettings.sessionTicket = d.SessionTicket;
+
+  // update topbar; keep login & customizer visible
+  updateTopbarProfile(d.PlayFabId);
+  inventoryCard.style.display = "block";
+  setStatus("Logged in: " + d.PlayFabId, "#ffd400");
+  fetchInventory();
+}
+
+/* Login/Register */
+loginBtn.onclick = ()=>{
+  const email = emailEl.value.trim(), pw = passwordEl.value;
+  if(!email || pw.length < 6){ setStatus("Enter valid email/password","red"); return; }
+  setStatus("Logging in...");
+  PlayFabClientAPI.LoginWithEmailAddress({Email:email,Password:pw}, saveSession, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
+};
+registerBtn.onclick = ()=>{
+  const email = emailEl.value.trim(), pw = passwordEl.value;
+  if(!email || pw.length < 6){ setStatus("Enter valid email/password","red"); return; }
+  setStatus("Registering...");
+  PlayFabClientAPI.RegisterPlayFabUser({Email:email,Password:pw,RequireBothUsernameAndEmail:false}, saveSession, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
 };
 
-/* ===== LOGIN (FAKE EXAMPLE) ===== */
-document.getElementById("loginBtn").onclick = () => {
-    const email = email.value.trim();
-    const pass = password.value.trim();
+/* Inventory */
+function fetchInventory(){
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
+  const ticket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
+  if(!pfid || !ticket){ inventoryGrid.innerHTML = "<p>Login to view inventory.</p>"; return; }
+  PlayFab._internalSettings.sessionTicket = ticket;
+  inventoryGrid.innerHTML = "Loading...";
+  PlayFabClientAPI.GetUserInventory({}, res=>{
+    const items = res.data.Inventory || [];
+    if(!items.length){ inventoryGrid.innerHTML = "<p>No items</p>"; return; }
+    inventoryGrid.innerHTML = "";
+    items.forEach(i=>{
+      const html = `<div class="tile">
+        <img src="images/wsx.png" alt="">
+        <h3>${i.DisplayName || i.ItemId}</h3>
+        <p>Uses: ${i.RemainingUses ?? "—"}</p>
+      </div>`;
+      inventoryGrid.insertAdjacentHTML("beforeend", html);
+    });
+  }, err=>{
+    console.error(err);
+    inventoryGrid.innerHTML = "<p>Error loading inventory</p>";
+  });
+}
+refreshBtn.addEventListener("click", fetchInventory);
 
-    if (!email || !pass) {
-        alert("Enter login info");
-        return;
-    }
+/* Profile customizer: update topbar + localStorage */
+saveProfile.addEventListener("click", ()=>{
+  const name = customUsername.value.trim() || "User";
+  const avatar = customAvatarURL.value.trim() || "images/default_avatar.png";
+  navbarName.textContent = name;
+  navbarPFP.src = avatar;
+  customAvatar.src = avatar;
+  localStorage.setItem("CUSTOM_USERNAME", name);
+  localStorage.setItem("CUSTOM_AVATAR", avatar);
+  setStatus("Profile updated!","#ffd400");
 
-    // pretend success
-    localStorage.setItem("loggedIn", "1");
+  // OPTIONAL: sync to PlayFab by calling a CloudScript/Server API
+  // (Not implemented here client-side to avoid exposing developer secrets)
+});
 
-    document.getElementById("profileName").textContent = email.split("@")[0];
-    document.getElementById("inventoryCard").style.display = "block";
-};
+/* update topbar display */
+function updateTopbarProfile(name, avatar="images/default_avatar.png"){
+  navbarName.textContent = name;
+  navbarPFP.src = avatar;
+}
 
-/* ===== SAVE DISPLAY NAME ===== */
-document.getElementById("saveName").onclick = () => {
-    const newName = displayNameInput.value.trim();
-    if (!newName) return;
-
-    document.getElementById("profileName").textContent = newName;
-};
-
+/* Auto-load saved custom profile and session but DO NOT hide login/customizer */
+(function(){
+  const pfid = localStorage.getItem("PLAYFAB_PLAYFABID");
+  const customName = localStorage.getItem("CUSTOM_USERNAME");
+  const customAvatar = localStorage.getItem("CUSTOM_AVATAR");
+  if(customName) navbarName.textContent = customName;
+  if(customAvatar) { navbarPFP.src = customAvatar; customAvatar && (customAvatar = customAvatar); }
+  if(pfid){
+    // show inventory if session present, but preserve login/customizer visibility
+    PlayFab._internalSettings.sessionTicket = localStorage.getItem("PLAYFAB_SESSIONTICKET");
+    inventoryCard.style.display = "block";
+    fetchInventory();
+    setStatus("Cached session: " + pfid, "#ffd400");
+  }
+})();
 </script>
 
 </body>
