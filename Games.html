@@ -1,237 +1,385 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Games – 3RROR5TUDIOS</title>
+<title>3RROR5TUDIOS</title>
+<link rel="icon" type="image/png" href="images/3RROR5TUDIOS.png">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- PlayFab SDK -->
-<script src="https://download.playfab.com/PlayFabClientSdk.js"></script>
+<link rel="stylesheet" href="css/style.css">
 
 <style>
-/* ----------------- TOPBAR ----------------- */
-.topbar {
-    background: linear-gradient(to right, #35004b, #48006b);
-    padding: 15px 25px;
-    border-radius: 20px;
+
+/* ------------------------------- */
+/* PERFECT ORIGINAL ROUNDED TOPBAR */
+/* ------------------------------- */
+
+.tb-left {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin: 15px;
+    gap: 12px;
 }
-.topbar-left {
-    display: flex;
-    gap: 25px;
-    align-items: center;
+
+.tb-logo {
+    height: 48px;
 }
-.topbar img.logo {
-    width: 45px;
-    border-radius: 10px;
-}
-.topbar a {
+
+.tb-title {
+    font-size: 26px;
     color: white;
-    font-size: 18px;
-    text-decoration: none;
+    font-weight: bold;
+    margin: 0;
 }
-.topbar-right {
+
+.tb-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* links */
+
+.tb-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.tb-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tb-link img {
+    height: 36px;
+}
+
+/* profile */
+
+.profile-box {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-.pfp {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 3px solid gold;
-    object-fit: cover;
-}
-.username {
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
+    cursor: pointer;
+    position: relative;
 }
 
-/* ----------- GAMES GRID (KEEPING YOUR STYLE) ----------- */
-.games-grid {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 25px;
+#profileAvatar {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#profileName {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* dropdown */
+
+.profile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.profile-dropdown a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.profile-box:hover .profile-dropdown {
+    display: flex;
+}
+
+/* ------------------------------- */
+/* END — ORIGINAL TOPBAR           */
+/* ------------------------------- */
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #40006e, #8100b4);
+    margin: 0;
     padding: 20px;
 }
-.game-card {
-    background: #a54acf;
-    border-radius: 15px;
-    text-align: center;
-    padding-bottom: 20px;
+
+/* Rounded topbar you wanted to KEEP */
+.clean-topbar{
+  position:fixed;top:15px;left:50%;transform:translateX(-50%);
+  width:92%;height:60px;background:rgba(0,0,0,0.25);
+  border-radius:18px;backdrop-filter:blur(12px);padding:0 25px;
+  display:flex;justify-content:space-between;align-items:center;z-index:9999;
 }
+.tb-left{display:flex;align-items:center;gap:18px}
+.tb-logo{height:36px}
+.tb-title{font-size:20px;font-weight:700;color:#fff;margin-right:10px}
+.tb-link{color:#fff;text-decoration:none;font-size:16px;padding:6px 10px;border-radius:8px;transition:.15s}
+.tb-link:hover{background:rgba(255,255,255,0.06)}
+.tb-right{display:flex;align-items:center;gap:10px}
+.tb-pfp{width:34px;height:34px;border-radius:50%;border:2px solid #ffdd00;object-fit:cover}
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.issues-count {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffeb6e;
+    margin-bottom: 20px;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filters input, .filters select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 1024px) {
+    .game-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .game-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.game-card {
+    background: rgba(255,255,255,0.55);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+}
+
 .game-card img {
     width: 100%;
-    height: 350px;
+    height: 380px;
     object-fit: cover;
-    border-radius: 10px 10px 0 0;
+    border-radius: 6px;
 }
+
+.issue-section {
+    color: #ffe066;
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+
 </style>
 </head>
 
-<body style="background:#5a009d; color:white;">
+<body>
 
-<!-- ---------------- TOPBAR ---------------- -->
-<div class="topbar">
-    <div class="topbar-left">
-        <img src="https://i.postimg.cc/W4MBrFys/errorstudioslogo.png" class="logo">
-        <a href="/games">Games</a>
-        <a href="/errorverse">Errorverse</a>
-    </div>
-    <div class="topbar-right">
-        <img id="playerPFP" class="pfp" src="https://i.imgur.com/GVQ2YPR.png">
-        <span id="playerName" class="username">User</span>
-    </div>
+<!-- TOPBAR (unchanged) -->
+<div class="clean-topbar">
+  <div class="tb-left">
+    <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
+    <span class="tb-title">3RROR5TUDIOS</span>
+    <a href="Games.html" class="tb-link">Games</a>
+    <a href="ERRORVERSE.html" class="tb-link">Errorverse</a>
+  </div>
+
+  <div class="tb-right" id="profileButton">
+    <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp">
+    <span id="profileName">User</span>
+  </div>
 </div>
 
-<h1 style="text-align:center; font-size:70px; margin-top:50px;">GAMES</h1>
-<p style="text-align:center; font-size:22px;">Issues: <span id="issueCount">0</span></p>
+<!-- CONTENT -->
+<br><br><br><br><br>
 
-<!-- --------------- GAMES GRID --------------- -->
-<div id="gamesList" class="games-grid"></div>
+<h1 style="font-size: 75px;">GAMES</h1>
+<div class="issues-count" id="issuesCount">Issues: 0</div>
 
+<div class="filters">
+  <input type="text" id="searchInput" placeholder="Search for a game...">
+  <select id="categoryFilter">
+    <option value="">All Categories</option>
+    <option value="Racing">Racing</option>
+    <option value="Roguelike">Roguelike</option>
+    <option value="Strategy">Strategy</option>
+    <option value="Shooter">Shooter</option>
+  </select>
+  <input type="number" id="minPrice" placeholder="Min Price">
+  <input type="number" id="maxPrice" placeholder="Max Price">
 
+  <label>
+    <input type="checkbox" id="subscriptionFilter"> ERRORVERSE XTRA
+  </label>
+  <label>
+    <input type="checkbox" id="AvailableFilter"> Available
+  </label>
+
+  <select id="sortOption">
+    <option value="">Sort By</option>
+    <option value="title-asc">Title A → Z</option>
+    <option value="title-desc">Title Z → A</option>
+    <option value="price-asc">Price Low → High</option>
+    <option value="price-desc">Price High → Low</option>
+  </select>
+</div>
+
+<div class="game-container" id="gameContainer"></div>
+
+<!-- GAMES SCRIPT -->
 <script>
-// -------------------------------------------
-// PLAYFAB CONFIG
-// -------------------------------------------
-PlayFab.settings.titleId = "1FC26D";
 
-// Try login with stored player ID or guest login
-function loginToPlayFab() {
-    let storedID = localStorage.getItem("PlayFabPlayerID");
-
-    let loginPayload = storedID ?
-    {
-        CustomId: storedID,
-        CreateAccount: false
-    } :
-    {
-        CustomId: "User-" + Date.now(),
-        CreateAccount: true
-    };
-
-    PlayFabClientSDK.LoginWithCustomID(loginPayload, function (result, error) {
-        if (result) {
-            console.log("PlayFab Login Success:", result);
-
-            localStorage.setItem("PlayFabPlayerID", loginPayload.CustomId);
-
-            getPlayerProfile();   // Load username + PFP
-        } else {
-            console.log("PlayFab Login Error:", error);
-        }
-    });
-}
-
-// -------------------------------------------
-// GET PLAYER PROFILE (username + avatar URL)
-// -------------------------------------------
-function getPlayerProfile() {
-    PlayFabClientSDK.GetPlayerProfile({
-        ProfileConstraints: {
-            ShowDisplayName: true,
-            ShowAvatarUrl: true
-        }
-    }, function (result, error) {
-        if (result) {
-            console.log("Profile loaded:", result);
-
-            let profile = result.data.PlayerProfile;
-
-            // Username
-            document.getElementById("playerName").textContent =
-                profile.DisplayName || "Player";
-
-            // Avatar
-            if (profile.AvatarUrl) {
-                document.getElementById("playerPFP").src = profile.AvatarUrl;
-            }
-        }
-    });
-}
-
-
-// -------------------------------------------
-// LOAD GAMES (uses your backup list)
-// -------------------------------------------
 const games = [
-    {
-        name: "The Legend Of Phil A. Buster",
-        category: "Roguelike",
-        price: "3.49",
-        available: false,
-        issue: "",
-        image: "https://i.postimg.cc/t4FQ384p/phil.png"
-    },
-    {
-        name: "Shadows Behind The Throne",
-        category: "Strategy",
-        price: "9.99",
-        available: false,
-        issue: "",
-        extra: true,
-        image: "https://i.postimg.cc/kGjNdP4q/throne.png"
-    },
-    {
-        name: "WingStormX",
-        category: "Racing",
-        price: "4.99",
-        available: true,
-        issue: "Glitchy performance on Xbox ONE",
-        image: "https://i.postimg.cc/gkPYtLjt/wingstorm.jpg"
-    },
-    {
-        name: "H3llVector",
-        category: "Shooter",
-        price: "4.99",
-        available: false,
-        extra: true,
-        image: "https://i.postimg.cc/0NQYrJMc/hellvector.png"
-    }
+  { title: 'The Legend Of Phil A. Buster', price: 3.49, category: 'Roguelike', available: false, subscription: false, image: 'images/thelegendofphilabuster.png', issue: '' },
+  { title: 'Shadows Behind The Throne', price: 9.99, category: 'Strategy', available: false, subscription: true, image: 'images/shadows.png', issue: '' },
+  { title: 'WingStormX', price: 4.99, category: 'Racing', available: true, subscription: false, image: 'images/wsx.png', issue: 'Glitchy performence on Xbox ONE' },
+  { title: 'H3llVector', price: 4.99, category: 'Shooter', available: false, subscription: true, image: 'images/H3LLVECTOR.png', issue: '' },
+  { title: 'Galactic Warfront', price: 2.49, category: 'Shooter', available: true, subscription: false, image: 'images/galacticwarfront.png', issue: 'Broken save feature (not coming back)' },
+  { title: 'Strain 17', price: 7.49, category: 'Strategy', available: true, subscription: false, image: 'images/strain17.png', issue: 'Server crash' },
 ];
 
-// -------------------------------------------
-// DISPLAY GAMES
-// -------------------------------------------
-function loadGames() {
-    let container = document.getElementById("gamesList");
-    container.innerHTML = "";
+const gameContainer = document.getElementById('gameContainer');
+const searchInput = document.getElementById('searchInput');
+const categoryFilter = document.getElementById('categoryFilter');
+const minPrice = document.getElementById('minPrice');
+const maxPrice = document.getElementById('maxPrice');
+const subscriptionFilter = document.getElementById('subscriptionFilter');
+const availableFilter = document.getElementById('AvailableFilter');
+const sortOption = document.getElementById('sortOption');
+const issuesCount = document.getElementById('issuesCount');
 
-    let issueCount = 0;
-
-    games.forEach(g => {
-        if (g.issue) issueCount++;
-
-        container.innerHTML += `
-        <div class="game-card">
-            <img src="${g.image}">
-            <h2>${g.name}</h2>
-            <p>${g.category} - $${g.price}</p>
-            ${g.extra ? `<p style="color:#00FFAA">Included in ERRORVERSE XTRA</p>` : ""}
-            ${g.issue ? `<p style="color:yellow">Issue: ${g.issue}</p>` : ""}
-            ${g.available ? `<p style="color:#00FF00">AVAILABLE</p>` 
-                          : `<p style="color:red">NOT AVAILABLE</p>`}
-        </div>`;
-    });
-
-    document.getElementById("issueCount").textContent = issueCount;
+function updateIssuesCount() {
+  const count = games.filter(g => g.issue && g.issue.trim()).length;
+  issuesCount.textContent = `Issues: ${count}`;
 }
 
+function displayGames(list) {
+  gameContainer.innerHTML = '';
 
-// -------------------------------------------
-// INIT PAGE
-// -------------------------------------------
-loginToPlayFab();
-loadGames();
+  if (list.length === 0) {
+    gameContainer.innerHTML = '<div class="no-results">No results found.</div>';
+    return;
+  }
 
+  list.forEach(game => {
+    const div = document.createElement('div');
+    div.className = 'game-card';
+
+    div.innerHTML = `
+      <img src="${game.image}" alt="${game.title}">
+      <h3>${game.title}</h3>
+      <p>${game.category} - $${game.price.toFixed(2)}</p>
+      ${game.subscription ? `<p style="color:#00ff99;font-weight:bold;">Included in ERRORVERSE XTRA</p>` : ''}
+      ${!game.available ? `<p style="color:red;font-weight:bold;">NOT AVAILABLE</p>` : ''}
+      ${game.issue ? `<div class="issue-section">Issue: ${game.issue}</div>` : ''}
+    `;
+
+    gameContainer.appendChild(div);
+  });
+
+  updateIssuesCount();
+}
+
+function filterGames() {
+  const search = searchInput.value.toLowerCase();
+  const cat = categoryFilter.value;
+  const min = parseFloat(minPrice.value) || 0;
+  const max = parseFloat(maxPrice.value) || Infinity;
+  const sub = subscriptionFilter.checked;
+  const avail = availableFilter.checked;
+  const sort = sortOption.value;
+
+  let result = games.filter(g => {
+    return (
+      g.title.toLowerCase().includes(search) &&
+      (cat === '' || g.category === cat) &&
+      g.price >= min &&
+      g.price <= max &&
+      (!sub || g.subscription) &&
+      (!avail || g.available)
+    );
+  });
+
+  result.sort((a, b) => {
+    if (sort === 'title-asc') return a.title.localeCompare(b.title);
+    if (sort === 'title-desc') return b.title.localeCompare(a.title);
+    if (sort === 'price-asc') return a.price - b.price;
+    if (sort === 'price-desc') return b.price - a.price;
+    return 0;
+  });
+
+  displayGames(result);
+}
+
+filterGames();
+
+searchInput.addEventListener('input', filterGames);
+categoryFilter.addEventListener('change', filterGames);
+minPrice.addEventListener('input', filterGames);
+maxPrice.addEventListener('input', filterGames);
+subscriptionFilter.addEventListener('change', filterGames);
+availableFilter.addEventListener('change', filterGames);
+sortOption.addEventListener('change', filterGames);
+
+</script>
+
+<!-- PROFILE SYSTEM -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const savedName = localStorage.getItem("profileName");
+    const savedAvatar = localStorage.getItem("profileAvatar");
+
+    if (savedName) document.getElementById("profileName").textContent = savedName;
+    if (savedAvatar) document.getElementById("profileAvatar").src = savedAvatar;
+});
+
+function logout() {
+    localStorage.removeItem("profileName");
+    localStorage.removeItem("profileAvatar");
+    window.location.href = "login.html";
+}
 </script>
 
 </body>
