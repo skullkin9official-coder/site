@@ -14,36 +14,25 @@
 <body>
 
 
-  <header>
-    <div class="logo-container">
-      <a href="index.html">
-            <img src="images/3RROR5TUDIOS.png" alt="logo" />
-          </a>
-      <h1>Home</h1>
-    </div>
-    
-    <nav>
-      <ul>
-        <li>
-        <div class="logo-container">
-          <a href="Games.html">
-            <img src="images/controll.png" alt="logo" />
-            <p style="font-size: 10px;"> GAMES </p>
-          </a>
-        </div>
-      </li>
-      <li>
-        <div class="logo-container">
-          <a href="ERRORVERSE.html">
-            <img src="images/ERRORVERSE.png" alt="logo" />
-            <p style="font-size: 10px;"> ERRORVERSE </p>
-          </a>
-        </div>
-      </li>
+  <div class="clean-topbar">
+  <div class="tb-left">
+    <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
+    <span class="tb-title">3RROR5TUDIOS</span>
+    <a href="Games.html" class="tb-link">Games</a>
+    <a href="ERRORVERSE.html" class="tb-link">Errorverse</a>
+  </div>
 
-      </ul>
-    </nav>
-  </header>
+  <div class="tb-right" id="profileButton" role="button" aria-haspopup="true">
+    <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp" alt="avatar">
+    <span id="profileName">User</span>
+  </div>
+</div>
+
+<!-- dropdown -->
+<div id="profileDropdown" aria-hidden="true">
+  <button id="openCustomizer">Customize Profile</button>
+  <button id="logoutBtn">Logout</button>
+</div>
 <body>
 
   <style>
