@@ -14,220 +14,199 @@
 /* PERFECT ORIGINAL ROUNDED TOPBAR */
 /* ------------------------------- */
 
+.clean-topbar {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  height: 60px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+}
+
 .tb-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .tb-logo {
-    height: 48px;
+  height: 36px;
 }
 
 .tb-title {
-    font-size: 26px;
-    color: white;
-    font-weight: bold;
-    margin: 0;
-}
-
-.tb-right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-/* links */
-
-.tb-links {
-    display: flex;
-    align-items: center;
-    gap: 22px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 10px;
 }
 
 .tb-link {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: .15s;
 }
 
-.tb-link img {
-    height: 36px;
+.tb-link:hover {
+  background: rgba(255,255,255,0.06);
 }
 
-/* profile */
-
-.profile-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    position: relative;
+.tb-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
 }
 
-#profileAvatar {
-    height: 42px;
-    width: 42px;
-    border-radius: 50%;
-    object-fit: cover;
+.tb-pfp {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #ffdd00;
+  object-fit: cover;
 }
 
-#profileName {
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-/* dropdown */
-
-.profile-dropdown {
-    position: absolute;
-    right: 0;
-    top: 55px;
-    background: rgba(0,0,0,0.6);
-    padding: 10px 15px;
-    border-radius: 10px;
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    backdrop-filter: blur(10px);
-}
-
-.profile-dropdown a {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.profile-box:hover .profile-dropdown {
-    display: flex;
-}
 
 /* ------------------------------- */
-/* END — ORIGINAL TOPBAR           */
+/* DROPDOWN MENU                   */
 /* ------------------------------- */
 
+#profileDropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(10px);
+  padding: 10px 10px;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 150px;
+}
+
+#profileDropdown button {
+  width: 100%;
+  padding: 8px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#profileDropdown button:hover {
+  background: rgba(255,255,255,0.25);
+}
 
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #40006e, #8100b4);
-    margin: 0;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #40006e, #8100b4);
+  margin: 0;
+  padding: 100px 20px 20px 20px; /* padding-top increased for topbar */
 }
-.clean-topbar{
-  position:fixed;top:15px;left:50%;transform:translateX(-50%);
-  width:92%;height:60px;background:rgba(0,0,0,0.25);
-  border-radius:18px;backdrop-filter:blur(12px);padding:0 25px;
-  display:flex;justify-content:space-between;align-items:center;z-index:9999;
-}
-.tb-left{display:flex;align-items:center;gap:18px}
-.tb-logo{height:36px}
-.tb-title{font-size:20px;font-weight:700;color:#fff;margin-right:10px}
-.tb-link{color:#fff;text-decoration:none;font-size:16px;padding:6px 10px;border-radius:8px;transition:.15s}
-.tb-link:hover{background:rgba(255,255,255,0.06)}
-.tb-right{display:flex;align-items:center;gap:10px}
-.tb-pfp{width:34px;height:34px;border-radius:50%;border:2px solid #ffdd00;object-fit:cover}
+
 h1 {
-    text-align: center;
-    margin-bottom: 10px;
+  text-align: center;
+  margin-bottom: 10px;
 }
+
 .issues-count {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #d4a017;
-    margin-bottom: 20px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #d4a017;
+  margin-bottom: 20px;
 }
+
 .filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
+
 .filters input, .filters select {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
-.filters label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 16px;
+
+.subscription, .Available {
+  color: white;
+  font-size: 16px;
 }
+
 .game-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
+
 @media (max-width: 1024px) {
-    .game-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .game-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
 @media (max-width: 600px) {
-    .game-container {
-        grid-template-columns: 1fr;
-    }
+  .game-container {
+    grid-template-columns: 1fr;
+  }
 }
+
 .game-card {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s;
-    padding: 10px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s;
+  padding: 10px;
 }
+
 .game-card:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
+
 .game-card img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
 }
-.game-card h3 {
-    margin: 10px 0 5px 0;
-}
-.game-card p {
-    margin: 0 0 10px 0;
-    color: #555;
-}
+
 .no-results {
-    text-align: center;
-    font-size: 18px;
-    color: #777;
-    grid-column: 1 / -1;
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  grid-column: 1 / -1;
 }
-.subscription {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.issue-section {
-    margin-top: 10px;
-    text-align: left;
-    padding: 0 10px 10px 10px;
-    color: #d4a017;
-    font-weight: bold;
-}
+
 </style>
 </head>
 
 <body>
 
 <!-- =========================== -->
-<!-- PERFECT ORIGINAL TOPBAR HERE -->
+<!-- PERFECT TOPBAR -->
 <!-- =========================== -->
 
 <div class="clean-topbar">
+
   <div class="tb-left">
     <img src="images/3RROR5TUDIOS.png" class="tb-logo" alt="logo">
     <span class="tb-title">3RROR5TUDIOS</span>
@@ -235,20 +214,21 @@ h1 {
     <a href="ERRORVERSE.html" class="tb-link">Errorverse</a>
   </div>
 
-  <div class="tb-right" id="profileButton" role="button" aria-haspopup="true">
+  <div class="tb-right" id="profileButton">
     <img id="profileAvatar" src="images/default_avatar.png" class="tb-pfp" alt="avatar">
     <span id="profileName">User</span>
-  </div>
-</div>
 
-<!-- dropdown -->
-<div id="profileDropdown" aria-hidden="true">
-  <button id="openCustomizer">Customize Profile</button>
-  <button id="logoutBtn">Logout</button>
+    <!-- Dropdown -->
+    <div id="profileDropdown">
+      <button id="openCustomizer">Customize Profile</button>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
 </div>
 
 <!-- =========================== -->
-<!-- YOUR ORIGINAL PAGE CONTENT  -->
+<!-- PAGE CONTENT -->
 <!-- =========================== -->
 
 <h1 style="font-size: 75px;">GAMES</h1>
@@ -265,14 +245,9 @@ h1 {
   </select>
   <input type="number" id="minPrice" placeholder="Min Price">
   <input type="number" id="maxPrice" placeholder="Max Price">
-  <label class="subscription">
-    <input type="checkbox" id="subscriptionFilter">
-    ERRORVERSE XTRA
-  </label>
-  <label class="Available">
-    <input type="checkbox" id="AvailableFilter">
-    Available
-  </label>
+  <label class="subscription"><input type="checkbox" id="subscriptionFilter"> ERRORVERSE XTRA</label>
+  <label class="Available"><input type="checkbox" id="AvailableFilter"> Available</label>
+
   <select id="sortOption">
     <option value="">Sort By</option>
     <option value="title-asc">Title A → Z</option>
@@ -285,30 +260,42 @@ h1 {
 <div class="game-container" id="gameContainer"></div>
 
 <script>
-/* your full games script (unchanged) */
+// Games script placeholder (unchanged)
 </script>
 
 <script>
+// Load saved profile
 document.addEventListener("DOMContentLoaded", () => {
     const savedName = localStorage.getItem("profileName");
     const savedAvatar = localStorage.getItem("profileAvatar");
 
-    if (savedName) {
-        document.getElementById("profileName").textContent = savedName;
-    }
+    if (savedName) document.getElementById("profileName").textContent = savedName;
+    if (savedAvatar) document.getElementById("profileAvatar").src = savedAvatar;
+});
 
-    if (savedAvatar) {
-        document.getElementById("profileAvatar").src = savedAvatar;
+// Dropdown toggle
+const profileButton = document.getElementById("profileButton");
+const profileDropdown = document.getElementById("profileDropdown");
+
+profileButton.addEventListener("click", () => {
+    profileDropdown.style.display =
+        profileDropdown.style.display === "flex" ? "none" : "flex";
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", (e) => {
+    if (!profileButton.contains(e.target)) {
+        profileDropdown.style.display = "none";
     }
 });
 
-function logout() {
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("profileName");
     localStorage.removeItem("profileAvatar");
     window.location.href = "login.html";
-}
+});
 </script>
-
 
 </body>
 </html>
