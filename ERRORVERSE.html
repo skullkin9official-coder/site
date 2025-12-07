@@ -25,18 +25,23 @@ header {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  background: rgba(0,0,0,0.45);
+  padding: 12px 18px;
+  border-radius: 8px;
 }
 
+.logo-container { display:flex; align-items:center; gap:12px; }
 .logo-container img { width: 50px; height: 50px; }
-nav ul { display: flex; list-style: none; gap: 50px; }
+nav ul { display: flex; list-style: none; gap: 20px; align-items:center; }
 nav ul li { display: flex; align-items: center; }
+nav a { color: #fff; text-decoration:none; display:flex; align-items:center; gap:6px; }
 
 /* Profile menu top-right */
 .profile-menu {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 18px;
   display: none;
   flex-direction: column;
   align-items: flex-end;
@@ -45,125 +50,68 @@ nav ul li { display: flex; align-items: center; }
   font-size: 14px;
 }
 
-.profile-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.profile-top { display: flex; align-items:center; gap:8px; background: rgba(0,0,0,0.6); padding:8px 10px; border-radius:8px; }
 
-.profile-top img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #ffdd00;
-}
+.profile-top img { width: 36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid #ffdd00; }
+.profile-menu span { font-weight:bold; color:#ffdd00; }
 
-.profile-menu span { font-weight: bold; color: #ffdd00; }
+.profile-menu button { background:#c300ff; color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; }
 
-.profile-menu button {
-  background: #c300ff;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  transition: transform 0.2s;
-}
-
-.profile-menu button:hover { transform: scale(1.05); }
+/* Two column layout for login + customizer */
+.container { max-width:1100px; margin: 20px auto; display:flex; gap:20px; align-items:flex-start; }
+.col { flex:1; }
 
 /* Card style */
 .card {
   background: rgba(0,0,0,0.4);
   padding: 20px;
   border-radius: 12px;
-  max-width: 500px;
-  margin: 30px auto;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5);
 }
 
 /* Inputs/buttons */
-input, button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-}
+input, button { width: 100%; padding: 10px; margin-top: 8px; border-radius: 8px; border: none; font-size: 16px; }
 button { background: #c300ff; color: white; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
-button:hover { transform: scale(1.05); }
+button:hover { transform: scale(1.03); }
 
 #status { margin-top: 12px; color: yellow; }
 
+/* 2FA box */
+#twofaBox { margin-top:12px; display:none; }
+
 /* Grid layout for inventory */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-
-.tile {
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: center;
-  padding: 10px;
-  transition: transform 0.2s;
-}
+.tile { background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; text-align: center; padding: 10px; transition: transform 0.2s; }
 .tile:hover { transform: scale(1.05); }
 .tile img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
 .tile h3 { margin: 10px 0 5px; font-size: 16px; color: #ffdd00; }
 .tile p { font-size: 12px; color: #ddd; }
 
-/* Profile Customizer below card */
-#profileCustomizer {
-  background: rgba(0,0,0,0.3);
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  display: none;
-}
-
+/* Profile Customizer */
+#profileCustomizer { display:block; }
 #profileCustomizer h3 { margin-bottom: 10px; color: #ffdd00; }
-#profileCustomizer input[type="text"] { margin-bottom: 10px; }
-#profileCustomizer img {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 10px auto;
-  border: 2px solid #ffdd00;
-}
+#profileCustomizer img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; display: block; margin: 10px auto; border: 2px solid #ffdd00; }
+
+/* Inventory card separate */
+#inventoryCard { max-width:1100px; margin: 20px auto; }
+
+/* Responsive */
+@media (max-width:900px){ .container{ flex-direction:column; padding:0 8px;} .profile-menu{ position: static; display:flex; margin:12px 0 0 auto; } }
 </style>
 
 </head>
-
 <body>
 
 <header>
   <div class="logo-container">
-    <a href="index.html">
-      <img src="images/3RROR5TUDIOS.png" alt="logo" />
-    </a>
+    <a href="index.html"><img src="images/3RROR5TUDIOS.png" alt="logo" /></a>
     <h1>Home</h1>
   </div>
-  
+
   <nav>
     <ul>
-      <li>
-        <a href="Games.html">
-          <img src="images/controll.png" alt="logo" width="30" />
-          <p style="font-size: 10px;"> GAMES </p>
-        </a>
-      </li>
-      <li>
-        <a href="ERRORVERSE.html">
-          <img src="images/ERRORVERSE.png" alt="logo" width="30" />
-          <p style="font-size: 10px;"> ERRORVERSE </p>
-        </a>
-      </li>
+      <li><a href="Games.html"><img src="images/controll.png" width="28" alt="games"> <span style="font-size:12px">GAMES</span></a></li>
+      <li><a href="ERRORVERSE.html"><img src="images/ERRORVERSE.png" width="28" alt="err"> <span style="font-size:12px">ERRORVERSE</span></a></li>
     </ul>
   </nav>
 </header>
@@ -177,69 +125,83 @@ button:hover { transform: scale(1.05); }
   <button id="topLogoutBtn">Logout</button>
 </div>
 
-<!-- LOGIN CARD -->
-<div class="card" id="loginCard">
-  <h2>Login / Register</h2>
-  <label>Email</label>
-  <input id="email" placeholder="you@example.com">
-  <label>Password</label>
-  <input type="password" id="password" placeholder="min 6 chars">
-  <button id="loginBtn">Login</button>
-  <button id="registerBtn">Register</button>
-  <p id="status"></p>
-</div>
+<!-- Two-column area: left = login, right = profile customizer -->
+<div class="container">
+  <div class="col">
+    <div class="card" id="loginCard">
+      <h2>Login / Register</h2>
+      <label>Email</label>
+      <input id="email" placeholder="you@example.com">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="min 6 chars">
 
-<!-- PROFILE CUSTOMIZER -->
-<div id="profileCustomizer">
-  <h3>Customize Profile</h3>
-  <img id="customAvatar" src="images/default_avatar.png" alt="Avatar">
-  <label>Username:</label>
-  <input type="text" id="customUsername">
-  <label>Avatar URL:</label>
-  <input type="text" id="customAvatarURL">
-  <button id="saveProfile">Save Changes</button>
+      <button id="loginBtn">Login</button>
+      <button id="registerBtn">Register</button>
+
+      <div id="twofaBox">
+        <label>Enter 2FA code sent to your email</label>
+        <input id="twofaInput" placeholder="6 digit code">
+        <button id="verify2faBtn">Verify Code</button>
+        <p style="font-size:13px;color:#ddd;margin-top:8px;">Didn't receive code? <button id="resend2faBtn" style="display:inline-block;width:auto;padding:6px 10px;margin-left:8px;">Resend</button></p>
+      </div>
+
+      <p id="status"></p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card" id="profileCustomizer">
+      <h3>Customize Profile</h3>
+      <img id="customAvatar" src="images/default_avatar.png" alt="Avatar">
+      <label>Username:</label>
+      <input type="text" id="customUsername" placeholder="Enter username">
+      <label>Avatar URL:</label>
+      <input type="text" id="customAvatarURL" placeholder="Enter avatar image URL">
+      <button id="saveProfile">Save Changes</button>
+      <p style="font-size:12px;color:#bbb;margin-top:8px;">Profile customizer is available after 2FA verification.</p>
+    </div>
+  </div>
 </div>
 
 <!-- INVENTORY -->
-<div class="card" id="inventoryCard" style="display:none;">
+<div class="card" id="inventoryCard" style="display:none; max-width:1100px; margin:10px auto;">
   <h2>Your Inventory</h2>
   <button id="refreshInv">Refresh Inventory</button>
-  <div class="grid" id="inventoryGrid"></div>
+  <div class="grid" id="inventoryGrid" style="margin-top:12px"></div>
 </div>
 
-<!-- PlayFab SDK -->
+<!-- PlayFab Client wrapper with ExecuteCloudScript -->
 <script>
 var PlayFab = { settings:{ titleId:"1FC26D" }, _internalSettings:{ sessionTicket:null } };
 
 var PlayFabClientAPI = {
   LoginWithEmailAddress:function(req, success, error){
     req.TitleId = PlayFab.settings.titleId;
-    fetch("https://1FC26D.playfabapi.com/Client/LoginWithEmailAddress", {
-      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req)
-    }).then(r=>r.json()).then(x => x.data ? success(x) : error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/LoginWithEmailAddress", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req) })
+      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
   },
 
   RegisterPlayFabUser:function(req, success, error){
     req.TitleId = PlayFab.settings.titleId;
-    fetch("https://1FC26D.playfabapi.com/Client/RegisterPlayFabUser", {
-      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req)
-    }).then(r=>r.json()).then(x => x.data ? success(x) : error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/RegisterPlayFabUser", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(req) })
+      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
   },
 
   GetUserInventory:function(req, success, error){
-    fetch("https://1FC26D.playfabapi.com/Client/GetUserInventory", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "X-Authorization":PlayFab._internalSettings.sessionTicket
-      },
-      body:JSON.stringify({})
-    }).then(r=>r.json()).then(x => x.data ? success(x) : error(x));
+    fetch("https://1FC26D.playfabapi.com/Client/GetUserInventory", { method:"POST", headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket}, body:JSON.stringify({}) })
+      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
+  },
+
+  ExecuteCloudScript:function(req, success, error){
+    // req should include FunctionName and FunctionParameter
+    fetch("https://1FC26D.playfabapi.com/Client/ExecuteCloudScript", { method:"POST", headers:{"Content-Type":"application/json","X-Authorization":PlayFab._internalSettings.sessionTicket}, body:JSON.stringify(req) })
+      .then(r=>r.json()).then(x=> x.data ? success(x) : error(x));
   }
 };
 </script>
 
 <script>
+// Elements
 const emailEl=document.getElementById("email");
 const passwordEl=document.getElementById("password");
 const statusEl=document.getElementById("status");
@@ -250,78 +212,117 @@ const inventoryCard=document.getElementById("inventoryCard");
 const inventoryGrid=document.getElementById("inventoryGrid");
 const refreshBtn=document.getElementById("refreshInv");
 
-// Profile menu
 const profileMenu = document.getElementById("profileMenu");
 const profileNameEl = document.getElementById("profileName");
 const profileAvatarEl = document.getElementById("profileAvatar");
 const topLogoutBtn = document.getElementById("topLogoutBtn");
 
-// Profile Customizer
 const profileCustomizer = document.getElementById("profileCustomizer");
 const customUsername = document.getElementById("customUsername");
 const customAvatar = document.getElementById("customAvatar");
 const customAvatarURL = document.getElementById("customAvatarURL");
 const saveProfile = document.getElementById("saveProfile");
 
+const twofaBox = document.getElementById("twofaBox");
+const twofaInput = document.getElementById("twofaInput");
+const verify2faBtn = document.getElementById("verify2faBtn");
+const resend2faBtn = document.getElementById("resend2faBtn");
+
+let _lastEmailFor2FA = null;
+
 function setStatus(msg,color="yellow"){ statusEl.style.color=color; statusEl.textContent=msg; }
 
 function showProfileMenu(name, avatar="images/default_avatar.png"){
   profileNameEl.textContent = name;
   profileAvatarEl.src = avatar;
-  profileCustomizer.style.display = "block";
-  customUsername.value = name;
-  customAvatar.src = avatar;
-  customAvatarURL.value = avatar;
+  profileCustomizer.querySelector('#customUsername').value = name;
+  profileCustomizer.querySelector('#customAvatar').src = avatar;
+  profileCustomizer.querySelector('#customAvatarURL').value = avatar;
   profileMenu.style.display = "flex";
 }
 
-function hideProfileMenu(){
-  profileMenu.style.display = "none";
-  profileCustomizer.style.display = "none";
-}
+function hideProfileMenu(){ profileMenu.style.display = "none"; }
 
 function saveSession(res){
   const d=res.data;
   localStorage.setItem("PLAYFAB_PLAYFABID", d.PlayFabId);
   localStorage.setItem("PLAYFAB_SESSIONTICKET", d.SessionTicket);
   PlayFab._internalSettings.sessionTicket=d.SessionTicket;
-  setStatus("Logged in: "+d.PlayFabId,"#ffdd00");
-  showProfileMenu(d.PlayFabId);
-  inventoryCard.style.display="block";
+  setStatus("Logged in (2FA pending): "+d.PlayFabId,"#ffdd00");
 }
 
-// Login/Register
+// --- Login/Register flows ---
 loginBtn.onclick=()=>{
-  const email=emailEl.value.trim();
-  const pw=passwordEl.value;
+  const email=emailEl.value.trim(); const pw=passwordEl.value;
   if(!email||pw.length<6){ setStatus("Enter valid email/password","red"); return; }
   setStatus("Logging in...");
-  PlayFabClientAPI.LoginWithEmailAddress(
-    {Email:email,Password:pw},
-    saveSession,
-    err => setStatus(err.errorMessage || JSON.stringify(err),"red")
-  );
+  PlayFabClientAPI.LoginWithEmailAddress({Email:email,Password:pw}, res=>{
+    saveSession(res);
+    // trigger server cloudscript to send 2FA email
+    send2FACode(email);
+  }, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
 };
 
 registerBtn.onclick=()=>{
-  const email=emailEl.value.trim();
-  const pw=passwordEl.value;
+  const email=emailEl.value.trim(); const pw=passwordEl.value;
   if(!email||pw.length<6){ setStatus("Enter valid email/password","red"); return; }
   setStatus("Registering...");
-  PlayFabClientAPI.RegisterPlayFabUser(
-    {Email:email,Password:pw,RequireBothUsernameAndEmail:false},
-    saveSession,
-    err => setStatus(err.errorMessage || JSON.stringify(err),"red")
+  PlayFabClientAPI.RegisterPlayFabUser({Email:email,Password:pw,RequireBothUsernameAndEmail:false}, res=>{
+    saveSession(res);
+    send2FACode(email);
+  }, err=>setStatus(err.errorMessage||JSON.stringify(err),"red"));
+};
+
+// --- 2FA functions ---
+function send2FACode(email){
+  // Save email for resend
+  _lastEmailFor2FA = email;
+  setStatus("Sending 2FA code to email...","#ffdd00");
+  twofaBox.style.display = "block";
+
+  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: "Send2FACode", FunctionParameter: { email: email }, GeneratePlayStreamEvent: true },
+    resp=>{
+      // CloudScript should send the email using SendEmailFromTemplate and store the code server-side.
+      setStatus("2FA code sent to your email. Enter it to verify.","#ffdd00");
+    },
+    err=>{
+      setStatus("Failed to send 2FA: "+(err.errorMessage||JSON.stringify(err)),"red");
+    }
+  );
+}
+
+verify2faBtn.onclick = ()=>{
+  const code = twofaInput.value.trim();
+  if(!code){ setStatus("Enter the 2FA code","red"); return; }
+  setStatus("Verifying code...");
+
+  PlayFabClientAPI.ExecuteCloudScript({ FunctionName: "Verify2FACode", FunctionParameter: { code: code }, GeneratePlayStreamEvent: true },
+    resp=>{
+      // CloudScript returns success boolean in FunctionResult { verified: true/false, displayName?:"..." }
+      const result = resp.data.FunctionResult || {};
+      if(result.verified){
+        setStatus("2FA verified! Logged in.","#ffdd00");
+        // show profile and fetch inventory
+        const displayName = result.displayName || localStorage.getItem("CUSTOM_USERNAME") || localStorage.getItem("PLAYFAB_PLAYFABID");
+        const avatar = localStorage.getItem("CUSTOM_AVATAR") || "images/default_avatar.png";
+        showProfileMenu(displayName, avatar);
+        inventoryCard.style.display = "block";
+        fetchInventory();
+        twofaBox.style.display = "none";
+      } else {
+        setStatus("Invalid or expired code","red");
+      }
+    },
+    err=>setStatus("Verification failed: "+(err.errorMessage||JSON.stringify(err)),"red")
   );
 };
 
+resend2faBtn.onclick = ()=>{ if(_lastEmailFor2FA) send2FACode(_lastEmailFor2FA); else setStatus("No email to resend to","red"); };
+
 // Fetch session
 function getSession(){
-  const s={
-    PlayFabId:localStorage.getItem("PLAYFAB_PLAYFABID"),
-    SessionTicket:localStorage.getItem("PLAYFAB_SESSIONTICKET")
-  };
-  if(!s.PlayFabId||!s.SessionTicket){ alert("No session. Login first."); return null; }
+  const s={ PlayFabId:localStorage.getItem("PLAYFAB_PLAYFABID"), SessionTicket:localStorage.getItem("PLAYFAB_SESSIONTICKET") };
+  if(!s.PlayFabId||!s.SessionTicket){ /* no session stored */ return null; }
   PlayFab._internalSettings.sessionTicket=s.SessionTicket;
   return s;
 }
@@ -331,24 +332,17 @@ function fetchInventory(){
   const s=getSession(); if(!s) return;
   inventoryGrid.innerHTML="Loading...";
   PlayFabClientAPI.GetUserInventory({}, res=>{
-    const items=res.data.Inventory || [];
-    if(items.length===0){
-      inventoryGrid.innerHTML="<p>No items</p>";
-      return;
-    }
+    const items=(res.data.Inventory||[]);
+    if(!items.length){ inventoryGrid.innerHTML="<p>No items</p>"; return; }
     inventoryGrid.innerHTML="";
     items.forEach(i=>{
       const tile=document.createElement("div");
       tile.className="tile";
-      tile.innerHTML=`
-        <img src="images/wsx.png">
-        <h3>${i.DisplayName||i.ItemId}</h3>
-        <p>Uses: ${i.RemainingUses??"—"}</p>`;
+      tile.innerHTML=`<img src="images/wsx.png"><h3>${i.DisplayName||i.ItemId}</h3><p>Uses: ${i.RemainingUses??"—"}</p>`;
       inventoryGrid.appendChild(tile);
     });
-  }, err=>inventoryGrid.innerHTML="<p>Error loading inventory</p>");
+  }, err=>{ inventoryGrid.innerHTML="<p>Error loading inventory</p>"; console.error(err); });
 }
-
 refreshBtn.onclick=fetchInventory;
 
 // Logout
@@ -357,14 +351,12 @@ function logout(){
   localStorage.removeItem("PLAYFAB_SESSIONTICKET");
   PlayFab._internalSettings.sessionTicket=null;
   inventoryCard.style.display="none";
-  loginCard.style.display="block";
   setStatus("Logged out","yellow");
   hideProfileMenu();
 }
-
 topLogoutBtn.onclick = logout;
 
-// Save Profile Customizer
+// Profile Customizer Save
 saveProfile.onclick = ()=>{
   const name = customUsername.value.trim() || "User";
   const avatar = customAvatarURL.value.trim() || "images/default_avatar.png";
@@ -376,22 +368,71 @@ saveProfile.onclick = ()=>{
   setStatus("Profile updated!","#ffdd00");
 }
 
-// Auto-load session
+// Auto-load session and custom profile (only shows if previously verified)
 (function(){
   const pfid=localStorage.getItem("PLAYFAB_PLAYFABID");
   const customName = localStorage.getItem("CUSTOM_USERNAME");
-  const customAvatarUrl = localStorage.getItem("CUSTOM_AVATAR");
-
+  const customAvatar = localStorage.getItem("CUSTOM_AVATAR");
   if(pfid){
-    const displayName = customName || pfid;
-    const avatar = customAvatarUrl || "images/default_avatar.png";
-    setStatus("Cached session: "+pfid,"#ffdd00");
-    showProfileMenu(displayName, avatar);
-    inventoryCard.style.display="block";
-    fetchInventory();
+    // If session exists we still require explicit 2FA verification at each login for security.
+    setStatus("Cached session: "+pfid+" — please log in to verify 2FA","#ffdd00");
+    // prefill customizer
+    if(customName) customUsername.value = customName;
+    if(customAvatar) { customAvatarURL.value = customAvatar; customAvatar.src = customAvatar; }
   }
 })();
 </script>
+
+<!--
+IMPORTANT: PlayFab CloudScript REQUIRED for 2FA (server-side). Add two CloudScript functions in Title -> Automation -> CloudScript:
+
+1) Send2FACode
+  - Generate a random 6-digit code
+  - Save it to the player's Data (e.g. PlayerData["twofa_code"] = code and PlayerData["twofa_exp"] = now+TTL)
+  - Use server API SendEmailFromTemplate (or SendEmail) to send the code to the player's email. Use a configured Email Template ID.
+  - Return { sent: true }
+
+2) Verify2FACode
+  - Read saved PlayerData for twofa_code and expiry
+  - Compare with provided code parameter
+  - If match and not expired, clear the stored code and return { verified: true, displayName: <optional display name> }
+  - Otherwise return { verified: false }
+
+Example CloudScript (JS) skeleton:
+
+handlers.Send2FACode = function(args, context) {
+  var email = args.email;
+  var code = ("000000" + Math.floor(Math.random()*1000000)).slice(-6);
+  var ttlSeconds = 300; // 5 minutes
+
+  server.UpdateUserInternalData({ PlayFabId: currentPlayerId, Data: { twofa_code: code, twofa_exp: (Date.now()/1000 + ttlSeconds).toString() } });
+
+  // Use server API to send email via template
+  server.SendEmailFromTemplate({
+    'PlayFabId': currentPlayerId,
+    'TemplateId': '<YOUR_TEMPLATE_ID>',
+    'MessageVariables': [{ 'Key': 'CODE', 'Value': code }]
+  });
+
+  return { sent: true };
+};
+
+handlers.Verify2FACode = function(args, context) {
+  var provided = args.code;
+  var data = server.GetUserInternalData({ PlayFabId: currentPlayerId, Keys: ["twofa_code","twofa_exp"] }).Data;
+  if(!data || !data.twofa_code) return { verified: false };
+  var stored = data.twofa_code.Value;
+  var exp = parseInt(data.twofa_exp.Value || "0", 10);
+  if(Date.now()/1000 > exp) return { verified: false };
+  if(stored === provided) {
+    server.UpdateUserInternalData({ PlayFabId: currentPlayerId, Data: { twofa_code: "", twofa_exp: "0" } });
+    return { verified: true, displayName: context.playerProfile ? (context.playerProfile.DisplayName||null) : null };
+  }
+  return { verified: false };
+};
+
+Replace <YOUR_TEMPLATE_ID> with your PlayFab email template id. CloudScript runs with server privileges and can call SendEmailFromTemplate safely. Do NOT place your developer secret key in client-side code.
+-->
 
 </body>
 </html>
